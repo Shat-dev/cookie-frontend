@@ -1,0 +1,260 @@
+import React from "react";
+
+interface GlassCardProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}
+
+const GlassCard: React.FC<GlassCardProps> = ({
+  children,
+  onClick,
+  className = "",
+}) => {
+  return (
+    <div className={`card-wrap ${className}`}>
+      <div className="card-content" onClick={onClick}>
+        {children}
+      </div>
+      <div className="card-shadow"></div>
+
+      <style jsx>{`
+        /* Defs */
+        @property --angle-1 {
+          syntax: "<angle>";
+          inherits: false;
+          initial-value: -75deg;
+        }
+
+        @property --angle-2 {
+          syntax: "<angle>";
+          inherits: false;
+          initial-value: -45deg;
+        }
+
+        :root {
+          --global--size: clamp(2rem, 4vw, 5rem);
+          --anim--hover-time: 2000ms;
+          --anim--hover-ease: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .card-wrap {
+          position: relative;
+          z-index: 2;
+          background: transparent;
+          pointer-events: none;
+          transition: all var(--anim--hover-time) var(--anim--hover-ease);
+        }
+
+        .card-shadow {
+          --shadow-cuttoff-fix: 2em;
+          position: absolute;
+          width: calc(100% + var(--shadow-cuttoff-fix));
+          height: calc(100% + var(--shadow-cuttoff-fix));
+          top: calc(0% - var(--shadow-cuttoff-fix) / 2);
+          left: calc(0% - var(--shadow-cuttoff-fix) / 2);
+          filter: blur(clamp(2px, 0.125em, 12px));
+          -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+          -moz-filter: blur(clamp(2px, 0.125em, 12px));
+          -ms-filter: blur(clamp(2px, 0.125em, 12px));
+          overflow: visible;
+          pointer-events: none;
+        }
+
+        .card-shadow::after {
+          content: "";
+          position: absolute;
+          z-index: 0;
+          inset: 0;
+          background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.2),
+            rgba(0, 0, 0, 0.1)
+          );
+          width: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
+          height: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
+          top: calc(var(--shadow-cuttoff-fix) - 0.7em);
+          left: calc(var(--shadow-cuttoff-fix) - 0.875em);
+          padding: 0.125em;
+          box-sizing: border-box;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+          transition: all var(--anim--hover-time) var(--anim--hover-ease);
+          overflow: visible;
+          opacity: 1;
+        }
+
+        .card-content {
+          --border-width: clamp(1px, 0.0625em, 4px);
+          cursor: ${onClick ? "pointer" : "default"};
+          position: relative;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          pointer-events: auto;
+          z-index: 3;
+          background: linear-gradient(
+            -75deg,
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.05)
+          );
+          box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+            inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+            0 0.25em 0.125em -0.125em rgba(0, 0, 0, 0.2),
+            0 0 0.1em 0.25em inset rgba(255, 255, 255, 0.2),
+            0 0 0 0 rgba(255, 255, 255, 1);
+          backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+          -webkit-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+          -moz-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+          -ms-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+          transition: all var(--anim--hover-time) var(--anim--hover-ease);
+        }
+
+        .card-content:hover {
+          transform: scale(0.975);
+          backdrop-filter: blur(0.01em);
+          -webkit-backdrop-filter: blur(0.01em);
+          -moz-backdrop-filter: blur(0.01em);
+          -ms-backdrop-filter: blur(0.01em);
+          box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+            inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+            0 0.15em 0.05em -0.1em rgba(0, 0, 0, 0.25),
+            0 0 0.05em 0.1em inset rgba(255, 255, 255, 0.5),
+            0 0 0 0 rgba(255, 255, 255, 1);
+        }
+
+        .card-content::before {
+          content: "";
+          display: block;
+          position: absolute;
+          z-index: 1;
+          width: calc(100% - var(--border-width));
+          height: calc(100% - var(--border-width));
+          top: calc(0% + var(--border-width) / 2);
+          left: calc(0% + var(--border-width) / 2);
+          box-sizing: border-box;
+          overflow: clip;
+          background: linear-gradient(
+            var(--angle-2),
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.5) 40% 50%,
+            rgba(255, 255, 255, 0) 55%
+          );
+          mix-blend-mode: screen;
+          pointer-events: none;
+          background-size: 200% 200%;
+          background-position: 0% 50%;
+          background-repeat: no-repeat;
+          transition: background-position calc(var(--anim--hover-time) * 1.25)
+              var(--anim--hover-ease),
+            --angle-2 calc(var(--anim--hover-time) * 1.25)
+              var(--anim--hover-ease);
+        }
+
+        .card-content:hover::before {
+          background-position: 25% 50%;
+        }
+
+        .card-content:active::before {
+          background-position: 50% 15%;
+          --angle-2: -15deg;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+          .card-content::before,
+          .card-content:active::before {
+            --angle-2: -45deg;
+          }
+        }
+
+        .card-content::after {
+          content: "";
+          position: absolute;
+          z-index: 1;
+          inset: 0;
+          width: calc(100% + var(--border-width));
+          height: calc(100% + var(--border-width));
+          top: calc(0% - var(--border-width) / 2);
+          left: calc(0% - var(--border-width) / 2);
+          padding: var(--border-width);
+          box-sizing: border-box;
+          background: conic-gradient(
+              from var(--angle-1) at 50% 50%,
+              rgba(0, 0, 0, 0.5),
+              rgba(0, 0, 0, 0) 5% 40%,
+              rgba(0, 0, 0, 0.5) 50%,
+              rgba(0, 0, 0, 0) 60% 95%,
+              rgba(0, 0, 0, 0.5)
+            ),
+            linear-gradient(
+              180deg,
+              rgba(255, 255, 255, 0.5),
+              rgba(255, 255, 255, 0.5)
+            );
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+          transition: all var(--anim--hover-time) var(--anim--hover-ease),
+            --angle-1 1000ms ease;
+          box-shadow: inset 0 0 0 calc(var(--border-width) / 2)
+            rgba(255, 255, 255, 0.5);
+        }
+
+        .card-content:hover::after {
+          --angle-1: -125deg;
+        }
+
+        .card-content:active::after {
+          --angle-1: -75deg;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+          .card-content::after,
+          .card-content:hover::after,
+          .card-content:active::after {
+            --angle-1: -75deg;
+          }
+        }
+
+        .card-wrap:has(.card-content:hover) .card-shadow {
+          filter: blur(clamp(2px, 0.0625em, 6px));
+          -webkit-filter: blur(clamp(2px, 0.0625em, 6px));
+          -moz-filter: blur(clamp(2px, 0.0625em, 6px));
+          -ms-filter: blur(clamp(2px, 0.0625em, 6px));
+          transition: filter var(--anim--hover-time) var(--anim--hover-ease);
+        }
+
+        .card-wrap:has(.card-content:hover) .card-shadow::after {
+          top: calc(var(--shadow-cuttoff-fix) - 0.875em);
+          opacity: 1;
+        }
+
+        .card-wrap:has(.card-content:active) {
+          transform: rotate3d(1, 0, 0, 25deg);
+        }
+
+        .card-wrap:has(.card-content:active) .card-content {
+          box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+            inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+            0 0.125em 0.125em -0.125em rgba(0, 0, 0, 0.2),
+            0 0 0.1em 0.25em inset rgba(255, 255, 255, 0.2),
+            0 0.225em 0.05em 0 rgba(0, 0, 0, 0.05),
+            0 0.25em 0 0 rgba(255, 255, 255, 0.75),
+            inset 0 0.25em 0.05em 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .card-wrap:has(.card-content:active) .card-shadow {
+          filter: blur(clamp(2px, 0.125em, 12px));
+          -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+          -moz-filter: blur(clamp(2px, 0.125em, 12px));
+          -ms-filter: blur(clamp(2px, 0.125em, 12px));
+        }
+
+        .card-wrap:has(.card-content:active) .card-shadow::after {
+          top: calc(var(--shadow-cuttoff-fix) - 0.5em);
+          opacity: 0.75;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default GlassCard;
