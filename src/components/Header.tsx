@@ -90,7 +90,7 @@ export default function Header({
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-[100] bg-[#F2F2F2] h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
+    <header className="fixed top-0 inset-x-0 z-[100] bg-[#fff49b] h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
       {/* Desktop Top Left */}
       <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-thin">
         <div className="text-[#666666] mb-1 hover:text-[#212427] transition-colors text-xs md:text-lg">

@@ -89,7 +89,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F2F2] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
+    <div className="min-h-screen bg-[#fff49b] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
       <div className="pt-[env(safe-area-inset-top)] py-10 md:pt-0 md:-mt-4">
         <Header
@@ -247,7 +247,7 @@ export default function Home() {
       </div>
 
       {/* Footer (desktop unchanged, mobile reserves space via pb on container) */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-[#f2f2f2] z-50 font-['Fira_Code'] text-[#666666] h-[72px] md:h-auto overflow-hidden">
+      <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] md:h-auto overflow-hidden">
         {winners.length === 0 ? (
           <>
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-60 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
