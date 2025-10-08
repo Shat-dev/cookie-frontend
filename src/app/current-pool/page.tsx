@@ -487,7 +487,7 @@ export default function CurrentPool() {
               <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
                 <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                   <div className="text-xs text-[#666666] font-mono text-center">
-                    ERC-404 POWERED GACHA LOTTERY ON BASE
+                    ERC-404 POWERED LOTTERY ON BNB
                   </div>
                   <div
                     className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -518,7 +518,7 @@ export default function CurrentPool() {
                         fill="#666666"
                       />
                     </svg>
-                    <span className="text-xs">Playgacha.xyz 2025</span>
+                    <span className="text-xs">fortunecookie.xyz 2025</span>
                   </div>
                 </div>
               </footer>
@@ -604,7 +604,7 @@ export default function CurrentPool() {
                   <section className="p-4 sm:p-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
                       <h2 className="text-lg sm:text-xl font-semi-bold text-[#212427]">
-                        Live Gacha pool (
+                        Live Cookie pool (
                         {isValidFilterAddress && !filterNoEntries
                           ? filteredNfts.length
                           : displayCount}{" "}
@@ -789,7 +789,7 @@ export default function CurrentPool() {
               <section className="p-4 sm:p-8">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
                   <h2 className="text-lg sm:text-xl font-semi-bold text-[#212427]">
-                    Live Gacha pool (
+                    Live Cookie pool (
                     {isValidFilterAddress && !filterNoEntries
                       ? filteredNfts.length
                       : displayCount}{" "}
