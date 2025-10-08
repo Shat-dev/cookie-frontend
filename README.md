@@ -203,3 +203,4 @@ This frontend is designed to integrate with ERC-404 smart contracts. Key integra
 
 Built with ❤️ for the Web3 gaming community
 # cookie-frontend
+# cookie-frontend
