@@ -20,7 +20,7 @@ export default function About() {
 
     // Load contract address
     import("../../../constants/contract-address.json").then((data) => {
-      setContractAddress(data.Gacha);
+      setContractAddress(data.Cookie);
     });
   }, []);
 
@@ -62,7 +62,7 @@ export default function About() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED GACHA LOTTERY ON BASE
+                  ERC-404 POWERED LOTTERY ON BNB
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -93,7 +93,7 @@ export default function About() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">Playgacha.xyz 2025</span>
+                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -102,10 +102,10 @@ export default function About() {
           <main className="max-w-4xl py-24 mx-auto px-0">
             <div className="text-center mb-0">
               <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-                About PlayGacha
+                About Cookie
               </h1>
               <p className="text-lg px-8 text-[#666666] font-thin">
-                A custom ERC-404 lottery project on Base
+                A custom ERC-404 lottery project on BNB
               </p>
             </div>
 
@@ -113,7 +113,7 @@ export default function About() {
             <div className="flex justify-center mb-8 mt-8">
               <Image
                 src="/ball.png"
-                alt="Gacha ball"
+                alt="Cookie"
                 width={140}
                 height={140}
                 className="object-contain"
@@ -128,8 +128,8 @@ export default function About() {
                     Project Overview
                   </h2>
                   <p className="text-[#666666] font-thin leading-relaxed">
-                    Playgacha.xyz is a decentralized lottery system on the Base
-                    network using a custom ERC-404 contract. Automated.
+                    FortuneCookieBNB.xyz is a decentralized lottery system on
+                    the BNB network using a custom ERC-404 contract. Automated.
                     Immutable. Always fair. Every draw combines marketing
                     virality and tokenomics buybacks into a dual flywheel that
                     compounds growth.
@@ -152,10 +152,10 @@ export default function About() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Acquire Your Gacha
+                          Acquire Your Cookie
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Buy at least 1 $Gacha token. Each token = 1 NFT and 1
+                          Buy at least 1 $Cookie token. Each token = 1 NFT and 1
                           lottery entry.
                         </p>
                       </div>
@@ -171,9 +171,8 @@ export default function About() {
                           Post on X
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Post your NFT on X tagging @PlayGachaXYZ. Use our
-                          default template. All tokens in your wallet are
-                          auto-entered.
+                          Post your NFT on X tagging @CookieXYZ. Use our default
+                          template. All tokens in your wallet are auto-entered.
                         </p>
                       </div>
                     </div>
@@ -337,11 +336,11 @@ export default function About() {
                     </div>
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        Base Network
+                        BNB Network
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        Deployed on Base (Ethereum L2) for low fees, fast
-                        finality, and Ethereum-grade security.
+                        Deployed on BNB for low fees, fast finality, and
+                        security.
                       </p>
                     </div>
                     <div>
@@ -364,9 +363,8 @@ export default function About() {
                     Tokenomics
                   </h2>
                   <p className="text-[#666666] font-thin leading-relaxed mb-4">
-                    Playgacha uses a 5% tax model integrated at the contract
-                    level. This ensures that every transaction fuels the
-                    ecosystem:
+                    Cookie uses a 5% tax model integrated at the contract level.
+                    This ensures that every transaction fuels the ecosystem:
                   </p>
                   <div className="space-y-2 mb-4">
                     <p className="text-[#666666] font-thin">
@@ -410,10 +408,10 @@ export default function About() {
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-0">
         <div className="text-center mb-0">
           <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-            About PlayGacha
+            About Cookie
           </h1>
           <p className="text-lg px-8 text-[#666666] font-thin">
-            A custom ERC-404 lottery project on Base
+            A custom ERC-404 lottery project on BNB
           </p>
         </div>
 
@@ -421,7 +419,7 @@ export default function About() {
         <div className="flex justify-center mb-8 mt-8">
           <Image
             src="/ball.png"
-            alt="Gacha ball"
+            alt="Cookie"
             width={140}
             height={140}
             className="object-contain"
@@ -436,10 +434,11 @@ export default function About() {
                 Project Overview
               </h2>
               <p className="text-[#666666] font-thin leading-relaxed">
-                Playgacha.xyz is a decentralized lottery system on the Base
-                network using a custom ERC-404 contract. Automated. Immutable.
-                Always fair. Every draw combines marketing virality and
-                tokenomics buybacks into a dual flywheel that compounds growth.
+                FortuneCookieBNB.xyz is a decentralized lottery system on the
+                BNB network using a custom ERC-404 contract. Automated.
+                Immutable. Always fair. Every draw combines marketing virality
+                and tokenomics buybacks into a dual flywheel that compounds
+                growth.
               </p>
             </section>
           </div>
@@ -459,10 +458,10 @@ export default function About() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Acquire Your Gacha
+                      Acquire Your Cookie
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Buy at least 1 $Gacha token. Each token = 1 NFT and 1
+                      Buy at least 1 $Cookie token. Each token = 1 NFT and 1
                       lottery entry.
                     </p>
                   </div>
@@ -478,7 +477,7 @@ export default function About() {
                       Post on X
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Post your NFT on X tagging @PlayGachaXYZ. Use our default
+                      Post your NFT on X tagging @CookieXYZ. Use our default
                       template. All tokens in your wallet are auto-entered.
                     </p>
                   </div>
@@ -641,11 +640,10 @@ export default function About() {
                 </div>
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    Base Network
+                    BNB Network
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    Deployed on Base (Ethereum L2) for low fees, fast finality,
-                    and Ethereum-grade security.
+                    Deployed on BNB for low fees, fast finality, and security.
                   </p>
                 </div>
                 <div>
@@ -668,7 +666,7 @@ export default function About() {
                 Tokenomics
               </h2>
               <p className="text-[#666666] font-thin leading-relaxed mb-4">
-                Playgacha uses a 5% tax model integrated at the contract level.
+                Cookie uses a 5% tax model integrated at the contract level.
                 This ensures that every transaction fuels the ecosystem:
               </p>
               <div className="space-y-2 mb-4">

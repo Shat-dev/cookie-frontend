@@ -143,7 +143,7 @@ export default function DrawResults() {
     // Load contract address
     import("../../../constants/contract-address.json")
       .then((data) => {
-        setContractAddress(data.Gacha);
+        setContractAddress(data.Cookie);
       })
       .catch((error) => {
         console.error("Failed to load contract address:", error);
@@ -475,7 +475,7 @@ export default function DrawResults() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED GACHA LOTTERY ON BASE
+                  ERC-404 POWERED Cookie LOTTERY ON BASE
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -506,7 +506,7 @@ export default function DrawResults() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">Playgacha.xyz 2025</span>
+                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -608,7 +608,7 @@ export default function DrawResults() {
                               <div className="text-sm">
                                 <div className="flex items-center space-x-1">
                                   <span className="text-[#212427]">
-                                    {round.totalEntries} Gacha&apos;s
+                                    {round.totalEntries} Cookie&apos;s
                                   </span>
                                 </div>
                               </div>
@@ -765,7 +765,7 @@ export default function DrawResults() {
                           <div className="text-sm">
                             <div className="flex items-center space-x-1">
                               <span className="text-[#212427]">
-                                {round.totalEntries} Gacha&apos;s
+                                {round.totalEntries} Cookie&apos;s
                               </span>
                             </div>
                           </div>

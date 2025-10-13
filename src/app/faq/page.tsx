@@ -20,7 +20,7 @@ export default function FAQ() {
 
     // Load contract address
     import("../../../constants/contract-address.json").then((data) => {
-      setContractAddress(data.Gacha);
+      setContractAddress(data.Cookie);
     });
   }, []);
 
@@ -50,7 +50,7 @@ export default function FAQ() {
     {
       question: "How do I enter the lottery?",
       answer:
-        "To enter, you must hold at least one full Gacha token (ERC-404), receive the associated NFT, post on X/Twitter using our default template.",
+        "To enter, you must hold at least one full Cookie token (ERC-404), receive the associated NFT, post on X/Twitter using our default template.",
     },
     {
       question: "Do I need to post every draw to stay eligible?",
@@ -88,9 +88,9 @@ export default function FAQ() {
         "Eligibility is checked on-chain via NFT ownership and off-chain via X/Twitter post detection and verification logic on the backend.",
     },
     {
-      question: "Do I need a Base wallet to participate?",
+      question: "Do I need a BNB wallet to participate?",
       answer:
-        "Yes. Since the project is built on Base (an L2 by Coinbase), you will need a wallet configured for the Base network to participate.",
+        "Yes. Since the project is built on BNB (an L1 by BNB), you will need a wallet configured for the BNB network to participate.",
     },
     {
       question: "What happens if I transfer or sell my NFT?",
@@ -131,7 +131,7 @@ export default function FAQ() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED GACHA LOTTERY ON BASE
+                  ERC-404 POWERED LOTTERY ON BNB
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -162,7 +162,7 @@ export default function FAQ() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">Playgacha.xyz 2025</span>
+                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -174,7 +174,7 @@ export default function FAQ() {
                 Frequently Asked Questions
               </h1>
               <p className="text-lg text-[#666666] font-thin">
-                Everything you need to know about Playgacha.xyz
+                Everything you need to know about FortuneCookieBNB.xyz
               </p>
             </div>
 
@@ -223,7 +223,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h1>
           <p className="text-lg text-[#666666] font-thin">
-            Everything you need to know about Playgacha.xyz
+            Everything you need to know about FortuneCookieBNB.xyz
           </p>
         </div>
 

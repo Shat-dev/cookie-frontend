@@ -7,7 +7,7 @@ import EnterButton from "@/components/CoolButton";
 import CoolButton from "@/components/CoolButton";
 import Image from "next/image";
 import { ethers } from "ethers";
-import GachaABI from "../../../constants/GachaABI.json" assert { type: "json" };
+import CookieABI from "../../../constants/GachaABI.json" assert { type: "json" };
 import { useCountdownString } from "@/hooks/useCountdownString";
 import { useDrawInfo } from "@/hooks/useDrawInfo";
 import { useProjections } from "@/hooks/useProjections";
@@ -56,7 +56,7 @@ export default function EnterPage() {
 
     // Load contract address
     import("../../../constants/contract-address.json").then((data) => {
-      setContractAddress(data.Gacha);
+      setContractAddress(data.Cookie);
     });
   }, []);
 
@@ -156,14 +156,14 @@ export default function EnterPage() {
         process.env.NEXT_PUBLIC_BASE_MAINNET_RPC || "https://mainnet.base.org"
       );
       // Handle both direct ABI array and Hardhat artifact format
-      const gachaABI = Array.isArray(GachaABI)
-        ? GachaABI
-        : (GachaABI as { abi?: unknown; default?: unknown })?.abi ??
-          (GachaABI as { abi?: unknown; default?: unknown })?.default;
+      const cookieABI = Array.isArray(CookieABI)
+        ? CookieABI
+        : (CookieABI as { abi?: unknown; default?: unknown })?.abi ??
+          (CookieABI as { abi?: unknown; default?: unknown })?.default;
 
       const contract = new ethers.Contract(
         contractAddress,
-        gachaABI as ethers.InterfaceAbi,
+        cookieABI as ethers.InterfaceAbi,
         provider
       );
 
@@ -212,7 +212,7 @@ export default function EnterPage() {
     }
   };
 
-  const gachaNumber = nfts.length > 0 ? nfts[0].token_id : "1293";
+  const cookieNumber = nfts.length > 0 ? nfts[0].token_id : "1293";
   const extraEntries = nfts.length > 1 ? nfts.length - 1 : 10;
   const prizePool = prizePoolUsd || "$2,000"; // fallback to $2,000 if loading
   const timeLeft = countdownString;
@@ -222,7 +222,7 @@ export default function EnterPage() {
   const others = Math.max(totalEntries ?? 0, 0);
 
   const tweetText = encodeURIComponent(
-    `My Gacha ${gachaNumber} + ${extraEntries} more\n\n${prizePool} in the pot.\n\n${timeLeft} until draw\n\nI'm in @PlayGachaXYZ with ${others} others.\n\nhttps://Playgacha.xyz`
+    `My Cookie ${cookieNumber} + ${extraEntries} more\n\n${prizePool} in the pot.\n\n${timeLeft} until draw\n\nI'm in @fortunebnb with ${others} others.\n\nhttps://FortuneCookieBNB.xyz`
   );
 
   const tweetURL = `https://x.com/intent/tweet?text=${tweetText}`;
@@ -254,7 +254,7 @@ export default function EnterPage() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED GACHA LOTTERY ON BASE
+                  ERC-404 POWERED LOTTERY ON BNB
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -285,7 +285,7 @@ export default function EnterPage() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">Playgacha.xyz 2025</span>
+                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -311,7 +311,7 @@ export default function EnterPage() {
                     Step 1
                   </h3>
                   <p className="text-sm text-[#666666] font-thin">
-                    Buy at least 1 $Gacha token (ERC-404)
+                    Buy at least 1 $Cookie token (ERC-404)
                   </p>
                 </div>
               </div>
@@ -323,7 +323,7 @@ export default function EnterPage() {
                     Step 2
                   </h3>
                   <p className="text-sm text-[#666666] font-thin">
-                    Post on X/Twitter with &quot;Gacha {gachaNumber}&quot;
+                    Post on X/Twitter with &quot;Cookie {cookieNumber}&quot;
                   </p>
                 </div>
               </div>
@@ -392,7 +392,7 @@ export default function EnterPage() {
                 {showNFTs && nfts.length > 0 && (
                   <div className="mt-8">
                     <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
-                      Your Lottery Gacha ({nfts.length} NFT
+                      Your Lottery Cookie ({nfts.length} NFT
                       {nfts.length !== 1 ? "s" : ""})
                     </h2>
 
@@ -418,7 +418,7 @@ export default function EnterPage() {
                                       )}
                                       <Image
                                         src={nft.image_url}
-                                        alt={`Gacha ${nft.token_id}`}
+                                        alt={`Cookie ${nft.token_id}`}
                                         fill
                                         className="object-cover rounded-md"
                                         unoptimized
@@ -503,7 +503,7 @@ export default function EnterPage() {
                 Step 1
               </h3>
               <p className="text-sm text-[#666666] font-thin">
-                Buy at least 1 $Gacha token (ERC-404)
+                Buy at least 1 $Cookie token (ERC-404)
               </p>
             </div>
           </div>
@@ -515,7 +515,7 @@ export default function EnterPage() {
                 Step 2
               </h3>
               <p className="text-sm text-[#666666] font-thin">
-                Post on X/Twitter with &quot;Gacha {gachaNumber}&quot;
+                Post on X/Twitter with &quot;Cookie {cookieNumber}&quot;
               </p>
             </div>
           </div>
@@ -581,7 +581,7 @@ export default function EnterPage() {
             {showNFTs && nfts.length > 0 && (
               <div className="mt-8">
                 <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
-                  Your Lottery Gacha ({nfts.length} NFT
+                  Your Lottery Cookie ({nfts.length} NFT
                   {nfts.length !== 1 ? "s" : ""})
                 </h2>
 
@@ -607,7 +607,7 @@ export default function EnterPage() {
                                   )}
                                   <Image
                                     src={nft.image_url}
-                                    alt={`Gacha ${nft.token_id}`}
+                                    alt={`Cookie ${nft.token_id}`}
                                     fill
                                     className="object-cover rounded-md"
                                     unoptimized

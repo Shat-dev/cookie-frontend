@@ -89,7 +89,7 @@ const NFTItem = React.memo<{
               {isInLoadedBatch && status !== "error" && (
                 <Image
                   src={stableSrc}
-                  alt={`Gacha ${nft.tokenId}`}
+                  alt={`Cookie ${nft.tokenId}`}
                   fill
                   className={`object-cover rounded-md transition-opacity duration-200 ${
                     status === "loaded" ? "opacity-100" : "opacity-0"

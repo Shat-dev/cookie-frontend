@@ -8,9 +8,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "nftstorage.link" },
       { protocol: "https", hostname: "ipfs.io" },
       { protocol: "https", hostname: "dweb.link" },
-      // Add playgacha.xyz domain for any images served from your domain
-      { protocol: "https", hostname: "playgacha.xyz" },
-      { protocol: "https", hostname: "api.playgacha.xyz" },
+      // Add playcookie.xyz domain for any images served from your domain
+      { protocol: "https", hostname: "playcookie.xyz" },
+      { protocol: "https", hostname: "api.playcookie.xyz" },
     ],
     unoptimized: true,
   },

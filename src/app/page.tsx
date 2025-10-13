@@ -66,16 +66,16 @@ export default function Home() {
   useEffect(() => {
     // Import the contract address from the constants file
     import("../../constants/contract-address.json").then((data) => {
-      setContractAddress(data.Gacha);
+      setContractAddress(data.Cookie);
     });
 
     // Preload ball.png image for instant display when menu opens
     const ballImg = new window.Image();
     ballImg.src = "/ball.png";
 
-    // Preload gacha.png image for instant display of Gumball component
+    // Preload Cookie.png image for instant display of Gumball component
     const gumballImg = new window.Image();
-    gumballImg.src = "/gacha.png";
+    gumballImg.src = "/Cookie.png";
   }, []);
 
   const handleCopyAddress = async () => {
@@ -154,7 +154,7 @@ export default function Home() {
               </Link>
               <Link href="/enter">
                 <EnterButton onClick={() => console.log("Play button clicked")}>
-                  Enter Gacha
+                  Enter Cookie
                 </EnterButton>
               </Link>
             </div>
@@ -237,7 +237,7 @@ export default function Home() {
                   <EnterButton
                     onClick={() => console.log("Play button clicked")}
                   >
-                    Enter Gacha
+                    Enter Cookie
                   </EnterButton>
                 </Link>
               </div>
@@ -252,7 +252,7 @@ export default function Home() {
           <>
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-60 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
               <div className="text-xs text-[#666666] font-mono text-center">
-                ERC-404 POWERED GACHA LOTTERY ON BASE
+                ERC-404 POWERED LOTTERY ON BNB
               </div>
               <div
                 className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -284,7 +284,7 @@ export default function Home() {
                     fill="#666666"
                   />
                 </svg>
-                <span className="text-xs">Playgacha.xyz 2025</span>
+                <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
               </div>
             </div>
 
@@ -316,7 +316,9 @@ export default function Home() {
                     fill="#666666"
                   />
                 </svg>
-                <span className="text-xs md:text-base">Playgacha.xyz 2025</span>
+                <span className="text-xs md:text-BNB">
+                  FortuneCookieBNB.xyz 2025
+                </span>
               </div>
             </div>
           </>

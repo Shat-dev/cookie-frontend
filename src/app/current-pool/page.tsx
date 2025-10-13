@@ -163,7 +163,7 @@ export default function CurrentPool() {
     // Load contract address
     import("../../../constants/contract-address.json")
       .then((data) => {
-        setContractAddress(data.Gacha);
+        setContractAddress(data.Cookie);
       })
       .catch((error) => {
         console.error("Failed to load contract address:", error);

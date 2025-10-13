@@ -71,7 +71,7 @@ export default function Header({
     // Import the contract address from the constants file
     import("../../constants/contract-address.json")
       .then((data) => {
-        setContractAddress(data.Gacha);
+        setContractAddress(data.Cookie);
       })
       .catch((error) => {
         console.error("Failed to load contract address:", error);
@@ -121,7 +121,7 @@ export default function Header({
         <Link href="/" className="block">
           <Image
             src="/title_mobile.png"
-            alt="Playgacha.xyz"
+            alt="Playcookie.xyz"
             width={105}
             height={30}
             className="hover:opacity-80 transition-opacity cursor-pointer"
@@ -134,7 +134,7 @@ export default function Header({
         <Link href="/" className="block">
           <Image
             src="/title (1).png"
-            alt="Playgacha.xyz"
+            alt="Playcookie.xyz"
             width={100}
             height={30}
             className="mx-auto hover:opacity-80 transition-opacity cursor-pointer"
@@ -158,7 +158,7 @@ export default function Header({
         {menuOpen && (
           <div className="absolute text-right text-[#666666] font-thin z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
             <Link
-              href="https://x.com/PlayGachaXYZ"
+              href="https://x.com/PlayCookieXYZ"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -192,7 +192,7 @@ export default function Header({
               How it works
             </Link>
             <Link
-              href="https://playgacha.gitbook.io/play-gacha/"
+              href="https://playcookie.gitbook.io/play-cookie/"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -213,7 +213,7 @@ export default function Header({
       {/* Desktop Top Right Navigation */}
       <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#666666] font-thin">
         <Link
-          href="https://x.com/PlayGachaXYZ"
+          href="https://x.com/PlayCookieXYZ"
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
@@ -245,7 +245,7 @@ export default function Header({
           How it works
         </Link>
         <Link
-          href="https://playgacha.gitbook.io/play-gacha/"
+          href="https://playcookie.gitbook.io/play-cookie/"
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
