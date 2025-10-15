@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import EnterButton from "@/components/CoolButton";
-import CountdownTimer from "@/components/CountdownTimer";
+import SimpleCountdown from "@/components/SimpleCountdown";
 import VirtualizedNFTGrid from "@/components/VirtualizedNFTGrid";
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { usePoolCount } from "@/hooks/usePoolCount";
@@ -576,7 +576,7 @@ export default function CurrentPool() {
 
                       <div className="text-center">
                         <div className="text-xl sm:text-2xl font-semi-bold text-[#212427] mb-2">
-                          <CountdownTimer />
+                          <SimpleCountdown />
                         </div>
                         <div className="text-sm sm:text-base text-[#666666] font-thin">
                           Time Left
@@ -761,7 +761,7 @@ export default function CurrentPool() {
 
                   <div className="text-center">
                     <div className="text-xl sm:text-2xl font-semi-bold text-[#212427] mb-2">
-                      <CountdownTimer />
+                      <SimpleCountdown />
                     </div>
                     <div className="text-sm sm:text-base text-[#666666] font-thin">
                       Time Left

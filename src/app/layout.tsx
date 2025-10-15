@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { CountdownProvider } from "@/context/CountdownContext";
 
 export const metadata: Metadata = {
   title: "PLAY $COOKIE",
@@ -22,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <CountdownProvider>{children}</CountdownProvider>
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

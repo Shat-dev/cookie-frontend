@@ -7,9 +7,8 @@ import EnterButton from "@/components/CoolButton";
 import CoolButton from "@/components/CoolButton";
 import Image from "next/image";
 import { ethers } from "ethers";
-import CookieABI from "../../../constants/GachaABI.json" assert { type: "json" };
-import { useCountdownString } from "@/hooks/useCountdownString";
-import { useDrawInfo } from "@/hooks/useDrawInfo";
+import CookieABI from "../../../constants/CookieABI.json" assert { type: "json" };
+import { useSimpleCountdownString } from "@/hooks/useSimpleCountdownString";
 import { useProjections } from "@/hooks/useProjections";
 import { usePrizePool } from "@/hooks/usePrizePool";
 
@@ -45,8 +44,7 @@ export default function EnterPage() {
   const [copied, setCopied] = useState(false);
 
   // Get real countdown and draw info
-  const countdownString = useCountdownString();
-  const { drawInfo } = useDrawInfo();
+  const countdownString = useSimpleCountdownString();
   const { formattedUsd: prizePoolUsd } = usePrizePool();
 
   // ✅ NEW: Preload ball.png image for instant display when menu opens
@@ -218,7 +216,7 @@ export default function EnterPage() {
   const timeLeft = countdownString;
   // Use real-time projection count for accurate entry count
   const { totalCount: projectionCount } = useProjections();
-  const totalEntries = projectionCount ?? drawInfo?.totalEntries ?? 0;
+  const totalEntries = projectionCount ?? 0;
   const others = Math.max(totalEntries ?? 0, 0);
 
   const tweetText = encodeURIComponent(

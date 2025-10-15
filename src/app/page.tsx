@@ -1,17 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useLayoutEffect, memo, useMemo } from "react";
+import { useEffect, useState, memo, useMemo } from "react";
 import EnterButton from "@/components/CoolButton";
 import Header from "@/components/Header";
 import Gumball from "@/components/Gumball";
-import CountdownTimer from "@/components/CountdownTimer";
+import SimpleCountdown from "@/components/SimpleCountdown";
 import { useProjections } from "@/hooks/useProjections";
 import { usePoolCount } from "@/hooks/usePoolCount";
 import { useWinners } from "@/hooks/useWinners";
 import { usePrizePool } from "@/hooks/usePrizePool";
 import { useCurrentDraw } from "@/hooks/useCurrentDraw";
-import { getApiEndpoint } from "@/utils/api";
 
 // Memoized mobile gumball section to prevent re-renders from state changes
 const MobileGumballSection = memo(() => (
@@ -129,7 +128,7 @@ export default function Home() {
                 Time Left
               </div>
               <div className="text-4xl font-mono text-[#212427]">
-                <CountdownTimer />
+                <SimpleCountdown />
               </div>
             </div>
 
@@ -206,7 +205,7 @@ export default function Home() {
                   Time Left
                 </div>
                 <div className="font-mono text-[#212427] text-[clamp(16px,5.2vw,20px)]">
-                  <CountdownTimer />
+                  <SimpleCountdown />
                 </div>
               </div>
 
