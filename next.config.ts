@@ -26,8 +26,20 @@ const nextConfig: NextConfig = {
 
     return [
       {
-        source: "/api/:path*",
-        destination: `${apiUrl}/:path*`,
+        source: "/api/current-pool",
+        destination: `${apiUrl}/api/current-pool`,
+      },
+      {
+        source: "/api/current-projections",
+        destination: `${apiUrl}/api/current-projections`,
+      },
+      {
+        source: "/api/lottery/current-draw",
+        destination: `${apiUrl}/api/lottery/current-draw`,
+      },
+      {
+        source: "/api/prize-pool",
+        destination: `${apiUrl}/api/prize-pool`,
       },
     ];
   },

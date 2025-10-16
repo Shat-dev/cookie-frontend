@@ -150,7 +150,7 @@ export const useCurrentDraw = () => {
 
     try {
       const response = await fetch(
-        getApiEndpoint("/api/automation/unified-status"),
+        getApiEndpoint("/api/lottery/current-draw"),
         {
           cache: "no-store",
           headers: {
@@ -166,26 +166,21 @@ export const useCurrentDraw = () => {
       const result = await response.json();
 
       if (result.success && result.data) {
-        const {
-          drawNumber: newDrawNumber,
-          automation: newAutomation,
-          roundData: newRoundData,
-          cacheKey,
-        } = result.data;
-
-        // Check if we should invalidate cache based on server-provided cache key
-        if (shouldInvalidateCache(cacheKey)) {
-          console.log("🔄 Server requested cache invalidation");
-        }
+        const newDrawNumber = result.data.drawNumber || 1;
+        const newAutomation = {
+          isEnabled: true,
+          hasActiveDraw: true,
+          totalEntries: 0, // Will be updated from projections
+        };
+        const newRoundData = result.data.roundData;
 
         // Store old data for change detection
         const oldData = cachedData;
 
         // Update cache
         cachedData = {
-          drawNumber: newDrawNumber || 1, // Default to 1 if undefined
+          drawNumber: newDrawNumber,
           timestamp: Date.now(),
-          cacheKey,
           automation: newAutomation,
           roundData: newRoundData,
         };
@@ -193,12 +188,12 @@ export const useCurrentDraw = () => {
         // ✅ NEW: Detect and emit notifications for state changes
         detectStateChanges(oldData, cachedData);
 
-        setDrawNumber(newDrawNumber || 1);
+        setDrawNumber(newDrawNumber);
         setAutomation(newAutomation);
         setRoundData(newRoundData);
         setLoading(false);
 
-        return newDrawNumber || 1;
+        return newDrawNumber;
       } else {
         throw new Error(result.error || "Invalid response format");
       }

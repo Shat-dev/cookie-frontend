@@ -103,7 +103,6 @@ export default function EnterPage() {
       return [];
     } catch (error) {
       console.error("Error fetching owned token IDs:", error);
-
       // Check if this is a BAD_DATA error specifically from owned() function
       if (
         error instanceof Error &&

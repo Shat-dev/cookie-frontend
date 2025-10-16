@@ -8,8 +8,23 @@ import React, {
 import Image from "next/image";
 
 const IMAGE_CID = "QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ";
-const imageUrlFor = (tokenId: string) =>
-  `/api/pool-img?cid=${IMAGE_CID}&file=${tokenId}.jpg`;
+
+// Fallback direct IPFS gateways (same as enter page)
+const DIRECT_IPFS_GATEWAYS = [
+  "https://gateway.pinata.cloud/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
+  "https://ipfs.io/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
+];
+
+const imageUrlFor = (
+  tokenId: string,
+  useDirectGateway: boolean = false,
+  gatewayIndex: number = 0
+) => {
+  if (useDirectGateway && gatewayIndex < DIRECT_IPFS_GATEWAYS.length) {
+    return `${DIRECT_IPFS_GATEWAYS[gatewayIndex]}/${tokenId}.jpg`;
+  }
+  return `/api/pool-img?cid=${IMAGE_CID}&file=images/${tokenId}.jpg`;
+};
 
 interface NFT {
   tokenId: string;
@@ -34,6 +49,8 @@ interface ImageState {
   retryCount: number;
   timeoutId?: NodeJS.Timeout;
   src: string; // Stable src URL to prevent unnecessary changes
+  useDirectGateway: boolean; // Track if using direct IPFS gateway
+  gatewayIndex: number; // Track current gateway index for fallback
 }
 
 // Memoized NFT Item component to prevent unnecessary re-renders
@@ -178,7 +195,7 @@ export default function VirtualizedNFTGrid({
 
     activePrefetches.current.add(tokenId);
     const img = new window.Image();
-    img.src = imageUrlFor(tokenId);
+    img.src = imageUrlFor(tokenId, false, 0); // Start with API route
 
     const cleanup = () => {
       activePrefetches.current.delete(tokenId);
@@ -214,7 +231,7 @@ export default function VirtualizedNFTGrid({
       return; // Already initialized and not in error state
     }
 
-    const stableSrc = imageUrlFor(tokenId);
+    const stableSrc = imageUrlFor(tokenId, false, 0); // Start with API route
     const timeoutId = setTimeout(() => {
       setImageStates((prev) => {
         const current = imageStatesRef.current.get(tokenId);
@@ -238,6 +255,8 @@ export default function VirtualizedNFTGrid({
         retryCount: currentState?.retryCount || 0,
         timeoutId,
         src: stableSrc,
+        useDirectGateway: false,
+        gatewayIndex: 0,
       });
       return newMap;
     });
@@ -284,6 +303,8 @@ export default function VirtualizedNFTGrid({
         retryCount: newRetryCount,
         timeoutId,
         src: currentState.src, // Keep stable src
+        useDirectGateway: currentState.useDirectGateway || false,
+        gatewayIndex: currentState.gatewayIndex || 0,
       });
       return newMap;
     });
@@ -301,13 +322,15 @@ export default function VirtualizedNFTGrid({
         status: "loaded",
         retryCount: current?.retryCount || 0,
         timeoutId: undefined,
-        src: current?.src || imageUrlFor(tokenId),
+        src: current?.src || imageUrlFor(tokenId, false, 0),
+        useDirectGateway: current?.useDirectGateway || false,
+        gatewayIndex: current?.gatewayIndex || 0,
       });
       return newMap;
     });
   }, []);
 
-  // Handle image load error
+  // Handle image load error with gateway fallback
   const handleImageError = useCallback((tokenId: string) => {
     setImageStates((prev) => {
       const current = prev.get(tokenId);
@@ -316,20 +339,49 @@ export default function VirtualizedNFTGrid({
       }
 
       const newMap = new Map(prev);
-      if (current && current.retryCount < MAX_RETRIES) {
-        // Don't immediately set to error, let retry logic handle it
-        newMap.set(tokenId, {
-          status: "timeout",
-          retryCount: current.retryCount,
-          timeoutId: undefined,
-          src: current.src,
-        });
+      if (current) {
+        // Try fallback strategies
+        if (!current.useDirectGateway) {
+          // First fallback: try direct IPFS gateway
+          newMap.set(tokenId, {
+            status: "loading",
+            retryCount: current.retryCount,
+            timeoutId: undefined,
+            src: imageUrlFor(tokenId, true, 0),
+            useDirectGateway: true,
+            gatewayIndex: 0,
+          });
+        } else if (current.gatewayIndex < DIRECT_IPFS_GATEWAYS.length - 1) {
+          // Try next direct gateway
+          const nextIndex = current.gatewayIndex + 1;
+          newMap.set(tokenId, {
+            status: "loading",
+            retryCount: current.retryCount,
+            timeoutId: undefined,
+            src: imageUrlFor(tokenId, true, nextIndex),
+            useDirectGateway: true,
+            gatewayIndex: nextIndex,
+          });
+        } else {
+          // All gateways failed
+          newMap.set(tokenId, {
+            status: "error",
+            retryCount: MAX_RETRIES,
+            timeoutId: undefined,
+            src: current.src,
+            useDirectGateway: current.useDirectGateway,
+            gatewayIndex: current.gatewayIndex,
+          });
+        }
       } else {
+        // Fallback initialization
         newMap.set(tokenId, {
           status: "error",
-          retryCount: current?.retryCount || MAX_RETRIES,
+          retryCount: MAX_RETRIES,
           timeoutId: undefined,
-          src: current?.src || imageUrlFor(tokenId),
+          src: imageUrlFor(tokenId, false, 0),
+          useDirectGateway: false,
+          gatewayIndex: 0,
         });
       }
       return newMap;
