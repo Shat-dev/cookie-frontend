@@ -69,15 +69,140 @@ export default function EnterPage() {
     }
   };
 
-  // Multiple IPFS gateways for fallback - using Pinata gateway with correct CID
+  // Multiple IPFS gateways for fallback - using correct image CID with /images path
   const IPFS_GATEWAYS = [
-    "https://gateway.pinata.cloud/ipfs/bafybeigw5ljgwzthddmtaje637wiankihhi37eod672n5dye5xg3fp3mja",
-    "https://ipfs.io/ipfs/bafybeigw5ljgwzthddmtaje637wiankihhi37eod672n5dye5xg3fp3mja",
-    "https://dweb.link/ipfs/bafybeigw5ljgwzthddmtaje637wiankihhi37eod672n5dye5xg3fp3mja",
+    "https://gateway.pinata.cloud/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
+    "https://ipfs.io/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
   ];
 
   const toImageUrl = (id: bigint | number | string, gatewayIndex: number = 0) =>
     `${IPFS_GATEWAYS[gatewayIndex]}/${id.toString()}.jpg`;
+
+  // Helper function to fetch owned token IDs using correct Cookie ABI functions
+  async function fetchOwnedTokenIds(
+    contract: ethers.Contract,
+    wallet: string
+  ): Promise<string[]> {
+    try {
+      // First check if the wallet has any ERC-721 tokens
+      const erc721Balance = await contract.erc721BalanceOf(wallet);
+
+      if (erc721Balance === BigInt(0) || erc721Balance === 0) {
+        // No NFTs to fetch
+        return [];
+      }
+
+      // Use the owned(address) function from Cookie ABI to get all token IDs
+      const tokenIds: bigint[] = await contract.owned(wallet);
+
+      if (tokenIds && tokenIds.length > 0) {
+        // Decode the token IDs and convert to strings
+        return tokenIds.map((id) => decodeId(id).toString());
+      }
+
+      return [];
+    } catch (error) {
+      console.error("Error fetching owned token IDs:", error);
+
+      // Check if this is a BAD_DATA error specifically from owned() function
+      if (
+        error instanceof Error &&
+        error.message.includes("could not decode result data")
+      ) {
+        console.warn(
+          "owned() function returned empty data - wallet likely has no NFTs"
+        );
+        return [];
+      }
+
+      // For other errors, try to check if user has any ERC-721 balance as fallback
+      try {
+        const erc721Balance = await contract.erc721BalanceOf(wallet);
+        if (erc721Balance > 0) {
+          console.warn(
+            `User has ${erc721Balance.toString()} ERC-721 tokens but owned() function failed with error:`,
+            error
+          );
+        }
+      } catch (balanceError) {
+        console.warn("erc721BalanceOf also failed:", balanceError);
+      }
+
+      return [];
+    }
+  }
+
+  // Helper function to fetch metadata from IPFS with retry logic
+  async function fetchTokenMetadata(
+    tokenId: string,
+    retryCount: number = 0
+  ): Promise<{ name?: string; image?: string; description?: string } | null> {
+    const maxRetries = 2;
+    const retryDelay = 1000; // 1 second
+
+    try {
+      // Use the correct metadata URL format as specified
+      const metadataUrl = `https://gateway.pinata.cloud/ipfs/QmTwdrsBSTL23jnvkpsWocSjJU9fo5hhr4tidB91ggHnnF/metadata/${tokenId}.json`;
+
+      // Add timeout to fetch request
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+
+      const response = await fetch(metadataUrl, {
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        console.warn(
+          `Failed to fetch metadata for token ${tokenId}:`,
+          response.status
+        );
+        return null;
+      }
+
+      const metadata = await response.json();
+      return {
+        name: metadata.name,
+        image: metadata.image,
+        description: metadata.description,
+      };
+    } catch (error) {
+      console.warn(
+        `Error fetching metadata for token ${tokenId} (attempt ${
+          retryCount + 1
+        }):`,
+        error
+      );
+
+      // Retry logic for timeouts and network errors
+      if (
+        retryCount < maxRetries &&
+        error instanceof Error &&
+        (error.name === "AbortError" ||
+          error.message.includes("fetch") ||
+          error.message.includes("network"))
+      ) {
+        console.log(
+          `Retrying metadata fetch for token ${tokenId} in ${retryDelay}ms...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+        return fetchTokenMetadata(tokenId, retryCount + 1);
+      }
+
+      return null;
+    }
+  }
+
+  // Helper function to convert IPFS image URL to gateway URL
+  function convertIpfsImageUrl(ipfsUrl: string): string {
+    if (ipfsUrl.startsWith("ipfs://")) {
+      const hash = ipfsUrl.replace("ipfs://", "");
+      return `https://gateway.pinata.cloud/ipfs/${hash}`;
+    }
+    return ipfsUrl;
+  }
 
   // Handle image load success
   const handleImageLoad = (tokenId: string) => {
@@ -96,7 +221,7 @@ export default function EnterPage() {
     const nextGatewayIndex = currentGatewayIndex + 1;
 
     if (nextGatewayIndex < IPFS_GATEWAYS.length) {
-      // Try next gateway
+      // Try next gateway with direct image URL construction
       setNfts((prevNfts) =>
         prevNfts.map((nft) =>
           nft.token_id === tokenId
@@ -151,7 +276,8 @@ export default function EnterPage() {
 
     try {
       const provider = new ethers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_BASE_MAINNET_RPC || "https://mainnet.base.org"
+        process.env.NEXT_PUBLIC_BNB_TESTNET_RPC ||
+          "https://bsc-testnet-rpc.publicnode.com"
       );
       // Handle both direct ABI array and Hardhat artifact format
       const cookieABI = Array.isArray(CookieABI)
@@ -165,16 +291,6 @@ export default function EnterPage() {
         provider
       );
 
-      // Single call to fetch all owned token IDs
-      const tokenIds: bigint[] = await contract.owned(walletAddress);
-
-      if (!tokenIds?.length) {
-        setError("No NFTs found for this wallet address.");
-        setIsValidAddress(false);
-        setShowNFTs(false);
-        setLoading(false);
-        return;
-      }
       if (!ethers.isAddress(walletAddress)) {
         setError("Please enter a valid wallet address.");
         setIsValidAddress(false);
@@ -183,26 +299,81 @@ export default function EnterPage() {
         return;
       }
 
-      // Decode and map directly to image URLs with primary gateway
-      const decoded = tokenIds.map(decodeId);
-      const nftObjects: NFT[] = decoded.map((id, i) => ({
-        id: i + 1,
-        wallet_address: walletAddress,
-        token_id: id.toString(),
-        image_url: toImageUrl(id, 0), // Start with first gateway
-        verified: true,
-        created_at: new Date().toISOString(),
-        imageError: false,
-        currentGatewayIndex: 0,
-        imageLoading: true, // Start with loading state
-      }));
+      // Fetch owned token IDs using correct Cookie ABI functions
+      const tokenIds = await fetchOwnedTokenIds(contract, walletAddress);
+
+      if (!tokenIds?.length) {
+        setError(
+          "No Cookie NFTs found for this wallet address. You need to own at least 1 Cookie token to participate."
+        );
+        setIsValidAddress(false);
+        setShowNFTs(false);
+        setLoading(false);
+        return;
+      }
+
+      // Fetch metadata for all tokens in parallel for better performance
+      const metadataPromises = tokenIds.map(async (tokenId) => {
+        const metadata = await fetchTokenMetadata(tokenId);
+        return {
+          tokenId,
+          metadata,
+        };
+      });
+
+      const metadataResults = await Promise.all(metadataPromises);
+
+      // Create NFT objects with proper metadata
+      const nftObjects: NFT[] = metadataResults.map((result, index) => {
+        const { tokenId, metadata } = result;
+
+        let imageUrl: string;
+        if (metadata?.image) {
+          // Convert IPFS URLs to gateway URLs
+          imageUrl = convertIpfsImageUrl(metadata.image);
+        } else {
+          // Fallback to direct image URL construction
+          imageUrl = toImageUrl(tokenId, 0);
+        }
+
+        return {
+          id: index + 1,
+          wallet_address: walletAddress,
+          token_id: tokenId,
+          image_url: imageUrl,
+          verified: true,
+          created_at: new Date().toISOString(),
+          imageError: false,
+          currentGatewayIndex: 0,
+          imageLoading: true, // Start with loading state
+        };
+      });
 
       setNfts(nftObjects);
       setIsValidAddress(true);
       setShowNFTs(true);
     } catch (err) {
       console.error("Error fetching NFTs:", err);
-      setError("Please enter a valid wallet address.");
+
+      // Provide more specific error messages based on the error type
+      let errorMessage = "Please enter a valid wallet address.";
+
+      if (err instanceof Error) {
+        if (err.message.includes("could not decode result data")) {
+          errorMessage =
+            "No Cookie NFTs found for this wallet address. You need to own at least 1 Cookie token to participate.";
+        } else if (err.message.includes("network")) {
+          errorMessage =
+            "Network error. Please check your connection and try again.";
+        } else if (err.message.includes("invalid address")) {
+          errorMessage = "Please enter a valid wallet address.";
+        } else if (err.message.includes("BAD_DATA")) {
+          errorMessage =
+            "No Cookie NFTs found for this wallet address. You need to own at least 1 Cookie token to participate.";
+        }
+      }
+
+      setError(errorMessage);
       setIsValidAddress(false);
       setShowNFTs(false);
     } finally {
@@ -384,11 +555,18 @@ export default function EnterPage() {
                       {error}
                     </p>
                   )}
+
+                  {/* Loading spinner with smooth transition */}
+                  {loading && (
+                    <div className="flex justify-center items-center py-6 mt-4 transition-opacity duration-300">
+                      <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+                    </div>
+                  )}
                 </form>
 
                 {/* NFT Display Section */}
                 {showNFTs && nfts.length > 0 && (
-                  <div className="mt-8">
+                  <div className="mt-8 transition-all duration-500 ease-in-out">
                     <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
                       Your Lottery Cookie ({nfts.length} NFT
                       {nfts.length !== 1 ? "s" : ""})
@@ -573,11 +751,18 @@ export default function EnterPage() {
                   {error}
                 </p>
               )}
+
+              {/* Loading spinner with smooth transition */}
+              {loading && (
+                <div className="flex justify-center items-center py-6 mt-4 transition-opacity duration-300">
+                  <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+                </div>
+              )}
             </form>
 
             {/* NFT Display Section */}
             {showNFTs && nfts.length > 0 && (
-              <div className="mt-8">
+              <div className="mt-8 transition-all duration-500 ease-in-out">
                 <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
                   Your Lottery Cookie ({nfts.length} NFT
                   {nfts.length !== 1 ? "s" : ""})

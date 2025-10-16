@@ -246,7 +246,8 @@ export default function DrawResults() {
       // 2) Blockchain (latest)
       try {
         const provider = new ethers.JsonRpcProvider(
-          process.env.NEXT_PUBLIC_BASE_MAINNET_RPC || "https://mainnet.base.org"
+          process.env.NEXT_PUBLIC_BNB_TESTNET_RPC ||
+            "https://bsc-testnet-rpc.publicnode.com"
         );
 
         const lottery = new ethers.Contract(

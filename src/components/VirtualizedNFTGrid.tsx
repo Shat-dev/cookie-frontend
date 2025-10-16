@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import Image from "next/image";
 
-const IMAGE_CID = "bafybeigw5ljgwzthddmtaje637wiankihhi37eod672n5dye5xg3fp3mja";
+const IMAGE_CID = "QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ";
 const imageUrlFor = (tokenId: string) =>
   `/api/pool-img?cid=${IMAGE_CID}&file=${tokenId}.jpg`;
 
