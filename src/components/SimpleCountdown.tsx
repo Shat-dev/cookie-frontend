@@ -2,18 +2,46 @@
 
 import { useState, useEffect } from "react";
 
+interface CountdownState {
+  phase: "starting" | "countdown" | "selecting" | "winner";
+  remainingSeconds: number;
+  isActive: boolean;
+}
+
 const SimpleCountdown: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState(3600); // Start with 60 minutes (3600 seconds)
+  const [countdownState, setCountdownState] = useState<CountdownState>({
+    phase: "starting",
+    remainingSeconds: 0,
+    isActive: false,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchCountdownStatus = async () => {
+    try {
+      const response = await fetch("/api/lottery/countdown");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setCountdownState({
+            phase: data.phase,
+            remainingSeconds: data.remainingSeconds,
+            isActive: data.isActive,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching countdown status:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          return 3600; // Reset to 1 hour when it reaches 0
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    // Initial fetch
+    fetchCountdownStatus();
+
+    // Set up polling every second
+    const interval = setInterval(fetchCountdownStatus, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -28,9 +56,37 @@ const SimpleCountdown: React.FC = () => {
     )}:${String(s).padStart(2, "0")}`;
   };
 
+  const getDisplayText = () => {
+    if (isLoading) return "Loading...";
+
+    switch (countdownState.phase) {
+      case "starting":
+        return "Starting soon";
+      case "countdown":
+        return formatTime(countdownState.remainingSeconds);
+      case "selecting":
+        return "Selecting Winner";
+      case "winner":
+        return "Winner Picked!";
+      default:
+        return "Starting soon";
+    }
+  };
+
+  const shouldAnimate = () => {
+    return (
+      countdownState.phase === "starting" ||
+      countdownState.phase === "selecting"
+    );
+  };
+
   return (
-    <span className="tracking-widest font-mono text-[#212427]">
-      {formatTime(timeLeft)}
+    <span
+      className={`tracking-widest font-mono text-[#212427] ${
+        shouldAnimate() ? "animate-pulse" : ""
+      }`}
+    >
+      {getDisplayText()}
     </span>
   );
 };

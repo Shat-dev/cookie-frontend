@@ -17,53 +17,6 @@ import { getApiEndpoint } from "@/utils/api";
 import Head from "next/head";
 import { ethers } from "ethers";
 
-// ✅ NEW: Notification component for real-time updates
-interface NotificationProps {
-  message: string;
-  type: "round_completed" | "round_started" | "vrf_pending" | "entry_change";
-  onDismiss: () => void;
-}
-
-function Notification({ message, type, onDismiss }: NotificationProps) {
-  const bgColor = {
-    round_completed: "bg-green-100 border-green-300 text-green-800",
-    round_started: "bg-blue-100 border-blue-300 text-blue-800",
-    vrf_pending: "bg-yellow-100 border-yellow-300 text-yellow-800",
-    entry_change: "bg-purple-100 border-purple-300 text-purple-800",
-  }[type];
-
-  const icon = {
-    round_completed: "🏆",
-    round_started: "🚀",
-    vrf_pending: "⏳",
-    entry_change: "📊",
-  }[type];
-
-  useEffect(() => {
-    const timer = setTimeout(onDismiss, 8000); // Auto-dismiss after 8 seconds
-    return () => clearTimeout(timer);
-  }, [onDismiss]);
-
-  return (
-    <div
-      className={`fixed top-20 right-4 max-w-sm p-4 border rounded-lg shadow-lg z-50 ${bgColor}`}
-    >
-      <div className="flex items-start justify-between">
-        <div className="flex items-start">
-          <span className="text-lg mr-2">{icon}</span>
-          <p className="text-sm font-medium">{message}</p>
-        </div>
-        <button
-          onClick={onDismiss}
-          className="ml-2 text-lg leading-none hover:opacity-70"
-        >
-          ×
-        </button>
-      </div>
-    </div>
-  );
-}
-
 // Isolated countdown component to prevent grid re-renders
 function RefreshCountdown({
   refreshCountdown,
@@ -116,20 +69,6 @@ export default function CurrentPool() {
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
 
-  // ✅ NEW: Notification state
-  const [notifications, setNotifications] = useState<
-    Array<{
-      id: string;
-      message: string;
-      type:
-        | "round_completed"
-        | "round_started"
-        | "vrf_pending"
-        | "entry_change";
-      timestamp: number;
-    }>
-  >([]);
-
   // Filter state
   const [filterAddress, setFilterAddress] = useState<string>("");
   const [isValidFilterAddress, setIsValidFilterAddress] =
@@ -181,32 +120,6 @@ export default function CurrentPool() {
       console.error("Failed to copy address:", err);
     }
   };
-
-  // ✅ NEW: Subscribe to draw notifications
-  useEffect(() => {
-    const unsubscribe = subscribeToDrawNotifications((notification) => {
-      const newNotification = {
-        id: `${notification.type}_${notification.timestamp}`,
-        message: notification.message,
-        type: notification.type,
-        timestamp: notification.timestamp,
-      };
-
-      setNotifications((prev) => [...prev, newNotification]);
-
-      // Also log to console for debugging
-      console.log(`🔔 Notification: ${notification.message}`);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  // ✅ NEW: Function to dismiss notifications
-  const dismissNotification = useCallback((id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id));
-  }, []);
 
   // Stable NFT array with diff-and-patch approach to prevent unnecessary re-renders
   const [stableNfts, setStableNfts] = useState<
@@ -450,16 +363,6 @@ export default function CurrentPool() {
           crossOrigin="anonymous"
         />
       </Head>
-
-      {/* ✅ NEW: Notification display */}
-      {notifications.map((notification) => (
-        <Notification
-          key={notification.id}
-          message={notification.message}
-          type={notification.type}
-          onDismiss={() => dismissNotification(notification.id)}
-        />
-      ))}
 
       <div className="min-h-screen bg-[#fff49b] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
         {/* Header: desktop offset preserved, no desktop shift */}
