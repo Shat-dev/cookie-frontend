@@ -224,16 +224,27 @@ export default function DrawResults() {
                 roundNumber: number;
                 winner: string;
                 winningTokenId: string;
-                entriesCount: string;
-                requestId: string;
-                timestamp: string;
+                totalEntries: string; // ✅ FIX: Use totalEntries (matches backend response)
+                requestId?: string;
+                timestamp?: string;
                 payoutAmount?: string;
                 payoutAmountUsd?: number;
               }) => ({
-                ...round,
+                roundNumber: round.roundNumber,
+                winner: round.winner,
+                winningTokenId: round.winningTokenId,
+                totalEntries: round.totalEntries, // ✅ FIX: Use backend count
+                startTime: round.timestamp || new Date().toISOString(),
+                endTime: round.timestamp || new Date().toISOString(),
+                isCompleted: true,
+                requestId: round.requestId || "0",
                 payoutAmount: round.payoutAmount,
                 payoutAmountUsd: round.payoutAmountUsd,
               })
+            );
+
+            console.log(
+              `✅ Backend API returned ${allRounds.length} completed rounds with entry counts`
             );
           }
         }
@@ -280,6 +291,9 @@ export default function DrawResults() {
             ) {
               const existingRound = allRounds.find((r) => r.roundNumber === i);
               if (!existingRound) {
+                console.log(
+                  `🔗 Fetching blockchain data for round ${i} (not in backend)`
+                );
                 // Fetch the requestId from RandomnessRequested events
                 let requestId = "0";
                 try {
@@ -298,25 +312,12 @@ export default function DrawResults() {
                   );
                 }
 
-                // ✅ FIX: Get actual entries and deduplicate to match backend logic
+                // ✅ FIX: Use backend data for entry count (more reliable than blockchain)
+                // The backend now uses the same query as manual-vrf-draw.ts
                 let deduplicatedCount = roundData.totalEntries.toString();
-                try {
-                  const entriesArray = await lottery.getRoundEntries(i);
-                  // Deduplicate entries using the same logic as backend
-                  const uniqueEntries = new Set(
-                    entriesArray.map((entry: bigint) => entry.toString())
-                  );
-                  deduplicatedCount = uniqueEntries.size.toString();
-                  console.log(
-                    `Round ${i}: Raw entries ${entriesArray.length}, Unique entries ${uniqueEntries.size}`
-                  );
-                } catch (entriesErr) {
-                  console.log(
-                    `Warning: Could not fetch entries for round ${i}, using totalEntries field:`,
-                    entriesErr
-                  );
-                  // Fallback to totalEntries if we can't fetch the actual entries array
-                }
+                console.log(
+                  `Round ${i}: Using blockchain totalEntries as fallback: ${deduplicatedCount}`
+                );
 
                 // Try to get payout amount from FeePayoutSuccess events
                 let payoutAmount = undefined;
@@ -411,7 +412,7 @@ export default function DrawResults() {
   };
 
   const getExplorerUrl = (addr: string) =>
-    `https://basescan.org/address/${addr}`;
+    `https://bscscan.com/address/${addr}`;
 
   const VRF_COORDINATOR = "0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE"; // TODO: Update to Base Mainnet VRF Coordinator
   const getVrfUrl = (requestId: string) =>
@@ -588,9 +589,24 @@ export default function DrawResults() {
                             </td>
                             <td className="px-6 py-4">
                               <div className="flex items-center space-x-2">
-                                <span className="text-sm font-mono text-[#212427]">
+                                {/* Mobile: Truncated but clickable */}
+                                <a
+                                  href={getExplorerUrl(round.winner)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="md:hidden text-sm font-mono text-[#212427] hover:text-[#666666] hover:underline transition-colors cursor-pointer"
+                                >
                                   {formatAddress(round.winner)}
-                                </span>
+                                </a>
+                                {/* Desktop: Full address and clickable */}
+                                <a
+                                  href={getExplorerUrl(round.winner)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="hidden md:inline text-sm font-mono text-[#212427] hover:text-[#666666] hover:underline transition-colors cursor-pointer"
+                                >
+                                  {round.winner}
+                                </a>
                               </div>
                             </td>
                             <td className="px-6 py-4">
@@ -644,7 +660,7 @@ export default function DrawResults() {
                                     height={12}
                                     className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
                                   />
-                                  <span>Wallet</span>
+                                  <span>Snapshot</span>
                                 </a>
                               </div>
                             </td>
@@ -745,9 +761,24 @@ export default function DrawResults() {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center space-x-2">
-                            <span className="text-sm font-mono text-[#212427]">
+                            {/* Mobile: Truncated but clickable */}
+                            <a
+                              href={getExplorerUrl(round.winner)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="md:hidden text-sm font-mono text-[#212427] hover:text-[#666666] hover:underline transition-colors cursor-pointer"
+                            >
                               {formatAddress(round.winner)}
-                            </span>
+                            </a>
+                            {/* Desktop: Full address and clickable */}
+                            <a
+                              href={getExplorerUrl(round.winner)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hidden md:inline text-sm font-mono text-[#212427] hover:text-[#666666] hover:underline transition-colors cursor-pointer"
+                            >
+                              {round.winner}
+                            </a>
                           </div>
                         </td>
                         <td className="px-6 py-4">
@@ -801,7 +832,7 @@ export default function DrawResults() {
                                 height={12}
                                 className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
                               />
-                              <span>Wallet</span>
+                              <span>Snapshot</span>
                             </a>
                           </div>
                         </td>
