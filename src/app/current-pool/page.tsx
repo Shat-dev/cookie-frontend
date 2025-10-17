@@ -7,10 +7,7 @@ import SimpleCountdown from "@/components/SimpleCountdown";
 import VirtualizedNFTGrid from "@/components/VirtualizedNFTGrid";
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { usePoolCount } from "@/hooks/usePoolCount";
-import {
-  useCurrentDraw,
-  subscribeToDrawNotifications,
-} from "@/hooks/useCurrentDraw";
+import { useActiveRound } from "@/hooks/useActiveRound";
 import { useProjections } from "@/hooks/useProjections";
 import { usePrizePool } from "@/hooks/usePrizePool";
 import { getApiEndpoint } from "@/utils/api";
@@ -77,11 +74,10 @@ export default function CurrentPool() {
 
   const { count: poolCount } = usePoolCount();
   const {
-    drawNumber: currentDrawNumber,
+    roundNumber: currentDrawNumber,
     loading: drawLoading,
-    automation,
     refetch: refetchDraw,
-  } = useCurrentDraw();
+  } = useActiveRound();
   const {
     totalCount: projectionCount,
     getDecodedProjections,
@@ -230,22 +226,18 @@ export default function CurrentPool() {
     setFilterNoEntries(false);
   };
 
-  // ✅ NEW: Enhanced display count logic using automation data
-  // Use projection count as primary, with automation data as secondary source
+  // Enhanced display count logic
+  // Use projection count as primary, with pool count as fallback
   const displayCount = useMemo(() => {
     // Priority 1: Real-time projection count (when available)
     if (projectionCount > 0) return projectionCount;
 
-    // Priority 2: Automation data entry count (more accurate than pool count)
-    if (automation?.totalEntries && automation.totalEntries > 0)
-      return automation.totalEntries;
-
-    // Priority 3: Pool count (fallback)
+    // Priority 2: Pool count (fallback)
     if (poolCount > 0) return poolCount;
 
-    // Priority 4: Default
+    // Priority 3: Default
     return 0;
-  }, [projectionCount, automation?.totalEntries, poolCount]);
+  }, [projectionCount, poolCount]);
 
   const isCountLoading =
     projectionsLoading && projectionCount === 0 && drawLoading;
@@ -468,13 +460,6 @@ export default function CurrentPool() {
                         <div className="text-sm sm:text-base text-[#666666] font-thin">
                           Active Entries
                         </div>
-                        {/* ✅ NEW: Show automation entry count if different from display count */}
-                        {automation?.totalEntries &&
-                          automation.totalEntries !== displayCount && (
-                            <div className="text-xs text-[#888888] mt-1">
-                              Database: {automation.totalEntries}
-                            </div>
-                          )}
                       </div>
 
                       <div className="text-center">
@@ -653,13 +638,6 @@ export default function CurrentPool() {
                     <div className="text-sm sm:text-base text-[#666666] font-thin">
                       Active Entries
                     </div>
-                    {/* ✅ NEW: Show automation entry count if different from display count */}
-                    {automation?.totalEntries &&
-                      automation.totalEntries !== displayCount && (
-                        <div className="text-xs text-[#888888] mt-1">
-                          Database: {automation.totalEntries}
-                        </div>
-                      )}
                   </div>
 
                   <div className="text-center">

@@ -10,7 +10,7 @@ import { useProjections } from "@/hooks/useProjections";
 import { usePoolCount } from "@/hooks/usePoolCount";
 import { useWinners } from "@/hooks/useWinners";
 import { usePrizePool } from "@/hooks/usePrizePool";
-import { useCurrentDraw } from "@/hooks/useCurrentDraw";
+import { useActiveRound } from "@/hooks/useActiveRound";
 
 // Memoized mobile gumball section to prevent re-renders from state changes
 const MobileGumballSection = memo(() => (
@@ -40,24 +40,20 @@ export default function Home() {
     loading: prizePoolLoading,
     error: prizePoolError,
   } = usePrizePool();
-  const { automation, loading: drawLoading } = useCurrentDraw();
+  const { loading: drawLoading } = useActiveRound();
 
-  // ✅ NEW: Enhanced display count logic using same priority system as current-pool page
-  // Use projection count as primary, with automation data as secondary source
+  // Enhanced display count logic using same priority system as current-pool page
+  // Use projection count as primary, with pool count as fallback
   const displayCount = useMemo(() => {
     // Priority 1: Real-time projection count (when available)
     if (projectionCount > 0) return projectionCount;
 
-    // Priority 2: Automation data entry count (more accurate than pool count)
-    if (automation?.totalEntries && automation.totalEntries > 0)
-      return automation.totalEntries;
-
-    // Priority 3: Pool count (fallback)
+    // Priority 2: Pool count (fallback)
     if (poolCount > 0) return poolCount;
 
-    // Priority 4: Default
+    // Priority 3: Default
     return 0;
-  }, [projectionCount, automation?.totalEntries, poolCount]);
+  }, [projectionCount, poolCount]);
 
   const isCountLoading =
     projectionsLoading && projectionCount === 0 && drawLoading;
