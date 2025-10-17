@@ -167,7 +167,7 @@ export default function Header({
               Twitter
             </Link>
             <Link
-              href={`https://basescan.org/address/${contractAddress}`}
+              href={`https://bscscan.org/address/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -177,7 +177,7 @@ export default function Header({
             </Link>
 
             <Link
-              href={`https://dexscreener.com/base/${contractAddress}`}
+              href={`https://dexscreener.com/bsc/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -221,7 +221,7 @@ export default function Header({
           Twitter
         </Link>
         <Link
-          href={`https://basescan.org/address/${contractAddress}`}
+          href={`https://bscscan.org/address/${contractAddress}`}
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
@@ -229,7 +229,7 @@ export default function Header({
           Contract
         </Link>
         <Link
-          href={`https://dexscreener.com/base/${contractAddress}`}
+          href={`https://dexscreener.com/bsc/${contractAddress}`}
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"

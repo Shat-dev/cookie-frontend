@@ -62,7 +62,7 @@ export default function About() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED LOTTERY ON BNB
+                  ERC-404 POWERED LOTTERY ON BSC
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
@@ -105,7 +105,7 @@ export default function About() {
                 About Cookie
               </h1>
               <p className="text-lg px-8 text-[#666666] font-thin">
-                A custom ERC-404 lottery project on BNB
+                A custom ERC-404 lottery project on BSC
               </p>
             </div>
 
@@ -129,7 +129,7 @@ export default function About() {
                   </h2>
                   <p className="text-[#666666] font-thin leading-relaxed">
                     FortuneCookieBNB.xyz is a decentralized lottery system on
-                    the BNB network using a custom ERC-404 contract. Automated.
+                    the BSC network using a custom ERC-404 contract. Automated.
                     Immutable. Always fair. Every draw combines marketing
                     virality and tokenomics buybacks into a dual flywheel that
                     compounds growth.
@@ -336,10 +336,10 @@ export default function About() {
                     </div>
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        BNB Network
+                        BSC Network
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        Deployed on BNB for low fees, fast finality, and
+                        Deployed on BSC for low fees, fast finality, and
                         security.
                       </p>
                     </div>
@@ -411,7 +411,7 @@ export default function About() {
             About Cookie
           </h1>
           <p className="text-lg px-8 text-[#666666] font-thin">
-            A custom ERC-404 lottery project on BNB
+            A custom ERC-404 lottery project on BSC
           </p>
         </div>
 
@@ -435,7 +435,7 @@ export default function About() {
               </h2>
               <p className="text-[#666666] font-thin leading-relaxed">
                 FortuneCookieBNB.xyz is a decentralized lottery system on the
-                BNB network using a custom ERC-404 contract. Automated.
+                BSC network using a custom ERC-404 contract. Automated.
                 Immutable. Always fair. Every draw combines marketing virality
                 and tokenomics buybacks into a dual flywheel that compounds
                 growth.
@@ -640,10 +640,10 @@ export default function About() {
                 </div>
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    BNB Network
+                    BSC Network
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    Deployed on BNB for low fees, fast finality, and security.
+                    Deployed on BSC for low fees, fast finality, and security.
                   </p>
                 </div>
                 <div>

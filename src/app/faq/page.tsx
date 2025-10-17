@@ -88,9 +88,9 @@ export default function FAQ() {
         "Eligibility is checked on-chain via NFT ownership and off-chain via X/Twitter post detection and verification logic on the backend.",
     },
     {
-      question: "Do I need a BNB wallet to participate?",
+      question: "Do I need a BSC wallet to participate?",
       answer:
-        "Yes. Since the project is built on BNB (an L1 by BNB), you will need a wallet configured for the BNB network to participate.",
+        "Yes. Since the project is built on BSC (an L1 by ETH), you will need a wallet configured for the BSC network to participate.",
     },
     {
       question: "What happens if I transfer or sell my NFT?",
@@ -131,7 +131,7 @@ export default function FAQ() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED LOTTERY ON BNB
+                  ERC-404 POWERED LOTTERY ON BSC
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
