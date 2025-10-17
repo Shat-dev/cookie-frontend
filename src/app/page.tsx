@@ -279,7 +279,7 @@ export default function Home() {
                     fill="#666666"
                   />
                 </svg>
-                <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
+                <span className="text-xs">CookieBNB.xyz 2025</span>
               </div>
             </div>
 
@@ -311,9 +311,7 @@ export default function Home() {
                     fill="#666666"
                   />
                 </svg>
-                <span className="text-xs md:text-BNB">
-                  FortuneCookieBNB.xyz 2025
-                </span>
+                <span className="text-xs md:text-BNB">CookieBNB.xyz 2025</span>
               </div>
             </div>
           </>

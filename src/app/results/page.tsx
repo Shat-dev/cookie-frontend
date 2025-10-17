@@ -529,7 +529,7 @@ export default function DrawResults() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
+                  <span className="text-xs">CookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>

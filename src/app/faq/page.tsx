@@ -162,7 +162,7 @@ export default function FAQ() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
+                  <span className="text-xs">CookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -174,7 +174,7 @@ export default function FAQ() {
                 Frequently Asked Questions
               </h1>
               <p className="text-lg text-[#666666] font-thin">
-                Everything you need to know about FortuneCookieBNB.xyz
+                Everything you need to know about CookieBNB.xyz
               </p>
             </div>
 
@@ -223,7 +223,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h1>
           <p className="text-lg text-[#666666] font-thin">
-            Everything you need to know about FortuneCookieBNB.xyz
+            Everything you need to know about CookieBNB.xyz
           </p>
         </div>
 

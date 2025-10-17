@@ -92,7 +92,7 @@ export default function NotFound() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">Playcookie.xyz 2025</span>
+                  <span className="text-xs">CookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>

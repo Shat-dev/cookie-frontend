@@ -93,7 +93,7 @@ export default function About() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
+                  <span className="text-xs">CookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -128,8 +128,8 @@ export default function About() {
                     Project Overview
                   </h2>
                   <p className="text-[#666666] font-thin leading-relaxed">
-                    FortuneCookieBNB.xyz is a decentralized lottery system on
-                    the BSC network using a custom ERC-404 contract. Automated.
+                    CookieBNB.xyz is a decentralized lottery system on the BSC
+                    network using a custom ERC-404 contract. Automated.
                     Immutable. Always fair. Every draw combines marketing
                     virality and tokenomics buybacks into a dual flywheel that
                     compounds growth.
@@ -171,8 +171,9 @@ export default function About() {
                           Post on X
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Post your NFT on X tagging @CookieXYZ. Use our default
-                          template. All tokens in your wallet are auto-entered.
+                          Post your NFT on X tagging @FortuneBNB. Use our
+                          default template. All tokens in your wallet are
+                          auto-entered.
                         </p>
                       </div>
                     </div>
@@ -434,11 +435,10 @@ export default function About() {
                 Project Overview
               </h2>
               <p className="text-[#666666] font-thin leading-relaxed">
-                FortuneCookieBNB.xyz is a decentralized lottery system on the
-                BSC network using a custom ERC-404 contract. Automated.
-                Immutable. Always fair. Every draw combines marketing virality
-                and tokenomics buybacks into a dual flywheel that compounds
-                growth.
+                CookieBNB.xyz is a decentralized lottery system on the BSC
+                network using a custom ERC-404 contract. Automated. Immutable.
+                Always fair. Every draw combines marketing virality and
+                tokenomics buybacks into a dual flywheel that compounds growth.
               </p>
             </section>
           </div>
@@ -477,7 +477,7 @@ export default function About() {
                       Post on X
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Post your NFT on X tagging @CookieXYZ. Use our default
+                      Post your NFT on X tagging @FortuneBNB. Use our default
                       template. All tokens in your wallet are auto-entered.
                     </p>
                   </div>

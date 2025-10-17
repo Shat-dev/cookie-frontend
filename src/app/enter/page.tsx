@@ -390,7 +390,7 @@ export default function EnterPage() {
   const others = Math.max(totalEntries ?? 0, 0);
 
   const tweetText = encodeURIComponent(
-    `My Cookie ${cookieNumber} + ${extraEntries} more\n\n${prizePool} in the pot.\n\n${timeLeft} until draw\n\nI'm in @fortunebnb with ${others} others.\n\nhttps://FortuneCookieBNB.xyz`
+    `The first fully automated-lottery on BSC \n\nBSC 上首个全自动彩票\n\n${prizePool} in the pot.\n\n幸运饼干 ${cookieNumber} + ${extraEntries} more\n\n@FortuneBNB\n\nhttps://CookieBNB.xyz`
   );
 
   const tweetURL = `https://x.com/intent/tweet?text=${tweetText}`;
@@ -453,7 +453,7 @@ export default function EnterPage() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">FortuneCookieBNB.xyz 2025</span>
+                  <span className="text-xs">CookieBNB.xyz 2025</span>
                 </div>
               </div>
             </footer>
@@ -491,7 +491,7 @@ export default function EnterPage() {
                     Step 2
                   </h3>
                   <p className="text-sm text-[#666666] font-thin">
-                    Post on X/Twitter with &quot;Cookie {cookieNumber}&quot;
+                    Post on X/Twitter with &quot;幸运饼干 {cookieNumber}&quot;
                   </p>
                 </div>
               </div>
@@ -690,7 +690,7 @@ export default function EnterPage() {
                 Step 2
               </h3>
               <p className="text-sm text-[#666666] font-thin">
-                Post on X/Twitter with &quot;Cookie {cookieNumber}&quot;
+                Post on X/Twitter with &quot;幸运饼干 {cookieNumber}&quot;
               </p>
             </div>
           </div>
