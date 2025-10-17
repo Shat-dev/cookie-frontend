@@ -50,6 +50,7 @@ interface LotteryRound {
   requestId: string;
   payoutAmount?: string; // ETH amount
   payoutAmountUsd?: number; // USD amount
+  snapshotTxHash?: string; // Snapshot transaction hash for BscScan link
 }
 
 interface CachedData {
@@ -229,6 +230,7 @@ export default function DrawResults() {
                 timestamp?: string;
                 payoutAmount?: string;
                 payoutAmountUsd?: number;
+                snapshotTxHash?: string;
               }) => ({
                 roundNumber: round.roundNumber,
                 winner: round.winner,
@@ -240,12 +242,26 @@ export default function DrawResults() {
                 requestId: round.requestId || "0",
                 payoutAmount: round.payoutAmount,
                 payoutAmountUsd: round.payoutAmountUsd,
+                snapshotTxHash: round.snapshotTxHash,
               })
             );
 
             console.log(
-              `✅ Backend API returned ${allRounds.length} completed rounds with entry counts`
+              `✅ Backend API returned ${allRounds.length} completed rounds with entry counts and snapshot hashes`
             );
+
+            // Debug: Log snapshot transaction hashes
+            allRounds.forEach((round) => {
+              if (round.snapshotTxHash) {
+                console.log(
+                  `📦 Round ${round.roundNumber}: Snapshot TX ${round.snapshotTxHash}`
+                );
+              } else {
+                console.log(
+                  `📦 Round ${round.roundNumber}: No snapshot TX hash available`
+                );
+              }
+            });
           }
         }
       } catch {
@@ -314,7 +330,7 @@ export default function DrawResults() {
 
                 // ✅ FIX: Use backend data for entry count (more reliable than blockchain)
                 // The backend now uses the same query as manual-vrf-draw.ts
-                let deduplicatedCount = roundData.totalEntries.toString();
+                const deduplicatedCount = roundData.totalEntries.toString();
                 console.log(
                   `Round ${i}: Using blockchain totalEntries as fallback: ${deduplicatedCount}`
                 );
@@ -371,6 +387,7 @@ export default function DrawResults() {
                   requestId: requestId,
                   payoutAmount: payoutAmount,
                   payoutAmountUsd: payoutAmountUsd,
+                  snapshotTxHash: undefined, // Not available from blockchain data
                 };
                 allRounds.push(newRound);
               }
@@ -414,7 +431,11 @@ export default function DrawResults() {
   const getExplorerUrl = (addr: string) =>
     `https://bscscan.com/address/${addr}`;
 
-  const VRF_COORDINATOR = "0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE"; // TODO: Update to Base Mainnet VRF Coordinator
+  // Generate BscScan transaction URL for snapshot verification
+  const getBscScanTxUrl = (txHash: string) =>
+    `https://bscscan.com/tx/${txHash}`;
+
+  const VRF_COORDINATOR = "0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE"; // VRF Coordinator for VRF verification links
   const getVrfUrl = (requestId: string) =>
     `https://basescan.org/address/${VRF_COORDINATOR}#eventlog?query=requestId:${requestId}`;
 
@@ -647,21 +668,27 @@ export default function DrawResults() {
                                   />
                                   <span>VRF</span>
                                 </a>
-                                <a
-                                  href={getExplorerUrl(round.winner)}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
-                                >
-                                  <Image
-                                    src="/link.svg"
-                                    alt="Link"
-                                    width={12}
-                                    height={12}
-                                    className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                                  />
-                                  <span>Snapshot</span>
-                                </a>
+                                {round.snapshotTxHash ? (
+                                  <a
+                                    href={getBscScanTxUrl(round.snapshotTxHash)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
+                                  >
+                                    <Image
+                                      src="/link.svg"
+                                      alt="Link"
+                                      width={12}
+                                      height={12}
+                                      className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
+                                    />
+                                    <span>Snapshot</span>
+                                  </a>
+                                ) : (
+                                  <span className="text-[#999999] font-thin text-xs">
+                                    Snapshot N/A
+                                  </span>
+                                )}
                               </div>
                             </td>
                           </tr>
@@ -819,21 +846,27 @@ export default function DrawResults() {
                               />
                               <span>VRF</span>
                             </a>
-                            <a
-                              href={getExplorerUrl(round.winner)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
-                            >
-                              <Image
-                                src="/link.svg"
-                                alt="Link"
-                                width={12}
-                                height={12}
-                                className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                              />
-                              <span>Snapshot</span>
-                            </a>
+                            {round.snapshotTxHash ? (
+                              <a
+                                href={getBscScanTxUrl(round.snapshotTxHash)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
+                              >
+                                <Image
+                                  src="/link.svg"
+                                  alt="Link"
+                                  width={12}
+                                  height={12}
+                                  className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
+                                />
+                                <span>Snapshot</span>
+                              </a>
+                            ) : (
+                              <span className="text-[#999999] font-thin text-xs">
+                                Snapshot N/A
+                              </span>
+                            )}
                           </div>
                         </td>
                       </tr>
