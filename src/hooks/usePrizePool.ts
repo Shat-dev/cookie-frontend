@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getApiEndpoint } from "@/utils/api";
+import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface PrizePoolData {
   balance_eth: string;
@@ -44,28 +45,23 @@ export function usePrizePool() {
       fetchingRef.current = true;
 
       try {
-        const response = await fetch(
-          getApiEndpoint("/api/lottery/prize-pool"),
-          {
-            cache: "no-store",
-            headers: {
-              "Cache-Control": "no-cache",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const result = await response.json();
+        const result = await fetchSingleton<{
+          success: boolean;
+          data?: PrizePoolData;
+          message?: string;
+        }>(getApiEndpoint("/api/lottery/prize-pool"), {
+          cache: "no-store",
+          headers: {
+            "Cache-Control": "no-cache",
+          },
+        });
 
         if (!result.success) {
           throw new Error(result.message || "Failed to fetch prize pool");
         }
 
         setState({
-          data: result.data,
+          data: result.data || null,
           loading: false,
           error: null,
           lastFetch: now,

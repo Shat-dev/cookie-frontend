@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { getApiEndpoint } from "@/utils/api";
+import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface ActiveRoundData {
   round_number: number;
@@ -37,7 +38,7 @@ export const useActiveRound = () => {
     try {
       setError(null);
 
-      const response = await fetch(
+      const result = await fetchSingleton<ActiveRoundResponse>(
         getApiEndpoint("/api/lottery/rounds/active"),
         {
           cache: "no-store",
@@ -46,12 +47,6 @@ export const useActiveRound = () => {
           },
         }
       );
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const result: ActiveRoundResponse = await response.json();
 
       if (result.success && result.data?.round) {
         const newRoundNumber = result.data.round.round_number;

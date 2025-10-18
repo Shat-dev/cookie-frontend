@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { getApiEndpoint } from "@/utils/api";
+import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface Winner {
   drawNumber: number;
@@ -81,15 +82,13 @@ export const useWinners = () => {
       }
 
       // Use backend API for winners
-      const response = await fetch(getApiEndpoint("/api/lottery/winners?limit=10"), {
+      const data = await fetchSingleton<{
+        success: boolean;
+        data?: BackendWinner[];
+        error?: string;
+      }>(getApiEndpoint("/api/lottery/winners?limit=10"), {
         cache: "no-store",
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const data = await response.json();
 
       if (data.success && Array.isArray(data.data)) {
         const backendWinners: Winner[] = data.data.map(
@@ -97,7 +96,9 @@ export const useWinners = () => {
             const tokenId = winner.token_id || "0";
             return {
               drawNumber: winner.round_id || 0,
-              amount: parseFloat(winner.prize_amount || winner.payout_amount || "0"),
+              amount: parseFloat(
+                winner.prize_amount || winner.payout_amount || "0"
+              ),
               nftImageUrl: getNftImageUrl(tokenId),
               winnerAddress: winner.wallet_address || "",
               tokenId,

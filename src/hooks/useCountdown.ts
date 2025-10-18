@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { getApiEndpoint } from "@/utils/api";
+import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface CountdownState {
   phase: "starting" | "countdown" | "selecting" | "winner";
@@ -43,18 +44,15 @@ export function useCountdown() {
     try {
       setError(null);
 
-      const response = await fetch(getApiEndpoint("/api/countdown"), {
-        cache: "no-store",
-        headers: {
-          "Cache-Control": "no-cache",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const data: BackendCountdownResponse = await response.json();
+      const data = await fetchSingleton<BackendCountdownResponse>(
+        getApiEndpoint("/api/countdown"),
+        {
+          cache: "no-store",
+          headers: {
+            "Cache-Control": "no-cache",
+          },
+        }
+      );
 
       if (data.success) {
         const newPhase = data.phase;

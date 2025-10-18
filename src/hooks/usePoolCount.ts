@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getApiEndpoint } from "@/utils/api";
+import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface PoolEntry {
   wallet_address: string;
@@ -22,11 +23,12 @@ export function usePoolCount() {
       setLoading(true);
       setError("");
 
-      const res = await fetch(getApiEndpoint("/api/current-pool"), {
-        cache: "no-store",
-      });
-
-      const json: PoolResponse = await res.json();
+      const json = await fetchSingleton<PoolResponse>(
+        getApiEndpoint("/api/current-pool"),
+        {
+          cache: "no-store",
+        }
+      );
 
       if (json?.success && Array.isArray(json.data)) {
         // Calculate total count from all token_ids arrays

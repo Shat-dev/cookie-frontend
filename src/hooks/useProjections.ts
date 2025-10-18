@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getApiEndpoint } from "@/utils/api";
+import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface ProjectionEntry {
   wallet_address: string;
@@ -31,15 +32,12 @@ export function useProjections() {
       setLoading(true);
       setError("");
 
-      const res = await fetch(getApiEndpoint("/api/current-projections"), {
-        cache: "no-store",
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-
-      const json: ProjectionResponse = await res.json();
+      const json = await fetchSingleton<ProjectionResponse>(
+        getApiEndpoint("/api/current-projections"),
+        {
+          cache: "no-store",
+        }
+      );
 
       if (json?.success && Array.isArray(json.data)) {
         setProjections(json.data);
