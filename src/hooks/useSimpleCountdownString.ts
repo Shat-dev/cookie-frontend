@@ -16,7 +16,7 @@ export function useSimpleCountdownString(): string {
 
   const fetchCountdownStatus = async () => {
     try {
-      const response = await fetch("/api/lottery/countdown");
+      const response = await fetch("/api/countdown");
       if (response.ok) {
         const data = await response.json();
         if (data.success) {

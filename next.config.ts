@@ -41,6 +41,10 @@ const nextConfig: NextConfig = {
         source: "/api/prize-pool",
         destination: `${apiUrl}/api/prize-pool`,
       },
+      {
+        source: "/api/countdown",
+        destination: `${apiUrl}/api/countdown`,
+      },
     ];
   },
 
