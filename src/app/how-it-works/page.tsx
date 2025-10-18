@@ -171,7 +171,7 @@ export default function About() {
                           Post on X
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Post your NFT on X tagging @FortuneBNB. Use our
+                          Post your NFT on X tagging @BinanceCookie. Use our
                           default template. All tokens in your wallet are
                           auto-entered.
                         </p>
@@ -477,7 +477,7 @@ export default function About() {
                       Post on X
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Post your NFT on X tagging @FortuneBNB. Use our default
+                      Post your NFT on X tagging @BinanceCookie. Use our default
                       template. All tokens in your wallet are auto-entered.
                     </p>
                   </div>

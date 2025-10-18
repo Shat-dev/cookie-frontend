@@ -158,7 +158,7 @@ export default function Header({
         {menuOpen && (
           <div className="absolute text-right text-[#666666] font-thin z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
             <Link
-              href="https://x.com/fortunebnb"
+              href="https://x.com/binancecookie"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -213,7 +213,7 @@ export default function Header({
       {/* Desktop Top Right Navigation */}
       <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#666666] font-thin">
         <Link
-          href="https://x.com/fortunebnb"
+          href="https://x.com/binancecookie"
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
