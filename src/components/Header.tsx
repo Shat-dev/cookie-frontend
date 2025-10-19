@@ -167,7 +167,7 @@ export default function Header({
               Twitter
             </Link>
             <Link
-              href={`https://bscscan.org/address/${contractAddress}`}
+              href={`https://bscscan.com/address/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -221,7 +221,7 @@ export default function Header({
           Twitter
         </Link>
         <Link
-          href={`https://bscscan.org/address/${contractAddress}`}
+          href={`https://bscscan.com/address/${contractAddress}`}
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
