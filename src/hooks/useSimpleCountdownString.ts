@@ -20,6 +20,8 @@ export function useSimpleCountdownString(): string {
       return "Selecting Winner";
     case "winner":
       return "Winner Picked!";
+    case "new_round":
+      return "New round starting";
     default:
       return "Starting soon";
   }

@@ -3,14 +3,14 @@ import { getApiEndpoint } from "@/utils/api";
 import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface CountdownState {
-  phase: "starting" | "countdown" | "selecting" | "winner";
+  phase: "starting" | "countdown" | "selecting" | "winner" | "new_round";
   remainingSeconds: number;
   isActive: boolean;
 }
 
 interface BackendCountdownResponse {
   success: boolean;
-  phase: "starting" | "countdown" | "selecting" | "winner";
+  phase: "starting" | "countdown" | "selecting" | "winner" | "new_round";
   remainingSeconds: number;
   endsAt?: string; // ISO timestamp when countdown ends
   isActive: boolean;

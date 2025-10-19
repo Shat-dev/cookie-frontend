@@ -23,13 +23,17 @@ const SimpleCountdown: React.FC = () => {
         return "Selecting Winner";
       case "winner":
         return "Winner Picked!";
+      case "new_round":
+        return "New round starting";
       default:
         return "Starting soon";
     }
   };
 
   const shouldAnimate = () => {
-    return phase === "starting" || phase === "selecting";
+    return (
+      phase === "starting" || phase === "selecting" || phase === "new_round"
+    );
   };
 
   return (
