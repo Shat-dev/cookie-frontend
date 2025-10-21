@@ -20,11 +20,11 @@ const SimpleCountdown: React.FC = () => {
       case "countdown":
         return formatTime(remainingSeconds);
       case "selecting":
-        return "Selecting Winner";
+        return "Selecting...";
       case "winner":
         return "Winner Picked!";
       case "new_round":
-        return "New round starting";
+        return "Next round";
       default:
         return "Starting soon";
     }

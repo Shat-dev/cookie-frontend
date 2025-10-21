@@ -102,7 +102,7 @@ export default function CurrentPool() {
       })
       .catch((error) => {
         console.error("Failed to load contract address:", error);
-        setContractAddress("0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"); // Fallback
+        setContractAddress(""); // Fallback
       });
   }, []);
 
@@ -382,16 +382,13 @@ export default function CurrentPool() {
               <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
                 <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                   <div className="text-xs text-[#666666] font-mono text-center">
-                    ERC-404 POWERED LOTTERY ON BNB
+                    ERC-404 POWERED LOTTERY ON BSC
                   </div>
                   <div
                     className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                     onClick={handleCopyAddress}
                   >
-                    {copied
-                      ? "Copied Successfully!"
-                      : contractAddress ||
-                        "0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"}
+                    {copied ? "Copied Successfully!" : contractAddress || ""}
                   </div>
                   <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                     <svg
@@ -413,7 +410,7 @@ export default function CurrentPool() {
                         fill="#666666"
                       />
                     </svg>
-                    <span className="text-xs">fortunecookie.xyz 2025</span>
+                    <span className="text-xs">CookieBnb.xyz 2025</span>
                   </div>
                 </div>
               </footer>
@@ -439,7 +436,9 @@ export default function CurrentPool() {
                           {prizePoolLoading ? (
                             <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mx-auto" />
                           ) : prizePoolError ? (
-                            <span className="text-[#212427]">$2,000</span>
+                            <span className="text-[#212427]">
+                              Calculating...
+                            </span>
                           ) : (
                             prizePoolUsd
                           )}
@@ -617,7 +616,7 @@ export default function CurrentPool() {
                       {prizePoolLoading ? (
                         <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mx-auto" />
                       ) : prizePoolError ? (
-                        <span className="text-[#212427]">$2,000</span>
+                        <span className="text-[#212427]">Calculating...</span>
                       ) : (
                         prizePoolUsd
                       )}

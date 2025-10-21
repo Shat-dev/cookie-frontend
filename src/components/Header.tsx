@@ -94,7 +94,9 @@ export default function Header({
       {/* Desktop Top Left */}
       <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-thin">
         <div className="text-[#666666] mb-1 hover:text-[#212427] transition-colors text-xs md:text-lg">
-          <span className="hidden md:inline">ERC-404 Powered Lottery</span>
+          <span className="hidden md:inline">
+            BSC&apos;s first on-chain lottery
+          </span>
         </div>
         <div
           className="text-[#666666] font-thin hover:text-[#212427] transition-colors cursor-pointer text-xs md:text-base font-mono"
@@ -158,7 +160,7 @@ export default function Header({
         {menuOpen && (
           <div className="absolute text-right text-[#666666] font-thin z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
             <Link
-              href="https://x.com/binancecookie"
+              href="https://x.com/CookieBinance"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -207,13 +209,19 @@ export default function Header({
             >
               FAQ
             </Link>
+            <Link
+              href="/results"
+              className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base"
+            >
+              Results
+            </Link>
           </div>
         )}
       </div>
       {/* Desktop Top Right Navigation */}
       <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#666666] font-thin">
         <Link
-          href="https://x.com/binancecookie"
+          href="https://x.com/CookieBinance"
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"

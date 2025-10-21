@@ -382,7 +382,7 @@ export default function EnterPage() {
 
   const cookieNumber = nfts.length > 0 ? nfts[0].token_id : "1293";
   const extraEntries = nfts.length > 1 ? nfts.length - 1 : 10;
-  const prizePool = prizePoolUsd || "$2,000"; // fallback to $2,000 if loading
+  const prizePool = prizePoolUsd || "Calculating..."; // fallback to $2,000 if loading
   const timeLeft = countdownString;
   // Use real-time projection count for accurate entry count
   const { totalCount: projectionCount } = useProjections();
@@ -390,7 +390,7 @@ export default function EnterPage() {
   const others = Math.max(totalEntries ?? 0, 0);
 
   const tweetText = encodeURIComponent(
-    `The first fully automated-lottery on BSC \n\nBSC 上首个全自动彩票\n\n${prizePool} in the pot.\n\n幸运饼干 ${cookieNumber} + ${extraEntries} more\n\n@BinanceCookie\n\nhttps://CookieBNB.xyz`
+    `The first fully automated-lottery on BSC \n\nBSC 上首个全自动彩票\n\n${prizePool} in the pot.\n\n幸运饼干 ${cookieNumber} + ${extraEntries} more\n\n@CookieBinance\n\nhttps://CookieBNB.xyz`
   );
 
   const tweetURL = `https://x.com/intent/tweet?text=${tweetText}`;
@@ -428,10 +428,7 @@ export default function EnterPage() {
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied
-                    ? "Copied Successfully!"
-                    : contractAddress ||
-                      "0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"}
+                  {copied ? "Copied Successfully!" : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg

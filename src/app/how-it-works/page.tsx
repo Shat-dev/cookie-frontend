@@ -68,10 +68,7 @@ export default function About() {
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied
-                    ? "Copied Successfully!"
-                    : contractAddress ||
-                      "0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"}
+                  {copied ? "Copied Successfully!" : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
@@ -171,7 +168,7 @@ export default function About() {
                           Post on X
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Post your NFT on X tagging @BinanceCookie. Use our
+                          Post your NFT on X tagging @CookieBinance. Use our
                           default template. All tokens in your wallet are
                           auto-entered.
                         </p>
@@ -477,7 +474,7 @@ export default function About() {
                       Post on X
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Post your NFT on X tagging @BinanceCookie. Use our default
+                      Post your NFT on X tagging @CookieBinance. Use our default
                       template. All tokens in your wallet are auto-entered.
                     </p>
                   </div>

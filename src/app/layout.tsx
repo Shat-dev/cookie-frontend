@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "PLAY $COOKIE",
-  description: "The first BSC on-chain Lottery ",
+  description: "The first BSC Lottery. Immutable, automated, always fair ",
   keywords: ["ERC-404", "lottery", "web3", "blockchain", "Cookie"],
   authors: [{ name: "CookieBNB.xyz Team" }],
   icons: {

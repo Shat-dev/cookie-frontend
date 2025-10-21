@@ -188,7 +188,7 @@ export default function Home() {
                       <span className="text-[#666666]">Loading...</span>
                     </div>
                   ) : prizePoolError ? (
-                    <span className="text-[#212427]">$2,000</span>
+                    <span className="text-[#212427]">Calculating...</span>
                   ) : (
                     prizePoolUsd
                   )}
@@ -253,10 +253,7 @@ export default function Home() {
                 className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                 onClick={handleCopyAddress}
               >
-                {copied
-                  ? "Copied Successfully!"
-                  : contractAddress ||
-                    "0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"}
+                {copied ? "Copied Successfully!" : contractAddress || ""}
               </div>
               <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                 {/* svg kept */}

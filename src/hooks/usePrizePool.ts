@@ -3,9 +3,9 @@ import { getApiEndpoint } from "@/utils/api";
 import { fetchSingleton } from "@/utils/fetchSingleton";
 
 interface PrizePoolData {
-  balance_eth: string;
+  balance_bnb: string;
   balance_wei: string;
-  eth_price_usd: number;
+  bnb_price_usd: number;
   prize_pool_usd: number;
   last_updated: string;
 }
@@ -117,9 +117,9 @@ export function usePrizePool() {
     }
   }, [state.data]);
 
-  const getFormattedEthValue = useCallback(() => {
-    if (!state.data) return "0.00 ETH";
-    return `${parseFloat(state.data.balance_eth).toFixed(4)} ETH`;
+  const getFormattedBnbValue = useCallback(() => {
+    if (!state.data) return "0.00 BNB";
+    return `${parseFloat(state.data.balance_bnb).toFixed(4)} BNB`;
   }, [state.data]);
 
   return {
@@ -130,7 +130,7 @@ export function usePrizePool() {
 
     // Formatted helpers
     formattedUsd: getFormattedUsdValue(),
-    formattedEth: getFormattedEthValue(),
+    formattedBnb: getFormattedBnbValue(),
 
     // Actions
     refresh,

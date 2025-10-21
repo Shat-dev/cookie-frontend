@@ -22,6 +22,27 @@ const LOTTERY_ABI = abi;
 const CACHE_KEY = "lottery-rounds-cache";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 
+// In-memory session cache for blockchain data
+const sessionCache = new Map<
+  string,
+  { data: SessionCacheData; timestamp: number }
+>();
+const SESSION_CACHE_TTL = 5 * 60 * 1000; // 5 minutes session cache
+
+// Session cache utilities
+const getSessionCached = (key: string): SessionCacheData | null => {
+  const cached = sessionCache.get(key);
+  if (cached && Date.now() - cached.timestamp < SESSION_CACHE_TTL) {
+    return cached.data;
+  }
+  sessionCache.delete(key);
+  return null;
+};
+
+const setSessionCached = (key: string, data: SessionCacheData): void => {
+  sessionCache.set(key, { data, timestamp: Date.now() });
+};
+
 // Validation
 if (!LOTTERY_ADDRESS) {
   throw new Error("Lottery contract address not found in constants file");
@@ -51,12 +72,19 @@ interface LotteryRound {
   payoutAmount?: string; // ETH amount
   payoutAmountUsd?: number; // USD amount
   snapshotTxHash?: string; // Snapshot transaction hash for BscScan link
+  vrfTxHash?: string; // VRF requestRandomWinner transaction hash for BscScan link
 }
 
 interface CachedData {
   data: LotteryRound[];
   timestamp: number;
 }
+
+// Ethers event interfaces - using ethers.Log and ethers.EventLog types
+type EthersEventLog = ethers.Log | ethers.EventLog;
+
+// Session cache data types
+type SessionCacheData = LotteryRound[] | unknown;
 
 // Cache utility functions
 const getCachedRounds = (): LotteryRound[] | null => {
@@ -148,7 +176,7 @@ export default function DrawResults() {
       })
       .catch((error) => {
         console.error("Failed to load contract address:", error);
-        setContractAddress("0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"); // Fallback
+        setContractAddress(""); // Fallback
       });
   }, []);
 
@@ -202,6 +230,7 @@ export default function DrawResults() {
     isFetching.current = true;
 
     const isInitialLoad = !initialLoadDone.current;
+    const startTime = performance.now();
 
     // Only show loading spinner for initial loads or when explicitly requested
     if (showLoading && isInitialLoad) {
@@ -211,7 +240,10 @@ export default function DrawResults() {
     try {
       let allRounds: LotteryRound[] = [];
 
-      // 1) Backend (historical)
+      // 1) Backend (primary source for completed rounds)
+      console.log("🔄 Fetching backend data...");
+      const backendStartTime = performance.now();
+
       try {
         const response = await fetch(`${API_BASE_URL}/api/lottery/results`, {
           cache: "no-store",
@@ -225,17 +257,18 @@ export default function DrawResults() {
                 roundNumber: number;
                 winner: string;
                 winningTokenId: string;
-                totalEntries: string; // ✅ FIX: Use totalEntries (matches backend response)
+                totalEntries: string;
                 requestId?: string;
                 timestamp?: string;
                 payoutAmount?: string;
                 payoutAmountUsd?: number;
                 snapshotTxHash?: string;
+                vrfTxHash?: string;
               }) => ({
                 roundNumber: round.roundNumber,
                 winner: round.winner,
                 winningTokenId: round.winningTokenId,
-                totalEntries: round.totalEntries, // ✅ FIX: Use backend count
+                totalEntries: round.totalEntries,
                 startTime: round.timestamp || new Date().toISOString(),
                 endTime: round.timestamp || new Date().toISOString(),
                 isCompleted: true,
@@ -243,34 +276,27 @@ export default function DrawResults() {
                 payoutAmount: round.payoutAmount,
                 payoutAmountUsd: round.payoutAmountUsd,
                 snapshotTxHash: round.snapshotTxHash,
+                vrfTransactionHash: round.vrfTxHash,
               })
             );
 
             console.log(
-              `✅ Backend API returned ${allRounds.length} completed rounds with entry counts and snapshot hashes`
+              `✅ Backend returned ${allRounds.length} rounds in ${(
+                performance.now() - backendStartTime
+              ).toFixed(0)}ms`
             );
-
-            // Debug: Log snapshot transaction hashes
-            allRounds.forEach((round) => {
-              if (round.snapshotTxHash) {
-                console.log(
-                  `📦 Round ${round.roundNumber}: Snapshot TX ${round.snapshotTxHash}`
-                );
-              } else {
-                console.log(
-                  `📦 Round ${round.roundNumber}: No snapshot TX hash available`
-                );
-              }
-            });
           }
         }
-      } catch {
+      } catch (backendErr) {
         if (isInitialLoad) {
           console.log("Backend fetch failed, continuing with blockchain…");
         }
       }
 
-      // 2) Blockchain (latest)
+      // 2) Blockchain (only for missing/new rounds)
+      console.log("🔄 Checking blockchain for new rounds...");
+      const blockchainStartTime = performance.now();
+
       try {
         const provider = new ethers.JsonRpcProvider(
           process.env.NEXT_PUBLIC_BNB_TESTNET_RPC ||
@@ -287,6 +313,7 @@ export default function DrawResults() {
         const currentRoundNumber = Number(currentRound);
 
         if (currentRoundNumber === 0) {
+          console.log("⚠️ No rounds exist on blockchain");
           setRounds(allRounds);
           setLastUpdated(new Date());
           setError(null);
@@ -297,108 +324,213 @@ export default function DrawResults() {
           return;
         }
 
+        // Find rounds missing from backend
+        const backendRoundNumbers = new Set(
+          allRounds.map((r) => r.roundNumber)
+        );
+        const missingRounds = [];
         for (let i = 1; i <= currentRoundNumber; i++) {
-          try {
-            const roundData = await lottery.getRound(i);
+          if (!backendRoundNumbers.has(i)) {
+            missingRounds.push(i);
+          }
+        }
 
-            if (
-              roundData.isCompleted &&
-              roundData.winner !== ethers.ZeroAddress
-            ) {
-              const existingRound = allRounds.find((r) => r.roundNumber === i);
-              if (!existingRound) {
-                console.log(
-                  `🔗 Fetching blockchain data for round ${i} (not in backend)`
-                );
-                // Fetch the requestId from RandomnessRequested events
-                let requestId = "0";
-                try {
-                  const filter = lottery.filters.RandomnessRequested(i);
-                  const events = await lottery.queryFilter(filter);
-                  if (events.length > 0) {
-                    const event = events[events.length - 1];
-                    if ("args" in event) {
-                      requestId = event.args.requestId.toString();
-                    }
-                  }
-                } catch (eventErr) {
-                  console.log(
-                    `Error fetching requestId for round ${i}:`,
-                    eventErr
-                  );
-                }
+        if (missingRounds.length === 0) {
+          console.log(
+            "✅ All rounds already in backend, no blockchain fetch needed"
+          );
+        } else {
+          console.log(
+            `🔗 Fetching ${
+              missingRounds.length
+            } missing rounds from blockchain: ${missingRounds.join(", ")}`
+          );
 
-                // ✅ FIX: Use backend data for entry count (more reliable than blockchain)
-                // The backend now uses the same query as manual-vrf-draw.ts
-                const deduplicatedCount = roundData.totalEntries.toString();
-                console.log(
-                  `Round ${i}: Using blockchain totalEntries as fallback: ${deduplicatedCount}`
-                );
+          // Check session cache first
+          const cacheKey = `blockchain-rounds-${missingRounds.join("-")}`;
+          const cachedBlockchainData = getSessionCached(cacheKey);
 
-                // Try to get payout amount from FeePayoutSuccess events
-                let payoutAmount = undefined;
-                let payoutAmountUsd = undefined;
-                try {
-                  const payoutFilter = lottery.filters.FeePayoutSuccess(i);
-                  const payoutEvents = await lottery.queryFilter(payoutFilter);
-                  if (payoutEvents.length > 0) {
-                    const payoutEvent = payoutEvents[payoutEvents.length - 1];
-                    if ("args" in payoutEvent && payoutEvent.args.length >= 3) {
-                      const payoutWei = payoutEvent.args[2];
-                      payoutAmount = ethers.formatEther(payoutWei);
+          if (cachedBlockchainData && Array.isArray(cachedBlockchainData)) {
+            console.log("📦 Using cached blockchain data");
+            allRounds.push(...(cachedBlockchainData as LotteryRound[]));
+          } else {
+            // 🚀 PARALLEL OPTIMIZATION: Batch all blockchain calls
 
-                      // Convert to USD (simplified - could cache this)
-                      try {
-                        const response = await fetch(
-                          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-                        );
-                        if (response.ok) {
-                          const data = (await response.json()) as {
-                            ethereum?: { usd?: number };
-                          };
-                          const ethPriceUsd = data.ethereum?.usd || 0;
-                          payoutAmountUsd =
-                            parseFloat(payoutAmount) * ethPriceUsd;
-                        }
-                      } catch (priceError) {
-                        console.warn("Failed to fetch ETH price:", priceError);
-                      }
-                    }
-                  }
-                } catch (payoutErr) {
-                  console.log(
-                    `Warning: Could not fetch payout for round ${i}:`,
-                    payoutErr
-                  );
-                }
-
-                const newRound: LotteryRound = {
-                  roundNumber: i,
-                  winner: roundData.winner,
-                  winningTokenId: roundData.winningTokenId.toString(),
-                  totalEntries: deduplicatedCount, // ✅ Use deduplicated count
-                  startTime: new Date(
-                    Number(roundData.startTime) * 1000
-                  ).toISOString(),
-                  endTime: new Date(
-                    Number(roundData.endTime) * 1000
-                  ).toISOString(),
-                  isCompleted: roundData.isCompleted,
-                  requestId: requestId,
-                  payoutAmount: payoutAmount,
-                  payoutAmountUsd: payoutAmountUsd,
-                  snapshotTxHash: undefined, // Not available from blockchain data
+            // Step 1: Fetch ETH price once (outside the loop)
+            let ethPriceUsd = 0;
+            try {
+              const priceResponse = await fetch(
+                "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+              );
+              if (priceResponse.ok) {
+                const priceData = (await priceResponse.json()) as {
+                  ethereum?: { usd?: number };
                 };
-                allRounds.push(newRound);
+                ethPriceUsd = priceData.ethereum?.usd || 0;
+                console.log(`💰 ETH price: $${ethPriceUsd}`);
               }
+            } catch (priceError) {
+              console.warn("Failed to fetch ETH price:", priceError);
             }
-          } catch (err) {
-            console.log(`Error fetching round ${i} from blockchain:`, err);
+
+            // Step 2: Batch all getRound() calls
+            console.log("🚀 Batching getRound() calls...");
+            const getRoundPromises = missingRounds.map(async (roundNum) => {
+              try {
+                const roundData = await lottery.getRound(roundNum);
+                return { roundNum, roundData, success: true };
+              } catch (error) {
+                console.log(`Error fetching round ${roundNum}:`, error);
+                return { roundNum, error, success: false };
+              }
+            });
+
+            // Step 3: Batch all event queries
+            console.log("🚀 Batching event queries...");
+            const eventPromises = [
+              // Single query for all RandomnessRequested events
+              lottery
+                .queryFilter(lottery.filters.RandomnessRequested())
+                .catch((err) => {
+                  console.warn(
+                    "Failed to fetch RandomnessRequested events:",
+                    err
+                  );
+                  return [];
+                }),
+              // Single query for all FeePayoutSuccess events
+              lottery
+                .queryFilter(lottery.filters.FeePayoutSuccess())
+                .catch((err) => {
+                  console.warn("Failed to fetch FeePayoutSuccess events:", err);
+                  return [];
+                }),
+            ];
+
+            // Step 4: Execute all promises in parallel
+            const [roundResults, [randomnessEvents, payoutEvents]] =
+              await Promise.all([
+                Promise.allSettled(getRoundPromises),
+                Promise.all(eventPromises),
+              ]);
+
+            // Step 5: Build lookup maps for events
+            const randomnessMap = new Map<number, string>();
+            const payoutMap = new Map<
+              number,
+              { amount: string; amountUsd: number }
+            >();
+
+            // Process RandomnessRequested events
+            randomnessEvents.forEach((event: EthersEventLog) => {
+              try {
+                // Type guard to check if it's an EventLog with args
+                if ("args" in event && event.args) {
+                  const args = event.args as unknown[];
+                  const roundNum = Number(
+                    args[0] || (event.args as Record<string, unknown>).round
+                  );
+                  const requestId =
+                    (
+                      (event.args as Record<string, unknown>)
+                        .requestId as unknown
+                    )?.toString() || args[1]?.toString();
+                  if (roundNum && requestId) {
+                    randomnessMap.set(roundNum, requestId);
+                  }
+                }
+              } catch (err) {
+                console.warn(
+                  "Error processing RandomnessRequested event:",
+                  err
+                );
+              }
+            });
+
+            // Process FeePayoutSuccess events
+            payoutEvents.forEach((event: EthersEventLog) => {
+              try {
+                // Type guard to check if it's an EventLog with args
+                if ("args" in event && event.args) {
+                  const args = event.args as unknown[];
+                  if (Array.isArray(args) && args.length >= 3) {
+                    const roundNum = Number(
+                      args[0] || (event.args as Record<string, unknown>).round
+                    );
+                    const payoutWei = args[2];
+                    if (roundNum && payoutWei) {
+                      const payoutAmount = ethers.formatEther(
+                        payoutWei as string
+                      );
+                      const payoutAmountUsd =
+                        parseFloat(payoutAmount) * ethPriceUsd;
+                      payoutMap.set(roundNum, {
+                        amount: payoutAmount,
+                        amountUsd: payoutAmountUsd,
+                      });
+                    }
+                  }
+                }
+              } catch (err) {
+                console.warn("Error processing FeePayoutSuccess event:", err);
+              }
+            });
+
+            // Step 6: Process results and build new rounds
+            const newRounds: LotteryRound[] = [];
+
+            roundResults.forEach((result, index) => {
+              if (result.status === "fulfilled" && result.value.success) {
+                const { roundNum, roundData } = result.value;
+
+                if (
+                  roundData.isCompleted &&
+                  roundData.winner !== ethers.ZeroAddress
+                ) {
+                  const requestId = randomnessMap.get(roundNum) || "0";
+                  const payout = payoutMap.get(roundNum);
+
+                  const newRound: LotteryRound = {
+                    roundNumber: roundNum,
+                    winner: roundData.winner,
+                    winningTokenId: roundData.winningTokenId.toString(),
+                    totalEntries: roundData.totalEntries.toString(),
+                    startTime: new Date(
+                      Number(roundData.startTime) * 1000
+                    ).toISOString(),
+                    endTime: new Date(
+                      Number(roundData.endTime) * 1000
+                    ).toISOString(),
+                    isCompleted: roundData.isCompleted,
+                    requestId: requestId,
+                    payoutAmount: payout?.amount,
+                    payoutAmountUsd: payout?.amountUsd,
+                    snapshotTxHash: undefined, // Not available from blockchain data
+                  };
+                  newRounds.push(newRound);
+                }
+              }
+            });
+
+            console.log(
+              `✅ Processed ${newRounds.length} new rounds from blockchain`
+            );
+
+            // Cache the blockchain results
+            if (newRounds.length > 0) {
+              setSessionCached(cacheKey, newRounds);
+              allRounds.push(...newRounds);
+            }
           }
         }
       } catch (err) {
         console.log("Blockchain fetch failed:", err);
       }
+
+      const blockchainTime = performance.now() - blockchainStartTime;
+      console.log(
+        `⚡ Blockchain processing completed in ${blockchainTime.toFixed(0)}ms`
+      );
 
       // Sort newest first
       allRounds.sort((a, b) => b.roundNumber - a.roundNumber);
@@ -412,6 +544,13 @@ export default function DrawResults() {
       if (allRounds.length > 0) {
         setCachedRounds(allRounds);
       }
+
+      const totalTime = performance.now() - startTime;
+      console.log(
+        `🎯 Total fetch completed in ${totalTime.toFixed(0)}ms for ${
+          allRounds.length
+        } rounds`
+      );
     } catch (err: unknown) {
       console.error("Error fetching lottery results:", err);
       setError(
@@ -435,15 +574,15 @@ export default function DrawResults() {
   const getBscScanTxUrl = (txHash: string) =>
     `https://bscscan.com/tx/${txHash}`;
 
-  const VRF_COORDINATOR = "0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE"; // VRF Coordinator for VRF verification links
-  const getVrfUrl = (requestId: string) =>
-    `https://basescan.org/address/${VRF_COORDINATOR}#eventlog?query=requestId:${requestId}`;
+  // Generate BSC transaction URL for VRF verification
+  const getVrfUrl = (vrfTxHash: string) =>
+    `https://bscscan.com/tx/${vrfTxHash}`;
 
   const formatAddress = (addr: string) =>
     `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
   const formatPayoutAmount = (round: LotteryRound) => {
-    // Display priority: USD amount > ETH amount > fallback message
+    // Display priority: USD amount > BNB amount > fallback message
     // Fetched from FeePayoutSuccess events on smart contract
     if (round.payoutAmountUsd && round.payoutAmountUsd > 0) {
       return `$${round.payoutAmountUsd.toLocaleString("en-US", {
@@ -451,7 +590,7 @@ export default function DrawResults() {
         maximumFractionDigits: 2,
       })}`;
     } else if (round.payoutAmount && parseFloat(round.payoutAmount) > 0) {
-      return `${parseFloat(round.payoutAmount).toFixed(4)} ETH`;
+      return `${parseFloat(round.payoutAmount).toFixed(4)} BNB`;
     } else {
       // For older rounds or rounds with missing payout data
       return "Amount TBD";
@@ -459,13 +598,13 @@ export default function DrawResults() {
   };
 
   const formatSecondaryPayout = (round: LotteryRound) => {
-    // Show ETH amount as secondary info when USD is primary
+    // Show BNB amount as secondary info when USD is primary
     if (
       round.payoutAmountUsd &&
       round.payoutAmount &&
       parseFloat(round.payoutAmount) > 0
     ) {
-      return `${parseFloat(round.payoutAmount).toFixed(4)} ETH`;
+      return `${parseFloat(round.payoutAmount).toFixed(4)} BNB`;
     }
     return null;
   };
@@ -504,10 +643,7 @@ export default function DrawResults() {
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied
-                    ? "Copied Successfully!"
-                    : contractAddress ||
-                      "0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"}
+                  {copied ? "Copied Successfully!" : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
@@ -563,7 +699,7 @@ export default function DrawResults() {
                           AMOUNT WON
                         </th>
                         <th className="px-6 py-4 text-left text-sm font-medium uppercase text-[#212427]">
-                          Entries
+                          ENTRIES
                         </th>
                         <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
                           VERIFICATION
@@ -653,21 +789,27 @@ export default function DrawResults() {
                             </td>
                             <td className="px-6 py-4">
                               <div className="flex space-x-4">
-                                <a
-                                  href={getVrfUrl(round.requestId)}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
-                                >
-                                  <Image
-                                    src="/link.svg"
-                                    alt="Link"
-                                    width={12}
-                                    height={12}
-                                    className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                                  />
-                                  <span>VRF</span>
-                                </a>
+                                {round.vrfTxHash ? (
+                                  <a
+                                    href={getVrfUrl(round.vrfTxHash)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
+                                  >
+                                    <Image
+                                      src="/link.svg"
+                                      alt="Link"
+                                      width={12}
+                                      height={12}
+                                      className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
+                                    />
+                                    <span>VRF</span>
+                                  </a>
+                                ) : (
+                                  <span className="text-[#999999] font-thin text-xs">
+                                    VRF N/A
+                                  </span>
+                                )}
                                 {round.snapshotTxHash ? (
                                   <a
                                     href={getBscScanTxUrl(round.snapshotTxHash)}
@@ -743,7 +885,7 @@ export default function DrawResults() {
                       AMOUNT WON
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-medium uppercase text-[#212427]">
-                      Entries
+                      ENTRIES
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
                       VERIFICATION
@@ -831,21 +973,27 @@ export default function DrawResults() {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex space-x-4">
-                            <a
-                              href={getVrfUrl(round.requestId)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
-                            >
-                              <Image
-                                src="/link.svg"
-                                alt="Link"
-                                width={12}
-                                height={12}
-                                className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                              />
-                              <span>VRF</span>
-                            </a>
+                            {round.vrfTxHash ? (
+                              <a
+                                href={getVrfUrl(round.vrfTxHash)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#666666] hover:text-[#212427] hover:underline transition-colors font-thin cursor-pointer flex items-center space-x-1 group"
+                              >
+                                <Image
+                                  src="/link.svg"
+                                  alt="Link"
+                                  width={12}
+                                  height={12}
+                                  className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
+                                />
+                                <span>VRF</span>
+                              </a>
+                            ) : (
+                              <span className="text-[#999999] font-thin text-xs">
+                                VRF N/A
+                              </span>
+                            )}
                             {round.snapshotTxHash ? (
                               <a
                                 href={getBscScanTxUrl(round.snapshotTxHash)}

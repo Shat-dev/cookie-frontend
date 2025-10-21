@@ -43,9 +43,9 @@ export default function FAQ() {
 
   const faqData = [
     {
-      question: "What is this project about?",
+      question: "What is Cookie about?",
       answer:
-        "This is an on-chain lottery system powered by ERC-404 tokens and Chainlink VRF, where NFT holders can participate in regular automated draws by proving ownership and social activity.",
+        "Cookie is the first fully-automated on-chain BSC lottery. It is powered by ERC-404 and Chainlink VRF, where NFT holders can participate in regular automated draws by proving ownership and social activity.",
     },
     {
       question: "How do I enter the lottery?",
@@ -80,7 +80,7 @@ export default function FAQ() {
     },
     {
       question: "How often is the draw conducted?",
-      answer: "Draws occur automatically every 3 hours.",
+      answer: "Draws occur automatically every 1 hour.",
     },
     {
       question: "How is my eligibility verified?",
@@ -93,14 +93,14 @@ export default function FAQ() {
         "Yes. Since the project is built on BSC (an L1 by ETH), you will need a wallet configured for the BSC network to participate.",
     },
     {
-      question: "What happens if I transfer or sell my NFT?",
+      question: "What happens if I transfer or sell a portion of my NFT's?",
       answer:
         "If you no longer hold the NFT in your wallet but have an existing X post, only the transferred tokens are removed from current and upcoming draws.",
     },
     {
       question: "How are prizes funded?",
       answer:
-        "The prize pool is built from trading volume and tokenomics. A 5% trading fee funds the prize.",
+        "The prize pool is built from trading volume and tokenomics. A 3% trading fee funds the lottery.",
     },
   ];
 
@@ -137,10 +137,7 @@ export default function FAQ() {
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied
-                    ? "Copied Successfully!"
-                    : contractAddress ||
-                      "0x6B60298f5Ab2D4B133D4385a73B17e95B16AA2aD"}
+                  {copied ? "Copied Successfully!" : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
