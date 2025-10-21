@@ -276,7 +276,7 @@ export default function DrawResults() {
                 payoutAmount: round.payoutAmount,
                 payoutAmountUsd: round.payoutAmountUsd,
                 snapshotTxHash: round.snapshotTxHash,
-                vrfTransactionHash: round.vrfTxHash,
+                vrfTxHash: round.vrfTxHash,
               })
             );
 

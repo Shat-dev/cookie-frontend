@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PLAY $COOKIE",
+  title: "PLAY $COOKIE 饼干",
   description: "The first BSC Lottery. Immutable, automated, always fair ",
   keywords: ["ERC-404", "lottery", "web3", "blockchain", "Cookie"],
   authors: [{ name: "CookieBNB.xyz Team" }],
