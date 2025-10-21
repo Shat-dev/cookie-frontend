@@ -6,59 +6,14 @@ import EnterButton from "@/components/CoolButton";
 import GlassmorphismDiv from "@/components/GlassmorphismDiv";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ethers } from "ethers";
-import address from "../../../constants/LotteryVrfV25Address.json";
-import abi from "../../../constants/LotteryVrfV25ABI.json";
 import { getApiUrl } from "@/utils/api";
 
 // Backend API endpoint for lottery results
 const API_BASE_URL = getApiUrl();
 
-// Lottery contract details for blockchain fetching - automatically imported from constants
-const LOTTERY_ADDRESS = address.LotteryVrfV25;
-const LOTTERY_ABI = abi;
-
 // Cache configuration
 const CACHE_KEY = "lottery-rounds-cache";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
-
-// In-memory session cache for blockchain data
-const sessionCache = new Map<
-  string,
-  { data: SessionCacheData; timestamp: number }
->();
-const SESSION_CACHE_TTL = 5 * 60 * 1000; // 5 minutes session cache
-
-// Session cache utilities
-const getSessionCached = (key: string): SessionCacheData | null => {
-  const cached = sessionCache.get(key);
-  if (cached && Date.now() - cached.timestamp < SESSION_CACHE_TTL) {
-    return cached.data;
-  }
-  sessionCache.delete(key);
-  return null;
-};
-
-const setSessionCached = (key: string, data: SessionCacheData): void => {
-  sessionCache.set(key, { data, timestamp: Date.now() });
-};
-
-// Validation
-if (!LOTTERY_ADDRESS) {
-  throw new Error("Lottery contract address not found in constants file");
-}
-
-if (!LOTTERY_ABI || LOTTERY_ABI.length === 0) {
-  throw new Error("Lottery ABI not found in constants file");
-}
-
-// Debug logging
-console.log("📋 Contract Configuration:");
-console.log("   Address:", LOTTERY_ADDRESS);
-console.log("   Network:", address.network);
-console.log("   Chain ID:", address.chainId);
-console.log("   ABI Functions:", LOTTERY_ABI.length);
-console.log("   Deployed:", address.deployedAt);
 
 interface LotteryRound {
   roundNumber: number;
@@ -79,12 +34,6 @@ interface CachedData {
   data: LotteryRound[];
   timestamp: number;
 }
-
-// Ethers event interfaces - using ethers.Log and ethers.EventLog types
-type EthersEventLog = ethers.Log | ethers.EventLog;
-
-// Session cache data types
-type SessionCacheData = LotteryRound[] | unknown;
 
 // Cache utility functions
 const getCachedRounds = (): LotteryRound[] | null => {
@@ -238,301 +187,57 @@ export default function DrawResults() {
     }
 
     try {
-      let allRounds: LotteryRound[] = [];
+      console.log("🔄 Fetching lottery results from backend...");
 
-      // 1) Backend (primary source for completed rounds)
-      console.log("🔄 Fetching backend data...");
-      const backendStartTime = performance.now();
+      const response = await fetch(`${API_BASE_URL}/api/lottery/results`, {
+        cache: "no-store",
+      });
 
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/lottery/results`, {
-          cache: "no-store",
-        });
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            // Map backend data to include any payout information
-            allRounds = data.data.map(
-              (round: {
-                roundNumber: number;
-                winner: string;
-                winningTokenId: string;
-                totalEntries: string;
-                requestId?: string;
-                timestamp?: string;
-                payoutAmount?: string;
-                payoutAmountUsd?: number;
-                snapshotTxHash?: string;
-                vrfTxHash?: string;
-              }) => ({
-                roundNumber: round.roundNumber,
-                winner: round.winner,
-                winningTokenId: round.winningTokenId,
-                totalEntries: round.totalEntries,
-                startTime: round.timestamp || new Date().toISOString(),
-                endTime: round.timestamp || new Date().toISOString(),
-                isCompleted: true,
-                requestId: round.requestId || "0",
-                payoutAmount: round.payoutAmount,
-                payoutAmountUsd: round.payoutAmountUsd,
-                snapshotTxHash: round.snapshotTxHash,
-                vrfTxHash: round.vrfTxHash,
-              })
-            );
-
-            console.log(
-              `✅ Backend returned ${allRounds.length} rounds in ${(
-                performance.now() - backendStartTime
-              ).toFixed(0)}ms`
-            );
-          }
-        }
-      } catch (backendErr) {
-        if (isInitialLoad) {
-          console.log("Backend fetch failed, continuing with blockchain…");
-        }
+      if (!response.ok) {
+        throw new Error(
+          `Backend API returned ${response.status}: ${response.statusText}`
+        );
       }
 
-      // 2) Blockchain (only for missing/new rounds)
-      console.log("🔄 Checking blockchain for new rounds...");
-      const blockchainStartTime = performance.now();
+      const data = await response.json();
 
-      try {
-        const provider = new ethers.JsonRpcProvider(
-          process.env.NEXT_PUBLIC_BNB_TESTNET_RPC ||
-            "https://bsc-testnet-rpc.publicnode.com"
+      if (!data.success) {
+        throw new Error(
+          data.message || "Backend API returned unsuccessful response"
         );
-
-        const lottery = new ethers.Contract(
-          LOTTERY_ADDRESS,
-          LOTTERY_ABI,
-          provider
-        );
-
-        const currentRound = await lottery.s_currentRound();
-        const currentRoundNumber = Number(currentRound);
-
-        if (currentRoundNumber === 0) {
-          console.log("⚠️ No rounds exist on blockchain");
-          setRounds(allRounds);
-          setLastUpdated(new Date());
-          setError(null);
-          if (allRounds.length > 0) {
-            setCachedRounds(allRounds);
-          }
-          if (isInitialLoad) setIsLoading(false);
-          return;
-        }
-
-        // Find rounds missing from backend
-        const backendRoundNumbers = new Set(
-          allRounds.map((r) => r.roundNumber)
-        );
-        const missingRounds = [];
-        for (let i = 1; i <= currentRoundNumber; i++) {
-          if (!backendRoundNumbers.has(i)) {
-            missingRounds.push(i);
-          }
-        }
-
-        if (missingRounds.length === 0) {
-          console.log(
-            "✅ All rounds already in backend, no blockchain fetch needed"
-          );
-        } else {
-          console.log(
-            `🔗 Fetching ${
-              missingRounds.length
-            } missing rounds from blockchain: ${missingRounds.join(", ")}`
-          );
-
-          // Check session cache first
-          const cacheKey = `blockchain-rounds-${missingRounds.join("-")}`;
-          const cachedBlockchainData = getSessionCached(cacheKey);
-
-          if (cachedBlockchainData && Array.isArray(cachedBlockchainData)) {
-            console.log("📦 Using cached blockchain data");
-            allRounds.push(...(cachedBlockchainData as LotteryRound[]));
-          } else {
-            // 🚀 PARALLEL OPTIMIZATION: Batch all blockchain calls
-
-            // Step 1: Fetch ETH price once (outside the loop)
-            let ethPriceUsd = 0;
-            try {
-              const priceResponse = await fetch(
-                "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-              );
-              if (priceResponse.ok) {
-                const priceData = (await priceResponse.json()) as {
-                  ethereum?: { usd?: number };
-                };
-                ethPriceUsd = priceData.ethereum?.usd || 0;
-                console.log(`💰 ETH price: $${ethPriceUsd}`);
-              }
-            } catch (priceError) {
-              console.warn("Failed to fetch ETH price:", priceError);
-            }
-
-            // Step 2: Batch all getRound() calls
-            console.log("🚀 Batching getRound() calls...");
-            const getRoundPromises = missingRounds.map(async (roundNum) => {
-              try {
-                const roundData = await lottery.getRound(roundNum);
-                return { roundNum, roundData, success: true };
-              } catch (error) {
-                console.log(`Error fetching round ${roundNum}:`, error);
-                return { roundNum, error, success: false };
-              }
-            });
-
-            // Step 3: Batch all event queries
-            console.log("🚀 Batching event queries...");
-            const eventPromises = [
-              // Single query for all RandomnessRequested events
-              lottery
-                .queryFilter(lottery.filters.RandomnessRequested())
-                .catch((err) => {
-                  console.warn(
-                    "Failed to fetch RandomnessRequested events:",
-                    err
-                  );
-                  return [];
-                }),
-              // Single query for all FeePayoutSuccess events
-              lottery
-                .queryFilter(lottery.filters.FeePayoutSuccess())
-                .catch((err) => {
-                  console.warn("Failed to fetch FeePayoutSuccess events:", err);
-                  return [];
-                }),
-            ];
-
-            // Step 4: Execute all promises in parallel
-            const [roundResults, [randomnessEvents, payoutEvents]] =
-              await Promise.all([
-                Promise.allSettled(getRoundPromises),
-                Promise.all(eventPromises),
-              ]);
-
-            // Step 5: Build lookup maps for events
-            const randomnessMap = new Map<number, string>();
-            const payoutMap = new Map<
-              number,
-              { amount: string; amountUsd: number }
-            >();
-
-            // Process RandomnessRequested events
-            randomnessEvents.forEach((event: EthersEventLog) => {
-              try {
-                // Type guard to check if it's an EventLog with args
-                if ("args" in event && event.args) {
-                  const args = event.args as unknown[];
-                  const roundNum = Number(
-                    args[0] || (event.args as Record<string, unknown>).round
-                  );
-                  const requestId =
-                    (
-                      (event.args as Record<string, unknown>)
-                        .requestId as unknown
-                    )?.toString() || args[1]?.toString();
-                  if (roundNum && requestId) {
-                    randomnessMap.set(roundNum, requestId);
-                  }
-                }
-              } catch (err) {
-                console.warn(
-                  "Error processing RandomnessRequested event:",
-                  err
-                );
-              }
-            });
-
-            // Process FeePayoutSuccess events
-            payoutEvents.forEach((event: EthersEventLog) => {
-              try {
-                // Type guard to check if it's an EventLog with args
-                if ("args" in event && event.args) {
-                  const args = event.args as unknown[];
-                  if (Array.isArray(args) && args.length >= 3) {
-                    const roundNum = Number(
-                      args[0] || (event.args as Record<string, unknown>).round
-                    );
-                    const payoutWei = args[2];
-                    if (roundNum && payoutWei) {
-                      const payoutAmount = ethers.formatEther(
-                        payoutWei as string
-                      );
-                      const payoutAmountUsd =
-                        parseFloat(payoutAmount) * ethPriceUsd;
-                      payoutMap.set(roundNum, {
-                        amount: payoutAmount,
-                        amountUsd: payoutAmountUsd,
-                      });
-                    }
-                  }
-                }
-              } catch (err) {
-                console.warn("Error processing FeePayoutSuccess event:", err);
-              }
-            });
-
-            // Step 6: Process results and build new rounds
-            const newRounds: LotteryRound[] = [];
-
-            roundResults.forEach((result, index) => {
-              if (result.status === "fulfilled" && result.value.success) {
-                const { roundNum, roundData } = result.value;
-
-                if (
-                  roundData.isCompleted &&
-                  roundData.winner !== ethers.ZeroAddress
-                ) {
-                  const requestId = randomnessMap.get(roundNum) || "0";
-                  const payout = payoutMap.get(roundNum);
-
-                  const newRound: LotteryRound = {
-                    roundNumber: roundNum,
-                    winner: roundData.winner,
-                    winningTokenId: roundData.winningTokenId.toString(),
-                    totalEntries: roundData.totalEntries.toString(),
-                    startTime: new Date(
-                      Number(roundData.startTime) * 1000
-                    ).toISOString(),
-                    endTime: new Date(
-                      Number(roundData.endTime) * 1000
-                    ).toISOString(),
-                    isCompleted: roundData.isCompleted,
-                    requestId: requestId,
-                    payoutAmount: payout?.amount,
-                    payoutAmountUsd: payout?.amountUsd,
-                    snapshotTxHash: undefined, // Not available from blockchain data
-                  };
-                  newRounds.push(newRound);
-                }
-              }
-            });
-
-            console.log(
-              `✅ Processed ${newRounds.length} new rounds from blockchain`
-            );
-
-            // Cache the blockchain results
-            if (newRounds.length > 0) {
-              setSessionCached(cacheKey, newRounds);
-              allRounds.push(...newRounds);
-            }
-          }
-        }
-      } catch (err) {
-        console.log("Blockchain fetch failed:", err);
       }
 
-      const blockchainTime = performance.now() - blockchainStartTime;
-      console.log(
-        `⚡ Blockchain processing completed in ${blockchainTime.toFixed(0)}ms`
+      // Map backend data to frontend format
+      const allRounds: LotteryRound[] = data.data.map(
+        (round: {
+          roundNumber: number;
+          winner: string;
+          winningTokenId: string;
+          totalEntries: string;
+          isCompleted: boolean;
+          payoutAmount?: string;
+          payoutAmountUsd?: number;
+          snapshotTxHash?: string;
+          vrfTxHash?: string;
+          createdAt?: string;
+          updatedAt?: string;
+        }) => ({
+          roundNumber: round.roundNumber,
+          winner: round.winner,
+          winningTokenId: round.winningTokenId,
+          totalEntries: round.totalEntries,
+          startTime: round.createdAt || new Date().toISOString(),
+          endTime: round.updatedAt || new Date().toISOString(),
+          isCompleted: round.isCompleted,
+          requestId: "0", // Not needed for display
+          payoutAmount: round.payoutAmount,
+          payoutAmountUsd: round.payoutAmountUsd,
+          snapshotTxHash: round.snapshotTxHash,
+          vrfTxHash: round.vrfTxHash,
+        })
       );
 
-      // Sort newest first
+      // Sort newest first (backend should already do this, but ensure it)
       allRounds.sort((a, b) => b.roundNumber - a.roundNumber);
 
       // Update state and cache
@@ -547,7 +252,7 @@ export default function DrawResults() {
 
       const totalTime = performance.now() - startTime;
       console.log(
-        `🎯 Total fetch completed in ${totalTime.toFixed(0)}ms for ${
+        `✅ Backend fetch completed in ${totalTime.toFixed(0)}ms for ${
           allRounds.length
         } rounds`
       );

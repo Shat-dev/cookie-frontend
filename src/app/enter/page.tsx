@@ -383,7 +383,6 @@ export default function EnterPage() {
   const cookieNumber = nfts.length > 0 ? nfts[0].token_id : "1293";
   const extraEntries = nfts.length > 1 ? nfts.length - 1 : 10;
   const prizePool = prizePoolUsd || "Calculating..."; // fallback to $2,000 if loading
-  const timeLeft = countdownString;
   // Use real-time projection count for accurate entry count
   const { totalCount: projectionCount } = useProjections();
   const totalEntries = projectionCount ?? 0;
