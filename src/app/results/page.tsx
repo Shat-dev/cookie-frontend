@@ -807,7 +807,7 @@ export default function DrawResults() {
                                   </a>
                                 ) : (
                                   <span className="text-[#999999] font-thin text-xs">
-                                    VRF N/A
+                                    N/A
                                   </span>
                                 )}
                                 {round.snapshotTxHash ? (
@@ -828,7 +828,7 @@ export default function DrawResults() {
                                   </a>
                                 ) : (
                                   <span className="text-[#999999] font-thin text-xs">
-                                    Snapshot N/A
+                                    N/A
                                   </span>
                                 )}
                               </div>
