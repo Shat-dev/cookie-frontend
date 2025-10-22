@@ -288,7 +288,7 @@ export default function DrawResults() {
 
   const formatPayoutAmount = (round: LotteryRound) => {
     // Display priority: USD amount > BNB amount > fallback message
-    // Fetched from FeePayoutSuccess events on smart contract
+    // Calculated as 60% of pre-VRF contract balance snapshot
     if (round.payoutAmountUsd && round.payoutAmountUsd > 0) {
       return `$${round.payoutAmountUsd.toLocaleString("en-US", {
         minimumFractionDigits: 2,
