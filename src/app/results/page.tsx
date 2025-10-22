@@ -298,7 +298,7 @@ export default function DrawResults() {
       return `${parseFloat(round.payoutAmount).toFixed(4)} BNB`;
     } else {
       // For older rounds or rounds with missing payout data
-      return "Amount TBD";
+      return "N/A";
     }
   };
 
