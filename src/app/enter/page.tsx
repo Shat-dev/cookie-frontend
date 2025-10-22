@@ -487,7 +487,8 @@ export default function EnterPage() {
                     Step 2
                   </h3>
                   <p className="text-sm text-[#666666] font-thin">
-                    Post on X/Twitter with &quot;幸运饼干 {cookieNumber}&quot;
+                    Post on X/Twitter with &quot;幸运饼干 Cookie {cookieNumber}
+                    &quot;
                   </p>
                 </div>
               </div>
@@ -686,7 +687,8 @@ export default function EnterPage() {
                 Step 2
               </h3>
               <p className="text-sm text-[#666666] font-thin">
-                Post on X/Twitter with &quot;幸运饼干 {cookieNumber}&quot;
+                Post on X/Twitter with &quot;幸运饼干 Cookie {cookieNumber}
+                &quot;
               </p>
             </div>
           </div>
