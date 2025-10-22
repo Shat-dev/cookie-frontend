@@ -109,10 +109,10 @@ export default function Home() {
                 {prizePoolLoading ? (
                   <div className="flex items-center">
                     <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mr-4" />
-                    <span className="text-[#666666]">Loading...</span>
+                    <span className="text-[#666666]">Calcuating...</span>
                   </div>
                 ) : prizePoolError ? (
-                  <span className="text-[#212427]">$2,000</span>
+                  <span className="text-[#212427]">Calculating...</span>
                 ) : (
                   prizePoolUsd
                 )}
@@ -185,7 +185,7 @@ export default function Home() {
                   {prizePoolLoading ? (
                     <div className="flex items-center justify-center">
                       <div className="h-4 w-4 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mr-2" />
-                      <span className="text-[#666666]">Loading...</span>
+                      <span className="text-[#666666]">Calculating...</span>
                     </div>
                   ) : prizePoolError ? (
                     <span className="text-[#212427]">Calculating...</span>
