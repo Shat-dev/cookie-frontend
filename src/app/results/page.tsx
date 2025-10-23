@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { getApiUrl } from "@/utils/api";
 import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/i18n/translations";
 
 // Backend API endpoint for lottery results
 const API_BASE_URL = getApiUrl();
@@ -71,7 +72,7 @@ const setCachedRounds = (rounds: LotteryRound[]) => {
 };
 
 // Loading Spinner Component - Mobile-responsive centering
-function LoadingSpinner({ t }: { t: any }) {
+function LoadingSpinner() {
   return (
     <div className="flex flex-col items-center justify-center py-20 relative">
       {/* Mobile: Position relative to viewport center */}
@@ -80,7 +81,7 @@ function LoadingSpinner({ t }: { t: any }) {
           <div className="flex flex-col items-center justify-center p-6 ">
             <div className="w-8 h-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mb-4"></div>
             <div className="text-[#666666] text-sm font-thin whitespace-nowrap">
-              {t.results.loadingResults}
+              Loading lottery results...
             </div>
           </div>
         </div>
@@ -90,7 +91,7 @@ function LoadingSpinner({ t }: { t: any }) {
       <div className="hidden md:flex flex-col items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mb-4"></div>
         <div className="text-[#666666] text-sm font-thin">
-          {t.results.loadingResults}
+          Loading lottery results...
         </div>
       </div>
     </div>
@@ -418,7 +419,7 @@ export default function DrawResults() {
                       {isLoading ? (
                         <tr>
                           <td colSpan={5} className="px-6">
-                            <LoadingSpinner t={t} />
+                            <LoadingSpinner />
                           </td>
                         </tr>
                       ) : error ? (
@@ -603,7 +604,7 @@ export default function DrawResults() {
                   {isLoading ? (
                     <tr>
                       <td colSpan={5} className="px-6">
-                        <LoadingSpinner t={t} />
+                        <LoadingSpinner />
                       </td>
                     </tr>
                   ) : error ? (
