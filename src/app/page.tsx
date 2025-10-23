@@ -66,9 +66,9 @@ export default function Home() {
       setContractAddress(data.Cookie);
     });
 
-    // Preload ball.png image for instant display when menu opens
+    // Preload cookie.png image for instant display when menu opens
     const ballImg = new window.Image();
-    ballImg.src = "/ball.png";
+    ballImg.src = "/cookie.png";
 
     // Preload Cookie.png image for instant display of Cookie component
     const CookieImg = new window.Image();
@@ -166,7 +166,7 @@ export default function Home() {
         {isMenuOpen ? (
           <div className="flex items-end justify-center min-h-[80dvh]">
             <img
-              src="/ball.png"
+              src="/cookie.png"
               alt="Ball"
               className="w-auto h-auto max-w-[50%] max-h-[50%] object-contain"
             />

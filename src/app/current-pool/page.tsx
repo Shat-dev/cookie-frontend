@@ -94,10 +94,10 @@ export default function CurrentPool() {
     error: prizePoolError,
   } = usePrizePool();
 
-  // ✅ NEW: Preload ball.png image for instant display when menu opens
+  // ✅ NEW: Preload cookie.png image for instant display when menu opens
   useEffect(() => {
     const img = new window.Image();
-    img.src = "/ball.png";
+    img.src = "/cookie.png";
 
     // Load contract address
     import("../../../constants/contract-address.json")
@@ -376,7 +376,7 @@ export default function CurrentPool() {
             <div className="relative w-full min-h-[100dvh] overflow-hidden px-8 pt-2 pb-[68px]">
               <div className="flex items-end justify-center min-h-[80dvh]">
                 <img
-                  src="/ball.png"
+                  src="/cookie.png"
                   alt="Ball"
                   className="w-auto h-auto max-w-[50%] max-h-[50%] object-contain"
                 />

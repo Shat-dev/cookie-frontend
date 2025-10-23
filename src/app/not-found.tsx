@@ -15,7 +15,7 @@ export default function NotFound() {
 
   const { t } = useLanguage();
 
-  // ✅ NEW: Preload ball.png image for instant display when menu opens
+  // ✅ NEW: Preload cookie.png image for instant display when menu opens
   useEffect(() => {
     const img = new window.Image();
     img.src = "/Cookie.png";
@@ -54,7 +54,7 @@ export default function NotFound() {
           <div className="relative w-full min-h-[100dvh] overflow-hidden px-8 pt-2 pb-[68px]">
             <div className="flex items-end justify-center min-h-[80dvh]">
               <img
-                src="/ball.png"
+                src="/cookie.png"
                 alt="Ball"
                 className="w-auto h-auto max-w-[50%] max-h-[50%] object-contain"
               />
