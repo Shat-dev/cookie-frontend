@@ -4,6 +4,7 @@ import Link from "next/link";
 import EnterButton from "@/components/CoolButton";
 import Header from "@/components/Header";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function NotFound() {
   // ✅ NEW: Mobile menu state
@@ -11,6 +12,8 @@ export default function NotFound() {
   // ✅ NEW: Contract address and copy state for footer
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
+
+  const { t } = useLanguage();
 
   // ✅ NEW: Preload ball.png image for instant display when menu opens
   useEffect(() => {
@@ -61,13 +64,13 @@ export default function NotFound() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED LOTTERY ON BSC
+                  {t.footer.erc404PoweredLottery}
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied ? "Copied Successfully!" : contractAddress || ""}
+                  {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
@@ -89,7 +92,7 @@ export default function NotFound() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">CookieBNB.xyz 2025</span>
+                  <span className="text-xs">{t.footer.copyright}</span>
                 </div>
               </div>
             </footer>
@@ -98,13 +101,13 @@ export default function NotFound() {
           <main className="max-w-4xl mx-auto px-8 py-12">
             <div className="text-center mb-12">
               <h1 className="text-6xl font-semi-bold text-[#212427] mb-4">
-                404
+                {t.notFound.title}
               </h1>
               <p className="text-2xl text-[#666666] font-thin mb-2">
-                Page Not Found
+                {t.notFound.pageNotFound}
               </p>
               <p className="text-lg text-[#666666] font-thin">
-                The page you&apos;re looking for doesn&apos;t exist
+                {t.notFound.description}
               </p>
             </div>
 
@@ -114,7 +117,7 @@ export default function NotFound() {
                 <EnterButton
                   onClick={() => console.log("Back to home clicked")}
                 >
-                  Back to Home
+                  {t.common.backToHome}
                 </EnterButton>
               </Link>
             </div>
@@ -125,12 +128,14 @@ export default function NotFound() {
       {/* Desktop Layout (unchanged) */}
       <main className="hidden md:block max-w-4xl mx-auto px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-6xl font-semi-bold text-[#212427] mb-4">404</h1>
+          <h1 className="text-6xl font-semi-bold text-[#212427] mb-4">
+            {t.notFound.title}
+          </h1>
           <p className="text-2xl text-[#666666] font-thin mb-2">
-            Page Not Found
+            {t.notFound.pageNotFound}
           </p>
           <p className="text-lg text-[#666666] font-thin">
-            The page you&apos;re looking for doesn&apos;t exist
+            {t.notFound.description}
           </p>
         </div>
 
@@ -138,7 +143,7 @@ export default function NotFound() {
         <div className="pt-8 flex justify-center">
           <Link href="/">
             <EnterButton onClick={() => console.log("Back to home clicked")}>
-              Back to Home
+              {t.common.backToHome}
             </EnterButton>
           </Link>
         </div>

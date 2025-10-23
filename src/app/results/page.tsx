@@ -7,6 +7,7 @@ import GlassmorphismDiv from "@/components/GlassmorphismDiv";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { getApiUrl } from "@/utils/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Backend API endpoint for lottery results
 const API_BASE_URL = getApiUrl();
@@ -70,7 +71,7 @@ const setCachedRounds = (rounds: LotteryRound[]) => {
 };
 
 // Loading Spinner Component - Mobile-responsive centering
-function LoadingSpinner() {
+function LoadingSpinner({ t }: { t: any }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 relative">
       {/* Mobile: Position relative to viewport center */}
@@ -79,7 +80,7 @@ function LoadingSpinner() {
           <div className="flex flex-col items-center justify-center p-6 ">
             <div className="w-8 h-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mb-4"></div>
             <div className="text-[#666666] text-sm font-thin whitespace-nowrap">
-              Loading lottery results...
+              {t.results.loadingResults}
             </div>
           </div>
         </div>
@@ -89,7 +90,7 @@ function LoadingSpinner() {
       <div className="hidden md:flex flex-col items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mb-4"></div>
         <div className="text-[#666666] text-sm font-thin">
-          Loading lottery results...
+          {t.results.loadingResults}
         </div>
       </div>
     </div>
@@ -106,6 +107,8 @@ export default function DrawResults() {
   // ✅ NEW: Contract address and copy state for footer
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
+
+  const { t } = useLanguage();
 
   // Refs for managing effects and preventing double-fetches
   const initialLoadDone = useRef(false);
@@ -342,13 +345,13 @@ export default function DrawResults() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED Cookie LOTTERY ON BASE
+                  {t.footer.erc404PoweredLottery}
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied ? "Copied Successfully!" : contractAddress || ""}
+                  {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
@@ -370,7 +373,7 @@ export default function DrawResults() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">CookieBNB.xyz 2025</span>
+                  <span className="text-xs">{t.footer.copyright}</span>
                 </div>
               </div>
             </footer>
@@ -380,10 +383,10 @@ export default function DrawResults() {
             {/* Header Section */}
             <div className="text-center mb-12">
               <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-                Draw Results & Verification
+                {t.results.title}
               </h1>
               <p className="text-base text-[#666666] font-thin max-w-2xl mx-auto">
-                All draws use VRF for provable fairness.
+                {t.results.subtitle}
               </p>
             </div>
 
@@ -395,19 +398,19 @@ export default function DrawResults() {
                     <thead className=" border-b border-[#dddddd]">
                       <tr>
                         <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                          ROUND
+                          {t.results.round}
                         </th>
                         <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                          WINNER ADDRESS
+                          {t.results.winnerAddress}
                         </th>
                         <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                          AMOUNT WON
+                          {t.results.amountWon}
                         </th>
                         <th className="px-6 py-4 text-left text-sm font-medium uppercase text-[#212427]">
-                          ENTRIES
+                          {t.results.entries}
                         </th>
                         <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                          VERIFICATION
+                          {t.results.verification}
                         </th>
                       </tr>
                     </thead>
@@ -415,14 +418,14 @@ export default function DrawResults() {
                       {isLoading ? (
                         <tr>
                           <td colSpan={5} className="px-6">
-                            <LoadingSpinner />
+                            <LoadingSpinner t={t} />
                           </td>
                         </tr>
                       ) : error ? (
                         <tr>
                           <td colSpan={5} className="px-6 py-12 text-center">
                             <div className="text-red-500 text-lg mb-2">
-                              Error loading results
+                              {t.results.errorLoadingResults}
                             </div>
                             <div className="text-sm text-[#666666]">
                               {error}
@@ -433,11 +436,10 @@ export default function DrawResults() {
                         <tr>
                           <td colSpan={5} className="px-6 py-12 text-center">
                             <div className="text-xl text-[#666666] mb-4">
-                              No completed lottery rounds yet
+                              {t.results.noCompletedRounds}
                             </div>
                             <div className="text-sm text-[#666666]">
-                              Complete rounds will appear here once VRF results
-                              are finalized
+                              {t.results.noCompletedRoundsDesc}
                             </div>
                           </td>
                         </tr>
@@ -529,7 +531,7 @@ export default function DrawResults() {
                                       height={12}
                                       className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
                                     />
-                                    <span>Snapshot</span>
+                                    <span>{t.results.snapshot}</span>
                                   </a>
                                 ) : (
                                   <span className="text-[#999999] font-thin text-xs">
@@ -553,7 +555,7 @@ export default function DrawResults() {
                 <EnterButton
                   onClick={() => console.log("Back to home clicked")}
                 >
-                  Back to Home
+                  {t.common.backToHome}
                 </EnterButton>
               </Link>
             </div>
@@ -566,10 +568,10 @@ export default function DrawResults() {
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-            Draw Results & Verification
+            {t.results.title}
           </h1>
           <p className="text-base text-[#666666] font-thin max-w-2xl mx-auto">
-            All draws use VRF for provable fairness.
+            {t.results.subtitle}
           </p>
         </div>
 
@@ -581,19 +583,19 @@ export default function DrawResults() {
                 <thead className=" border-b border-[#dddddd]">
                   <tr>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                      ROUND
+                      {t.results.round}
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                      WINNER ADDRESS
+                      {t.results.winnerAddress}
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                      AMOUNT WON
+                      {t.results.amountWon}
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-medium uppercase text-[#212427]">
-                      ENTRIES
+                      {t.results.entries}
                     </th>
                     <th className="px-6 py-4 text-left text-sm font-medium text-[#212427]">
-                      VERIFICATION
+                      {t.results.verification}
                     </th>
                   </tr>
                 </thead>
@@ -601,14 +603,14 @@ export default function DrawResults() {
                   {isLoading ? (
                     <tr>
                       <td colSpan={5} className="px-6">
-                        <LoadingSpinner />
+                        <LoadingSpinner t={t} />
                       </td>
                     </tr>
                   ) : error ? (
                     <tr>
                       <td colSpan={5} className="px-6 py-12 text-center">
                         <div className="text-red-500 text-lg mb-2">
-                          Error loading results
+                          {t.results.errorLoadingResults}
                         </div>
                         <div className="text-sm text-[#666666]">{error}</div>
                       </td>
@@ -617,11 +619,10 @@ export default function DrawResults() {
                     <tr>
                       <td colSpan={5} className="px-6 py-12 text-center">
                         <div className="text-xl text-[#666666] mb-4">
-                          No completed lottery rounds yet
+                          {t.results.noCompletedRounds}
                         </div>
                         <div className="text-sm text-[#666666]">
-                          Complete rounds will appear here once VRF results are
-                          finalized
+                          {t.results.noCompletedRoundsDesc}
                         </div>
                       </td>
                     </tr>
@@ -713,7 +714,7 @@ export default function DrawResults() {
                                   height={12}
                                   className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
                                 />
-                                <span>Snapshot</span>
+                                <span>{t.results.snapshot}</span>
                               </a>
                             ) : (
                               <span className="text-[#999999] font-thin text-xs">
@@ -735,7 +736,7 @@ export default function DrawResults() {
         <div className="pt-12 flex justify-center">
           <Link href="/">
             <EnterButton onClick={() => console.log("Back to home clicked")}>
-              Back to Home
+              {t.common.backToHome}
             </EnterButton>
           </Link>
         </div>

@@ -220,7 +220,23 @@ export interface Translations {
   // Results Page (if needed for future)
   results: {
     title: string;
-    // Add more fields as needed
+    subtitle: string;
+    round: string;
+    winnerAddress: string;
+    amountWon: string;
+    entries: string;
+    verification: string;
+    loadingResults: string;
+    errorLoadingResults: string;
+    noCompletedRounds: string;
+    noCompletedRoundsDesc: string;
+    snapshot: string;
+  };
+
+  notFound: {
+    title: string;
+    pageNotFound: string;
+    description: string;
   };
 
   // Language Toggle
@@ -472,7 +488,25 @@ export const translations: Record<Language, Translations> = {
     },
 
     results: {
-      title: "Results",
+      title: "Draw Results & Verification",
+      subtitle: "All draws use VRF for provable fairness.",
+      round: "ROUND",
+      winnerAddress: "WINNER ADDRESS",
+      amountWon: "AMOUNT WON",
+      entries: "ENTRIES",
+      verification: "VERIFICATION",
+      loadingResults: "Loading lottery results...",
+      errorLoadingResults: "Error loading results",
+      noCompletedRounds: "No completed lottery rounds yet",
+      noCompletedRoundsDesc:
+        "Complete rounds will appear here once VRF results are finalized",
+      snapshot: "Snapshot",
+    },
+
+    notFound: {
+      title: "404",
+      pageNotFound: "Page Not Found",
+      description: "The page you're looking for doesn't exist",
     },
 
     language: {
@@ -711,7 +745,24 @@ export const translations: Record<Language, Translations> = {
     },
 
     results: {
-      title: "结果",
+      title: "抽奖结果与验证",
+      subtitle: "所有抽奖都使用VRF确保可证明的公平性。",
+      round: "轮次",
+      winnerAddress: "获奖地址",
+      amountWon: "获奖金额",
+      entries: "参与数",
+      verification: "验证",
+      loadingResults: "加载彩票结果中...",
+      errorLoadingResults: "加载结果时出错",
+      noCompletedRounds: "暂无已完成的彩票轮次",
+      noCompletedRoundsDesc: "VRF结果确定后，已完成的轮次将显示在这里",
+      snapshot: "快照",
+    },
+
+    notFound: {
+      title: "404",
+      pageNotFound: "页面未找到",
+      description: "您要查找的页面不存在",
     },
 
     language: {

@@ -65,13 +65,13 @@ export default function HowItWorks() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED LOTTERY ON BSC
+                  {t.footer.erc404PoweredLottery}
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied ? "Copied Successfully!" : contractAddress || ""}
+                  {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
@@ -93,7 +93,7 @@ export default function HowItWorks() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">CookieBNB.xyz 2025</span>
+                  <span className="text-xs">{t.footer.copyright}</span>
                 </div>
               </div>
             </footer>
@@ -148,11 +148,13 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Acquire Your Cookie
+                          {t.howItWorks.howToEnter.steps.acquireCookie.title}
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Buy at least 1 $Cookie token. Each token = 1 NFT and 1
-                          lottery entry.
+                          {
+                            t.howItWorks.howToEnter.steps.acquireCookie
+                              .description
+                          }
                         </p>
                       </div>
                     </div>
@@ -164,12 +166,10 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Post on X
+                          {t.howItWorks.howToEnter.steps.postOnX.title}
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Post your NFT on X tagging @CookieBinance. Use our
-                          default template. All tokens in your wallet are
-                          auto-entered.
+                          {t.howItWorks.howToEnter.steps.postOnX.description}
                         </p>
                       </div>
                     </div>
@@ -181,13 +181,13 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Automatic Entries
+                          {t.howItWorks.howToEnter.steps.automaticEntries.title}
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Our backend tracks posts and wallets. New tokens are
-                          added automatically. Tokens you transfer out are
-                          removed. Delete your post and all entries pause until
-                          you post again.
+                          {
+                            t.howItWorks.howToEnter.steps.automaticEntries
+                              .description
+                          }
                         </p>
                       </div>
                     </div>
@@ -199,11 +199,16 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Automated Drawings
+                          {
+                            t.howItWorks.howToEnter.steps.automatedDrawings
+                              .title
+                          }
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Smart contracts instantly reward winners at the end of
-                          each draw.
+                          {
+                            t.howItWorks.howToEnter.steps.automatedDrawings
+                              .description
+                          }
                         </p>
                       </div>
                     </div>
@@ -215,7 +220,7 @@ export default function HowItWorks() {
               <div className="rounded-xs">
                 <section className="p-6 sm:p-8">
                   <h2 className="text-xl font-semi-bold text-[#212427] mb-3 sm:mb-4">
-                    Why It Works
+                    {t.howItWorks.whyItWorks.title}
                   </h2>
 
                   <div className="space-y-3 sm:space-y-4">
@@ -226,11 +231,13 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Built-In Virality
+                          {t.howItWorks.whyItWorks.points.builtInVirality.title}
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Posting on X makes every player a promoter, fueling
-                          organic exposure.
+                          {
+                            t.howItWorks.whyItWorks.points.builtInVirality
+                              .description
+                          }
                         </p>
                       </div>
                     </div>
@@ -242,11 +249,16 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          The Marketing Flywheel
+                          {
+                            t.howItWorks.whyItWorks.points.marketingFlywheel
+                              .title
+                          }
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Posts → visibility → participation → liquidity →
-                          bigger prize pools. The cycle runs itself.
+                          {
+                            t.howItWorks.whyItWorks.points.marketingFlywheel
+                              .description
+                          }
                         </p>
                       </div>
                     </div>
@@ -258,18 +270,33 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          The Token Flywheel
+                          {t.howItWorks.whyItWorks.points.tokenFlywheel.title}
                         </h3>
                         <div className="text-[#666666] font-thin leading-snug sm:leading-normal">
                           <p className="mb-2">
-                            Each trade powers growth. With every transaction:
+                            {
+                              t.howItWorks.whyItWorks.points.tokenFlywheel
+                                .details.intro
+                            }
                           </p>
                           <p className="mb-1">
-                            1% fuels automated buybacks (supply sinks, value
-                            rises).
+                            {
+                              t.howItWorks.whyItWorks.points.tokenFlywheel
+                                .details.buybacks
+                            }
                           </p>
-                          <p className="mb-1">3% grows the prize pool.</p>
-                          <p>1% supports the team.</p>
+                          <p className="mb-1">
+                            {
+                              t.howItWorks.whyItWorks.points.tokenFlywheel
+                                .details.prizePool
+                            }
+                          </p>
+                          <p>
+                            {
+                              t.howItWorks.whyItWorks.points.tokenFlywheel
+                                .details.team
+                            }
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -281,12 +308,16 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                          Compounding Value
+                          {
+                            t.howItWorks.whyItWorks.points.compoundingValue
+                              .title
+                          }
                         </h3>
                         <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                          Each post drives attention. Each trade boosts
-                          liquidity. Each winner proves fairness. Together, the
-                          flywheels create unstoppable momentum.
+                          {
+                            t.howItWorks.whyItWorks.points.compoundingValue
+                              .description
+                          }
                         </p>
                       </div>
                     </div>
@@ -298,55 +329,53 @@ export default function HowItWorks() {
               <div className="rounded-xs">
                 <section className="p-8">
                   <h2 className="text-xl font-semi-bold text-[#212427] mb-4">
-                    Technology
+                    {t.howItWorks.technology.title}
                   </h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        ERC-404 Tax Standard
+                        {t.howItWorks.technology.items.erc404Tax.title}
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        The first-ever custom ERC-404 Tax contract. Tokenomics
-                        are built directly into the token&apos;s core
-                        logic—buybacks, prize pools, and accounting happen at
-                        the protocol level, not bolted on.
+                        {t.howItWorks.technology.items.erc404Tax.description}
                       </p>
                     </div>
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        Lottery Contract
+                        {t.howItWorks.technology.items.lotteryContract.title}
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        Fully automated draw lifecycle. Rounds, entries,
-                        randomness, and payouts are handled on-chain with a
-                        complete audit trail.
+                        {
+                          t.howItWorks.technology.items.lotteryContract
+                            .description
+                        }
                       </p>
                     </div>
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        Chainlink VRF
+                        {t.howItWorks.technology.items.chainlinkVrf.title}
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        Cryptographically verifiable randomness ensures every
-                        draw is transparent, unpredictable, and tamper-proof.
+                        {t.howItWorks.technology.items.chainlinkVrf.description}
                       </p>
                     </div>
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        BSC Network
+                        {t.howItWorks.technology.items.bscNetwork.title}
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        Deployed on BSC for low fees, fast finality, and
-                        security.
+                        {t.howItWorks.technology.items.bscNetwork.description}
                       </p>
                     </div>
                     <div>
                       <h3 className="font-semi-bold text-[#212427] mb-2">
-                        Smart Contracts
+                        {t.howItWorks.technology.items.smartContracts.title}
                       </h3>
                       <p className="text-[#666666] font-thin">
-                        Audited, deterministic, and designed for continuous
-                        automation without manual intervention.
+                        {
+                          t.howItWorks.technology.items.smartContracts
+                            .description
+                        }
                       </p>
                     </div>
                   </div>
@@ -357,31 +386,24 @@ export default function HowItWorks() {
               <div className="rounded-xs">
                 <section className="p-8">
                   <h2 className="text-xl font-semi-bold text-[#212427] mb-4">
-                    Tokenomics
+                    {t.howItWorks.tokenomics.title}
                   </h2>
                   <p className="text-[#666666] font-thin leading-relaxed mb-4">
-                    Cookie uses a 5% tax model integrated at the contract level.
-                    This ensures that every transaction fuels the ecosystem:
+                    {t.howItWorks.tokenomics.description}
                   </p>
                   <div className="space-y-2 mb-4">
                     <p className="text-[#666666] font-thin">
-                      <strong>1% Buybacks</strong> — Automated buybacks reduce
-                      supply and strengthen price momentum.
+                      {t.howItWorks.tokenomics.breakdown.buybacks}
                     </p>
                     <p className="text-[#666666] font-thin">
-                      <strong>3% Prize Pool</strong> — Directly expands lottery
-                      rewards, making each draw bigger and more attractive.
+                      {t.howItWorks.tokenomics.breakdown.prizePool}
                     </p>
                     <p className="text-[#666666] font-thin">
-                      <strong>1% Team</strong> — Supports long-term development
-                      and ecosystem growth.
+                      {t.howItWorks.tokenomics.breakdown.team}
                     </p>
                   </div>
                   <p className="text-[#666666] font-thin leading-relaxed">
-                    This design creates a natural flywheel: volume drives prize
-                    pools, buybacks support token value, and posts generate
-                    visibility. Every player powers the system just by
-                    participating.
+                    {t.howItWorks.tokenomics.conclusion}
                   </p>
                 </section>
               </div>
@@ -392,7 +414,7 @@ export default function HowItWorks() {
                   <EnterButton
                     onClick={() => console.log("Play button clicked")}
                   >
-                    Back to Home
+                    {t.common.backToHome}
                   </EnterButton>
                 </Link>
               </div>
@@ -405,10 +427,10 @@ export default function HowItWorks() {
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-0">
         <div className="text-center mb-0">
           <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-            About Cookie
+            {t.howItWorks.title}
           </h1>
           <p className="text-lg px-8 text-[#666666] font-thin">
-            A custom ERC-404 lottery project on BSC
+            {t.howItWorks.subtitle}
           </p>
         </div>
 
@@ -428,13 +450,10 @@ export default function HowItWorks() {
           <div className="rounded-xs">
             <section className="p-8">
               <h2 className="text-xl font-semi-bold text-[#212427] mb-4">
-                Project Overview
+                {t.howItWorks.projectOverview.title}
               </h2>
               <p className="text-[#666666] font-thin leading-relaxed">
-                CookieBNB.xyz is a decentralized lottery system on the BSC
-                network using a custom ERC-404 contract. Automated. Immutable.
-                Always fair. Every draw combines marketing virality and
-                tokenomics buybacks into a dual flywheel that compounds growth.
+                {t.howItWorks.projectOverview.description}
               </p>
             </section>
           </div>
@@ -443,7 +462,7 @@ export default function HowItWorks() {
           <div className="rounded-xs">
             <section className="w-full mx-auto p-6 sm:p-8 pt-0 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl">
               <h2 className="text-xl font-semi-bold text-[#212427] mb-3 sm:mb-4">
-                How to Enter
+                {t.howItWorks.howToEnter.title}
               </h2>
 
               <div className="space-y-3 sm:space-y-4">
@@ -454,11 +473,10 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Acquire Your Cookie
+                      {t.howItWorks.howToEnter.steps.acquireCookie.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Buy at least 1 $Cookie token. Each token = 1 NFT and 1
-                      lottery entry.
+                      {t.howItWorks.howToEnter.steps.acquireCookie.description}
                     </p>
                   </div>
                 </div>
@@ -470,11 +488,10 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Post on X
+                      {t.howItWorks.howToEnter.steps.postOnX.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Post your NFT on X tagging @CookieBinance. Use our default
-                      template. All tokens in your wallet are auto-entered.
+                      {t.howItWorks.howToEnter.steps.postOnX.description}
                     </p>
                   </div>
                 </div>
@@ -486,12 +503,13 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Automatic Entries
+                      {t.howItWorks.howToEnter.steps.automaticEntries.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Our backend tracks posts and wallets. New tokens are added
-                      automatically. Tokens you transfer out are removed. Delete
-                      your post and all entries pause until you post again.
+                      {
+                        t.howItWorks.howToEnter.steps.automaticEntries
+                          .description
+                      }
                     </p>
                   </div>
                 </div>
@@ -503,11 +521,13 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Automated Drawings
+                      {t.howItWorks.howToEnter.steps.automatedDrawings.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Smart contracts instantly reward winners at the end of
-                      each draw.
+                      {
+                        t.howItWorks.howToEnter.steps.automatedDrawings
+                          .description
+                      }
                     </p>
                   </div>
                 </div>
@@ -519,7 +539,7 @@ export default function HowItWorks() {
           <div className="rounded-xs">
             <section className="p-6 sm:p-8">
               <h2 className="text-xl font-semi-bold text-[#212427] mb-3 sm:mb-4">
-                Why It Works
+                {t.howItWorks.whyItWorks.title}
               </h2>
 
               <div className="space-y-3 sm:space-y-4">
@@ -530,11 +550,13 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Built-In Virality
+                      {t.howItWorks.whyItWorks.points.builtInVirality.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Posting on X makes every player a promoter, fueling
-                      organic exposure.
+                      {
+                        t.howItWorks.whyItWorks.points.builtInVirality
+                          .description
+                      }
                     </p>
                   </div>
                 </div>
@@ -546,11 +568,13 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      The Marketing Flywheel
+                      {t.howItWorks.whyItWorks.points.marketingFlywheel.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Posts → visibility → participation → liquidity → bigger
-                      prize pools. The cycle runs itself.
+                      {
+                        t.howItWorks.whyItWorks.points.marketingFlywheel
+                          .description
+                      }
                     </p>
                   </div>
                 </div>
@@ -562,17 +586,33 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      The Token Flywheel
+                      {t.howItWorks.whyItWorks.points.tokenFlywheel.title}
                     </h3>
                     <div className="text-[#666666] font-thin leading-snug sm:leading-normal">
                       <p className="mb-2">
-                        Each trade powers growth. With every transaction:
+                        {
+                          t.howItWorks.whyItWorks.points.tokenFlywheel.details
+                            .intro
+                        }
                       </p>
                       <p className="mb-1">
-                        1% fuels automated buybacks (supply sinks, value rises).
+                        {
+                          t.howItWorks.whyItWorks.points.tokenFlywheel.details
+                            .buybacks
+                        }
                       </p>
-                      <p className="mb-1">3% grows the prize pool.</p>
-                      <p>1% supports the team.</p>
+                      <p className="mb-1">
+                        {
+                          t.howItWorks.whyItWorks.points.tokenFlywheel.details
+                            .prizePool
+                        }
+                      </p>
+                      <p>
+                        {
+                          t.howItWorks.whyItWorks.points.tokenFlywheel.details
+                            .team
+                        }
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -584,12 +624,13 @@ export default function HowItWorks() {
                   </div>
                   <div>
                     <h3 className="font-semi-bold text-[#212427] mb-1.5 sm:mb-2">
-                      Compounding Value
+                      {t.howItWorks.whyItWorks.points.compoundingValue.title}
                     </h3>
                     <p className="text-[#666666] font-thin leading-snug sm:leading-normal">
-                      Each post drives attention. Each trade boosts liquidity.
-                      Each winner proves fairness. Together, the flywheels
-                      create unstoppable momentum.
+                      {
+                        t.howItWorks.whyItWorks.points.compoundingValue
+                          .description
+                      }
                     </p>
                   </div>
                 </div>
@@ -601,54 +642,47 @@ export default function HowItWorks() {
           <div className="rounded-xs">
             <section className="p-8">
               <h2 className="text-xl font-semi-bold text-[#212427] mb-4">
-                Technology
+                {t.howItWorks.technology.title}
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    ERC-404 Tax Standard
+                    {t.howItWorks.technology.items.erc404Tax.title}
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    The first-ever custom ERC-404 Tax contract. Tokenomics are
-                    built directly into the token&apos;s core logic—buybacks,
-                    prize pools, and accounting happen at the protocol level,
-                    not bolted on.
+                    {t.howItWorks.technology.items.erc404Tax.description}
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    Lottery Contract
+                    {t.howItWorks.technology.items.lotteryContract.title}
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    Fully automated draw lifecycle. Rounds, entries, randomness,
-                    and payouts are handled on-chain with a complete audit
-                    trail.
+                    {t.howItWorks.technology.items.lotteryContract.description}
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    Chainlink VRF
+                    {t.howItWorks.technology.items.chainlinkVrf.title}
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    Cryptographically verifiable randomness ensures every draw
-                    is transparent, unpredictable, and tamper-proof.
+                    {t.howItWorks.technology.items.chainlinkVrf.description}
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    BSC Network
+                    {t.howItWorks.technology.items.bscNetwork.title}
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    Deployed on BSC for low fees, fast finality, and security.
+                    {t.howItWorks.technology.items.bscNetwork.description}
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semi-bold text-[#212427] mb-2">
-                    Smart Contracts
+                    {t.howItWorks.technology.items.smartContracts.title}
                   </h3>
                   <p className="text-[#666666] font-thin">
-                    Audited, deterministic, and designed for continuous
-                    automation without manual intervention.
+                    {t.howItWorks.technology.items.smartContracts.description}
                   </p>
                 </div>
               </div>
@@ -659,31 +693,24 @@ export default function HowItWorks() {
           <div className="rounded-xs">
             <section className="p-8">
               <h2 className="text-xl font-semi-bold text-[#212427] mb-4">
-                Tokenomics
+                {t.howItWorks.tokenomics.title}
               </h2>
               <p className="text-[#666666] font-thin leading-relaxed mb-4">
-                Cookie uses a 5% tax model integrated at the contract level.
-                This ensures that every transaction fuels the ecosystem:
+                {t.howItWorks.tokenomics.description}
               </p>
               <div className="space-y-2 mb-4">
                 <p className="text-[#666666] font-thin">
-                  <strong>1% Buybacks</strong> — Automated buybacks reduce
-                  supply and strengthen price momentum.
+                  {t.howItWorks.tokenomics.breakdown.buybacks}
                 </p>
                 <p className="text-[#666666] font-thin">
-                  <strong>3% Prize Pool</strong> — Directly expands lottery
-                  rewards, making each draw bigger and more attractive.
+                  {t.howItWorks.tokenomics.breakdown.prizePool}
                 </p>
                 <p className="text-[#666666] font-thin">
-                  <strong>1% Team</strong> — Supports long-term development and
-                  ecosystem growth.
+                  {t.howItWorks.tokenomics.breakdown.team}
                 </p>
               </div>
               <p className="text-[#666666] font-thin leading-relaxed">
-                This design creates a natural flywheel: volume drives prize
-                pools, buybacks support token value, and posts generate
-                visibility. Every player powers the system just by
-                participating.
+                {t.howItWorks.tokenomics.conclusion}
               </p>
             </section>
           </div>
@@ -692,7 +719,7 @@ export default function HowItWorks() {
           <div className="pt-4 flex justify-center">
             <Link href="/">
               <EnterButton onClick={() => console.log("Play button clicked")}>
-                Back to Home
+                {t.common.backToHome}
               </EnterButton>
             </Link>
           </div>
