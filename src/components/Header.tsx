@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
 
 type CurrentPage =
   | "how-to-enter"
@@ -27,6 +28,8 @@ export default function Header({
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
   const [localMenuOpen, setLocalMenuOpen] = useState(false);
+
+  const { language, toggleLanguage, t } = useLanguage();
 
   // Use props if provided, otherwise fall back to local state
   const menuOpen = isMenuOpen !== undefined ? isMenuOpen : localMenuOpen;
@@ -94,9 +97,7 @@ export default function Header({
       {/* Desktop Top Left */}
       <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-thin">
         <div className="text-[#666666] mb-1 hover:text-[#212427] transition-colors text-xs md:text-lg">
-          <span className="hidden md:inline">
-            BSC&apos;s first on-chain lottery
-          </span>
+          <span className="hidden md:inline">{t.header.bscFirstLottery}</span>
         </div>
         <div
           className="text-[#666666] font-thin hover:text-[#212427] transition-colors cursor-pointer text-xs md:text-base font-mono"
@@ -106,7 +107,7 @@ export default function Header({
           <div className="hidden md:flex flex-col">
             <div className="transition-all duration-300 ease-in-out flex items-center gap-1">
               {copied ? (
-                <>Copied Successfully!</>
+                <>{t.common.copiedSuccessfully}</>
               ) : (
                 contractAddress.slice(0, 21)
               )}
@@ -148,12 +149,12 @@ export default function Header({
       <div className="md:hidden absolute right-1 top-4 mobile-menu-container">
         <Image
           src={menuOpen ? "/cross.svg" : "/hamburger-menu.svg"}
-          alt={menuOpen ? "Close menu" : "Menu"}
+          alt={menuOpen ? t.header.closeMenu : t.header.menu}
           width={45}
           height={45}
           className="opacity-70 hover:opacity-100 transition-opacity cursor-pointer hover:bg-gray-100 rounded-md p-1"
           onClick={toggleMenu}
-          aria-label={menuOpen ? "Close menu" : "Toggle menu"}
+          aria-label={menuOpen ? t.header.closeMenu : t.header.menu}
         />
 
         {/* Mobile Dropdown Menu */}
@@ -166,7 +167,7 @@ export default function Header({
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
-              Twitter
+              {t.header.twitter}
             </Link>
             <Link
               href={`https://bscscan.com/address/${contractAddress}`}
@@ -175,7 +176,7 @@ export default function Header({
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
-              Contract
+              {t.header.contract}
             </Link>
 
             <Link
@@ -185,13 +186,13 @@ export default function Header({
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
-              Dexscreener
+              {t.header.dexscreener}
             </Link>
             <Link
               href="/how-it-works"
               className="block hover:text-[#212427] hover:underline transition-colors text-base text-[#666666]"
             >
-              How it works
+              {t.header.howItWorks}
             </Link>
             <Link
               href="https://playcookie.gitbook.io/play-cookie/"
@@ -200,21 +201,30 @@ export default function Header({
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
-              Docs
+              {t.header.docs}
             </Link>
 
             <Link
               href="/faq"
               className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base"
             >
-              FAQ
+              {t.header.faq}
             </Link>
             <Link
               href="/results"
               className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base"
             >
-              Results
+              {t.header.results}
             </Link>
+
+            {/* Mobile Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base text-right"
+              aria-label={t.language.toggleLanguage}
+            >
+              {language === "en" ? t.language.chinese : t.language.english}
+            </button>
           </div>
         )}
       </div>
@@ -226,7 +236,7 @@ export default function Header({
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
         >
-          Twitter
+          {t.header.twitter}
         </Link>
         <Link
           href={`https://bscscan.com/address/${contractAddress}`}
@@ -234,7 +244,7 @@ export default function Header({
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
         >
-          Contract
+          {t.header.contract}
         </Link>
         <Link
           href={`https://dexscreener.com/bsc/${contractAddress}`}
@@ -242,7 +252,7 @@ export default function Header({
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
         >
-          Dexscreener
+          {t.header.dexscreener}
         </Link>
         <Link
           href="/how-it-works"
@@ -250,7 +260,7 @@ export default function Header({
             page === "how-it-works" ? "" : ""
           }`}
         >
-          How it works
+          {t.header.howItWorks}
         </Link>
         <Link
           href="https://playcookie.gitbook.io/play-cookie/"
@@ -258,14 +268,23 @@ export default function Header({
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
         >
-          Docs
+          {t.header.docs}
         </Link>
         <Link
           href="/faq"
           className="text-xs md:text-lg text-[#666666] font-thin hover:text-[#212427] transition-colors hover:underline"
         >
-          FAQ
+          {t.header.faq}
         </Link>
+
+        {/* Language Toggle Button */}
+        <button
+          onClick={toggleLanguage}
+          className="text-xs md:text-base text-[#666666] font-thin hover:text-[#212427] transition-colors hover:underline cursor-pointer"
+          aria-label={t.language.toggleLanguage}
+        >
+          {language === "en" ? t.language.chinese : t.language.english}
+        </button>
       </div>
     </header>
   );

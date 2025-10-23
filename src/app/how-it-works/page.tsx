@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function About() {
   // ✅ NEW: Mobile menu state
@@ -12,6 +13,8 @@ export default function About() {
   // ✅ NEW: Contract address and copy state for footer
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
+
+  const { t } = useLanguage();
 
   // ✅ NEW: Preload ball.png image for instant display when menu opens
   useEffect(() => {
@@ -99,10 +102,10 @@ export default function About() {
           <main className="max-w-4xl py-24 mx-auto px-0">
             <div className="text-center mb-0">
               <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-                About Cookie
+                {t.howItWorks.title}
               </h1>
               <p className="text-lg px-8 text-[#666666] font-thin">
-                A custom ERC-404 lottery project on BSC
+                {t.howItWorks.subtitle}
               </p>
             </div>
 
@@ -122,14 +125,10 @@ export default function About() {
               <div className="rounded-xs">
                 <section className="p-8">
                   <h2 className="text-xl font-semi-bold text-[#212427] mb-4">
-                    Project Overview
+                    {t.howItWorks.projectOverview.title}
                   </h2>
                   <p className="text-[#666666] font-thin leading-relaxed">
-                    CookieBNB.xyz is a decentralized lottery system on the BSC
-                    network using a custom ERC-404 contract. Automated.
-                    Immutable. Always fair. Every draw combines marketing
-                    virality and tokenomics buybacks into a dual flywheel that
-                    compounds growth.
+                    {t.howItWorks.projectOverview.description}
                   </p>
                 </section>
               </div>
@@ -138,7 +137,7 @@ export default function About() {
               <div className="rounded-xs">
                 <section className="w-full mx-auto p-6 sm:p-8 pt-0 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl">
                   <h2 className="text-xl font-semi-bold text-[#212427] mb-3 sm:mb-4">
-                    How to Enter
+                    {t.howItWorks.howToEnter.title}
                   </h2>
 
                   <div className="space-y-3 sm:space-y-4">

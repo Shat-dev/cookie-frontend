@@ -4,6 +4,7 @@ import EnterButton from "@/components/CoolButton";
 import Link from "next/link";
 import Header from "@/components/Header";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function FAQ() {
   const [openQuestions, setOpenQuestions] = useState<number[]>([]);
@@ -12,6 +13,8 @@ export default function FAQ() {
   // ✅ NEW: Contract address and copy state for footer
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
+
+  const { t } = useLanguage();
 
   // ✅ NEW: Preload ball.png image for instant display when menu opens
   useEffect(() => {
@@ -43,64 +46,52 @@ export default function FAQ() {
 
   const faqData = [
     {
-      question: "What is Cookie about?",
-      answer:
-        "Cookie is the first fully-automated on-chain BSC lottery. It is powered by ERC-404 and Chainlink VRF, where NFT holders can participate in regular automated draws by proving ownership and social activity.",
+      question: t.faq.questions.whatIsCookie.question,
+      answer: t.faq.questions.whatIsCookie.answer,
     },
     {
-      question: "How do I enter the lottery?",
-      answer:
-        "To enter, you must hold at least one full Cookie token (ERC-404), receive the associated NFT, post on X/Twitter using our default template.",
+      question: t.faq.questions.howToEnter.question,
+      answer: t.faq.questions.howToEnter.answer,
     },
     {
-      question: "Do I need to post every draw to stay eligible?",
-      answer:
-        "No. Once you have posted, you are entered into all future draws as long as you continue holding your NFT and your post remains visible/active.",
+      question: t.faq.questions.needToPostEveryDraw.question,
+      answer: t.faq.questions.needToPostEveryDraw.answer,
     },
     {
-      question: "What happens if I delete my post?",
-      answer:
-        "Deleting your post removes your eligibility for the current draw and future draws. You will need to repost to re-enter.",
+      question: t.faq.questions.deletePost.question,
+      answer: t.faq.questions.deletePost.answer,
     },
     {
-      question:
-        "Do I need to repost on X if I buy more tokens to enter them in the pool?",
-      answer:
-        "No. We auto-detect new tokens after your original X post and add them to the current pool.",
+      question: t.faq.questions.repostForNewTokens.question,
+      answer: t.faq.questions.repostForNewTokens.answer,
     },
     {
-      question: "What is Chainlink VRF and why is it used?",
-      answer:
-        "Chainlink VRF (Verifiable Random Function) ensures the randomness used to pick lottery winners is provably fair and tamper-proof.",
+      question: t.faq.questions.chainlinkVrf.question,
+      answer: t.faq.questions.chainlinkVrf.answer,
     },
     {
-      question: "Can I win more than once?",
-      answer:
-        "Yes. As long as you continue to meet the eligibility criteria, you can win multiple times.",
+      question: t.faq.questions.winMultipleTimes.question,
+      answer: t.faq.questions.winMultipleTimes.answer,
     },
     {
-      question: "How often is the draw conducted?",
-      answer: "Draws occur automatically every 1 hour.",
+      question: t.faq.questions.drawFrequency.question,
+      answer: t.faq.questions.drawFrequency.answer,
     },
     {
-      question: "How is my eligibility verified?",
-      answer:
-        "Eligibility is checked on-chain via NFT ownership and off-chain via X/Twitter post detection and verification logic on the backend.",
+      question: t.faq.questions.eligibilityVerification.question,
+      answer: t.faq.questions.eligibilityVerification.answer,
     },
     {
-      question: "Do I need a BSC wallet to participate?",
-      answer:
-        "Yes. Since the project is built on BSC (an L1 by ETH), you will need a wallet configured for the BSC network to participate.",
+      question: t.faq.questions.bscWallet.question,
+      answer: t.faq.questions.bscWallet.answer,
     },
     {
-      question: "What happens if I transfer or sell a portion of my NFT's?",
-      answer:
-        "If you no longer hold the NFT in your wallet but have an existing X post, only the transferred tokens are removed from current and upcoming draws.",
+      question: t.faq.questions.transferNfts.question,
+      answer: t.faq.questions.transferNfts.answer,
     },
     {
-      question: "How are prizes funded?",
-      answer:
-        "The prize pool is built from trading volume and tokenomics. A 3% trading fee funds the lottery.",
+      question: t.faq.questions.prizeFunding.question,
+      answer: t.faq.questions.prizeFunding.answer,
     },
   ];
 
@@ -131,13 +122,13 @@ export default function FAQ() {
             <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#666666] font-mono text-center">
-                  ERC-404 POWERED LOTTERY ON BSC
+                  {t.footer.erc404PoweredLottery}
                 </div>
                 <div
                   className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                   onClick={handleCopyAddress}
                 >
-                  {copied ? "Copied Successfully!" : contractAddress || ""}
+                  {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
                 <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                   <svg
@@ -159,7 +150,7 @@ export default function FAQ() {
                       fill="#666666"
                     />
                   </svg>
-                  <span className="text-xs">CookieBNB.xyz 2025</span>
+                  <span className="text-xs">{t.footer.copyright}</span>
                 </div>
               </div>
             </footer>
@@ -168,10 +159,10 @@ export default function FAQ() {
           <main className="max-w-4xl py-24 mx-auto px-4">
             <div className="text-center mb-12">
               <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-                Frequently Asked Questions
+                {t.faq.title}
               </h1>
               <p className="text-lg text-[#666666] font-thin">
-                Everything you need to know about CookieBNB.xyz
+                {t.faq.subtitle}
               </p>
             </div>
 
@@ -205,7 +196,7 @@ export default function FAQ() {
             <div className="pt-8 flex justify-center">
               <Link href="/">
                 <EnterButton onClick={() => console.log("Play button clicked")}>
-                  Back to Home
+                  {t.common.backToHome}
                 </EnterButton>
               </Link>
             </div>
@@ -217,11 +208,9 @@ export default function FAQ() {
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
-            Frequently Asked Questions
+            {t.faq.title}
           </h1>
-          <p className="text-lg text-[#666666] font-thin">
-            Everything you need to know about CookieBNB.xyz
-          </p>
+          <p className="text-lg text-[#666666] font-thin">{t.faq.subtitle}</p>
         </div>
 
         <div className="space-y-0">
@@ -254,7 +243,7 @@ export default function FAQ() {
         <div className="pt-8 flex justify-center">
           <Link href="/">
             <EnterButton onClick={() => console.log("Play button clicked")}>
-              Back to Home
+              {t.common.backToHome}
             </EnterButton>
           </Link>
         </div>

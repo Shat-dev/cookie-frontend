@@ -11,6 +11,7 @@ import { usePoolCount } from "@/hooks/usePoolCount";
 import { useWinners } from "@/hooks/useWinners";
 import { usePrizePool } from "@/hooks/usePrizePool";
 import { useActiveRound } from "@/hooks/useActiveRound";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Memoized mobile gumball section to prevent re-renders from state changes
 const MobileGumballSection = memo(() => (
@@ -29,6 +30,8 @@ export default function Home() {
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { t } = useLanguage();
 
   // Use the same hooks as current-pool page
   const { totalCount: projectionCount, loading: projectionsLoading } =
@@ -103,16 +106,18 @@ export default function Home() {
           <div className="flex flex-col space-y-8 ">
             <div>
               <div className="text-xs text-[#666666] uppercase tracking-wider mb-1">
-                Prize Pool
+                {t.common.prizePool}
               </div>
               <div className="text-5xl font-mono text-[#212427]">
                 {prizePoolLoading ? (
                   <div className="flex items-center">
                     <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mr-4" />
-                    <span className="text-[#666666]">Calcuating...</span>
+                    <span className="text-[#666666]">
+                      {t.common.calculating}
+                    </span>
                   </div>
                 ) : prizePoolError ? (
-                  <span className="text-[#212427]">Calculating...</span>
+                  <span className="text-[#212427]">{t.common.calculating}</span>
                 ) : (
                   prizePoolUsd
                 )}
@@ -121,7 +126,7 @@ export default function Home() {
 
             <div>
               <div className="text-xs text-[#666666] uppercase tracking-wider mb-1">
-                Time Left
+                {t.common.timeLeft}
               </div>
               <div className="text-4xl font-mono text-[#212427]">
                 <SimpleCountdown />
@@ -130,7 +135,7 @@ export default function Home() {
 
             <div>
               <div className="text-xs text-[#666666] uppercase tracking-wider mb-1">
-                Current Entries
+                {t.common.currentEntries}
               </div>
               <div className="text-3xl font-mono text-[#212427]">
                 {isCountLoading ? (
@@ -144,12 +149,12 @@ export default function Home() {
             <div className="pt-4 flex -ml-0 space-x-2 ">
               <Link href="/current-pool">
                 <EnterButton onClick={() => console.log("Play button clicked")}>
-                  Current pool
+                  {t.common.currentPool}
                 </EnterButton>
               </Link>
               <Link href="/enter">
                 <EnterButton onClick={() => console.log("Play button clicked")}>
-                  Enter Cookie
+                  {t.common.enterCookie}
                 </EnterButton>
               </Link>
             </div>
@@ -179,16 +184,20 @@ export default function Home() {
               {/* Prize Pool */}
               <div>
                 <div className="uppercase tracking-wider text-[#666666] mb-1 text-[clamp(10px,3.2vw,12px)]">
-                  Prize Pool
+                  {t.common.prizePool}
                 </div>
                 <div className="font-mono text-[#212427] text-[clamp(18px,6vw,24px)]">
                   {prizePoolLoading ? (
                     <div className="flex items-center justify-center">
                       <div className="h-4 w-4 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin mr-2" />
-                      <span className="text-[#666666]">Calculating...</span>
+                      <span className="text-[#666666]">
+                        {t.common.calculating}
+                      </span>
                     </div>
                   ) : prizePoolError ? (
-                    <span className="text-[#212427]">Calculating...</span>
+                    <span className="text-[#212427]">
+                      {t.common.calculating}
+                    </span>
                   ) : (
                     prizePoolUsd
                   )}
@@ -198,7 +207,7 @@ export default function Home() {
               {/* Time Left */}
               <div>
                 <div className="uppercase tracking-wider text-[#666666] mb-1 text-[clamp(10px,3.2vw,12px)]">
-                  Time Left
+                  {t.common.timeLeft}
                 </div>
                 <div className="font-mono text-[#212427] text-[clamp(16px,5.2vw,20px)]">
                   <SimpleCountdown />
@@ -208,7 +217,7 @@ export default function Home() {
               {/* Current Entries */}
               <div>
                 <div className="uppercase tracking-wider text-[#666666] mb-1 text-[clamp(10px,3.2vw,12px)]">
-                  Current Entries
+                  {t.common.currentEntries}
                 </div>
                 <div className="font-mono text-[#212427] text-[clamp(14px,4.8vw,18px)] break-words">
                   {isCountLoading ? (
@@ -225,14 +234,14 @@ export default function Home() {
                   <EnterButton
                     onClick={() => console.log("Play button clicked")}
                   >
-                    Current pool
+                    {t.common.currentPool}
                   </EnterButton>
                 </Link>
                 <Link href="/enter">
                   <EnterButton
                     onClick={() => console.log("Play button clicked")}
                   >
-                    Enter Cookie
+                    {t.common.enterCookie}
                   </EnterButton>
                 </Link>
               </div>
@@ -247,13 +256,13 @@ export default function Home() {
           <>
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-60 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
               <div className="text-xs text-[#666666] font-mono text-center">
-                BSC&apos;ss first on-chain lottery
+                {t.header.bscFirstLottery}
               </div>
               <div
                 className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                 onClick={handleCopyAddress}
               >
-                {copied ? "Copied Successfully!" : contractAddress || ""}
+                {copied ? t.common.copiedSuccessfully : contractAddress || ""}
               </div>
               <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                 {/* svg kept */}
@@ -276,7 +285,7 @@ export default function Home() {
                     fill="#666666"
                   />
                 </svg>
-                <span className="text-xs">CookieBNB.xyz 2025</span>
+                <span className="text-xs">{t.footer.copyright}</span>
               </div>
             </div>
 
@@ -284,7 +293,7 @@ export default function Home() {
             <div className="hidden md:flex fixed bottom-0 left-0 right-0 z-0 justify-between items-center px-2 md:px-4 py-4">
               <Link href="/results">
                 <div className="text-xs md:text-lg text-[#666666] font-thin hover:text-[#212427] transition-colors">
-                  Latest winners
+                  {t.common.latestWinners}
                 </div>
               </Link>
               <div className="flex items-center space-x-1 md:space-x-2 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
@@ -308,7 +317,9 @@ export default function Home() {
                     fill="#666666"
                   />
                 </svg>
-                <span className="text-xs md:text-BNB">CookieBNB.xyz 2025</span>
+                <span className="text-xs md:text-BNB">
+                  {t.footer.copyright}
+                </span>
               </div>
             </div>
           </>

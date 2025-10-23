@@ -13,6 +13,7 @@ import { usePrizePool } from "@/hooks/usePrizePool";
 import { getApiEndpoint } from "@/utils/api";
 import Head from "next/head";
 import { ethers } from "ethers";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Isolated countdown component to prevent grid re-renders
 function RefreshCountdown({
@@ -24,11 +25,12 @@ function RefreshCountdown({
   onManualRefresh: () => void;
   isRefreshing: boolean;
 }) {
+  const { t } = useLanguage();
   return (
     <div className="flex items-center">
       {refreshCountdown > 0 ? (
         <div className="text-xs sm:text-sm text-[#666666] font-mono">
-          Next update: {Math.floor(refreshCountdown / 60)}:
+          {t.common.nextUpdate}: {Math.floor(refreshCountdown / 60)}:
           {(refreshCountdown % 60).toString().padStart(2, "0")}
         </div>
       ) : (
@@ -44,10 +46,10 @@ function RefreshCountdown({
           {isRefreshing ? (
             <div className="flex items-center">
               <div className="h-3 w-3 border border-gray-400 border-t-transparent rounded-full animate-spin mr-2" />
-              Refreshing...
+              {t.common.refreshing}
             </div>
           ) : (
-            "Refresh Pool"
+            t.common.refreshPool
           )}
         </button>
       )}
@@ -65,6 +67,8 @@ export default function CurrentPool() {
   // ✅ NEW: Contract address and copy state for footer
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
+
+  const { t } = useLanguage();
 
   // Filter state
   const [filterAddress, setFilterAddress] = useState<string>("");
@@ -382,13 +386,15 @@ export default function CurrentPool() {
               <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
                 <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                   <div className="text-xs text-[#666666] font-mono text-center">
-                    ERC-404 POWERED LOTTERY ON BSC
+                    {t.footer.erc404PoweredLottery}
                   </div>
                   <div
                     className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
                     onClick={handleCopyAddress}
                   >
-                    {copied ? "Copied Successfully!" : contractAddress || ""}
+                    {copied
+                      ? t.common.copiedSuccessfully
+                      : contractAddress || ""}
                   </div>
                   <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
                     <svg
@@ -410,7 +416,7 @@ export default function CurrentPool() {
                         fill="#666666"
                       />
                     </svg>
-                    <span className="text-xs">CookieBnb.xyz 2025</span>
+                    <span className="text-xs">{t.footer.copyright}</span>
                   </div>
                 </div>
               </footer>
@@ -419,10 +425,10 @@ export default function CurrentPool() {
             <main className="max-w-4xl py-24 mx-auto px-2">
               <div className="text-center mb-8 sm:mb-12">
                 <h1 className="text-2xl sm:text-3xl font-semi-bold text-[#212427] mb-4">
-                  Current Pool
+                  {t.currentPool.title}
                 </h1>
                 <p className="text-base sm:text-lg text-[#666666] font-thin">
-                  View the current pool information
+                  {t.currentPool.subtitle}
                 </p>
               </div>
 
@@ -444,7 +450,7 @@ export default function CurrentPool() {
                           )}
                         </div>
                         <div className="text-sm sm:text-base text-[#666666] font-thin">
-                          Total Prize Pool
+                          {t.currentPool.totalPrizePool}
                         </div>
                       </div>
 
@@ -457,7 +463,7 @@ export default function CurrentPool() {
                           )}
                         </div>
                         <div className="text-sm sm:text-base text-[#666666] font-thin">
-                          Active Entries
+                          {t.common.activeEntries}
                         </div>
                       </div>
 
@@ -466,7 +472,7 @@ export default function CurrentPool() {
                           <SimpleCountdown />
                         </div>
                         <div className="text-sm sm:text-base text-[#666666] font-thin">
-                          Time Left
+                          {t.common.timeLeft}
                         </div>
                       </div>
 
@@ -479,7 +485,7 @@ export default function CurrentPool() {
                           )}
                         </div>
                         <div className="text-sm sm:text-base text-[#666666] font-thin">
-                          Draw Number
+                          {t.common.drawNumber}
                         </div>
                       </div>
                     </div>
@@ -491,11 +497,11 @@ export default function CurrentPool() {
                   <section className="p-4 sm:p-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
                       <h2 className="text-lg sm:text-xl font-semi-bold text-[#212427]">
-                        Live Cookie pool (
+                        {t.currentPool.liveCookiePool} (
                         {isValidFilterAddress && !filterNoEntries
                           ? filteredNfts.length
                           : displayCount}{" "}
-                        entries)
+                        {t.currentPool.entries})
                       </h2>
 
                       {/* Countdown/Refresh Button - Isolated Component */}
@@ -518,7 +524,9 @@ export default function CurrentPool() {
                               onChange={(e) =>
                                 handleFilterAddressChange(e.target.value)
                               }
-                              placeholder="Enter Wallet Address"
+                              placeholder={
+                                t.currentPool.walletAddressPlaceholder
+                              }
                               className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-mono text-sm"
                             />
                             {filterAddress && (
@@ -526,7 +534,7 @@ export default function CurrentPool() {
                                 onClick={clearFilter}
                                 className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#666666] hover:text-[#212427] transition-colors font-thin cursor-pointer"
                               >
-                                Clear
+                                {t.common.clear}
                               </button>
                             )}
                           </div>
@@ -534,14 +542,13 @@ export default function CurrentPool() {
                           {/* Show validation/status messages */}
                           {filterAddress && !isValidFilterAddress && (
                             <p className="text-[#666666] text-xs mt-2 text-center">
-                              Please enter a valid wallet address
+                              {t.currentPool.validAddressPrompt}
                             </p>
                           )}
 
                           {isValidFilterAddress && filterNoEntries && (
                             <p className="text-[#666666] text-xs mt-2 text-center">
-                              No entries detected. Recent posts may still be
-                              syncing.
+                              {t.currentPool.noEntriesDetected}
                             </p>
                           )}
 
@@ -549,8 +556,8 @@ export default function CurrentPool() {
                             !filterNoEntries &&
                             filteredNfts.length > 0 && (
                               <p className="text-[#212427] text-xs mt-2 text-center">
-                                Wallet currently has {filteredNfts.length}{" "}
-                                entries.
+                                {t.currentPool.walletHasEntries}{" "}
+                                {filteredNfts.length} {t.currentPool.entries}.
                               </p>
                             )}
                         </div>
@@ -568,7 +575,7 @@ export default function CurrentPool() {
                       </p>
                     ) : filteredNfts.length === 0 && !filterNoEntries ? (
                       <p className="text-center text-[#666666] text-sm">
-                        No NFTs yet. Waiting for tweets...
+                        {t.currentPool.noNftsYet}
                       </p>
                     ) : (
                       <VirtualizedNFTGrid
@@ -586,7 +593,7 @@ export default function CurrentPool() {
                     <EnterButton
                       onClick={() => console.log("Play button clicked")}
                     >
-                      Back to Home
+                      {t.common.backToHome}
                     </EnterButton>
                   </Link>
                 </div>
