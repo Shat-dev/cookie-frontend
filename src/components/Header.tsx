@@ -145,8 +145,16 @@ export default function Header({
         </Link>
       </div>
 
-      {/* Mobile Hamburger Menu */}
-      <div className="md:hidden absolute right-1 top-4 mobile-menu-container">
+      {/* Mobile Top Right: Language + Hamburger */}
+      <div className="md:hidden absolute right-2 top-4 flex items-center space-x-3 mobile-menu-container">
+        {/* Mobile Language Toggle */}
+        <button
+          onClick={toggleLanguage}
+          className="block text-[#666666] font-light hover:text-[#212427] hover:underline transition-colors text-base text-right"
+          aria-label={t.language.toggleLanguage}
+        >
+          {language === "en" ? t.language.chinese : t.language.english}
+        </button>
         <Image
           src={menuOpen ? "/cross.svg" : "/hamburger-menu.svg"}
           alt={menuOpen ? t.header.closeMenu : t.header.menu}
@@ -216,15 +224,6 @@ export default function Header({
             >
               {t.header.results}
             </Link>
-
-            {/* Mobile Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base text-right"
-              aria-label={t.language.toggleLanguage}
-            >
-              {language === "en" ? t.language.chinese : t.language.english}
-            </button>
           </div>
         )}
       </div>
@@ -276,11 +275,11 @@ export default function Header({
         >
           {t.header.faq}
         </Link>
-
+        <br />
         {/* Language Toggle Button */}
         <button
           onClick={toggleLanguage}
-          className="text-xs md:text-base text-[#666666] font-thin hover:text-[#212427] transition-colors hover:underline cursor-pointer"
+          className="text-xs md:text-base text-[#666666] font-light hover:text-[#212427] transition-colors hover:underline cursor-pointer"
           aria-label={t.language.toggleLanguage}
         >
           {language === "en" ? t.language.chinese : t.language.english}

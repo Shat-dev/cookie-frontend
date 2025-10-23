@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function About() {
+export default function HowItWorks() {
   // ✅ NEW: Mobile menu state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // ✅ NEW: Contract address and copy state for footer
