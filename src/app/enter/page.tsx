@@ -275,8 +275,8 @@ export default function EnterPage() {
 
     try {
       const provider = new ethers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_BNB_TESTNET_RPC ||
-          "https://bsc-testnet-rpc.publicnode.com"
+        process.env.NEXT_PUBLIC_BNB_MAINNET_RPC ||
+          "https://bsc-rpc.publicnode.com"
       );
       // Handle both direct ABI array and Hardhat artifact format
       const cookieABI = Array.isArray(CookieABI)
