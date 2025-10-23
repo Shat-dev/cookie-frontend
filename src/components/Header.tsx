@@ -203,7 +203,11 @@ export default function Header({
               {t.header.howItWorks}
             </Link>
             <Link
-              href="https://playcookie.gitbook.io/play-cookie/"
+              href={
+                language === "en"
+                  ? "https://docs.cookiebnb.xyz/"
+                  : "https://docs.cookiebnb.xyz/cookie-ji-shu-bai-pi-shu"
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
@@ -262,7 +266,11 @@ export default function Header({
           {t.header.howItWorks}
         </Link>
         <Link
-          href="https://playcookie.gitbook.io/play-cookie/"
+          href={
+            language === "en"
+              ? "https://docs.cookiebnb.xyz/"
+              : "https://docs.cookiebnb.xyz/cookie-ji-shu-bai-pi-shu"
+          }
           target="_blank"
           rel="noopener noreferrer"
           className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
