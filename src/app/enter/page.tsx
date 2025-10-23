@@ -389,7 +389,7 @@ export default function EnterPage() {
   const others = Math.max(totalEntries ?? 0, 0);
 
   const tweetText = encodeURIComponent(
-    `The first fully automated-lottery on BSC \n\nBSC 上首个全自动彩票\n\n${prizePool} in the pot.\n\n幸运饼干 Cookie ${cookieNumber} + ${extraEntries} more\n\n@CookieBinance\n\nhttps://CookieBNB.xyz`
+    `BSC's first on-chain lottery \n\nBSC 上首个全自动彩票\n\n${prizePool} in the pot.\n\n幸运饼干 Cookie ${cookieNumber} + ${extraEntries} more\n\n@CookieBinance\n\nhttps://CookieBNB.xyz`
   );
 
   const tweetURL = `https://x.com/intent/tweet?text=${tweetText}`;
