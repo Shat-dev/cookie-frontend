@@ -93,14 +93,14 @@ export default function Header({
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-[100] bg-[#fff49b] h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
+    <header className="fixed top-0 inset-x-0 z-[100] bg-[#FF1F1F] h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
       {/* Desktop Top Left */}
-      <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-thin">
-        <div className="text-[#666666] mb-1 hover:text-[#212427] transition-colors text-xs md:text-lg">
+      <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-extralight">
+        <div className="text-[#FFFFFF] mb-1 hover:text-[#FFFFFF] transition-colors text-xs md:text-lg">
           <span className="hidden md:inline">{t.header.bscFirstLottery}</span>
         </div>
         <div
-          className="text-[#666666] font-thin hover:text-[#212427] transition-colors cursor-pointer text-xs md:text-base font-mono"
+          className="text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors cursor-pointer text-xs md:text-base font-mono"
           onClick={handleCopyAddress}
         >
           {/* Desktop: 2 lines */}
@@ -123,7 +123,7 @@ export default function Header({
       <div className="md:hidden absolute left-4 top-3.5 ">
         <Link href="/" className="block">
           <Image
-            src="/title_mobile.png"
+            src="/logo.png"
             alt="CookieBNB.xyz"
             width={105}
             height={30}
@@ -136,10 +136,10 @@ export default function Header({
       <div className="hidden md:block text-center">
         <Link href="/" className="block">
           <Image
-            src="/title (1).png"
+            src="/logo.png"
             alt="CookieBNB.xyz"
-            width={100}
-            height={30}
+            width={150}
+            height={45}
             className="mx-auto hover:opacity-80 transition-opacity cursor-pointer"
           />
         </Link>
@@ -150,7 +150,7 @@ export default function Header({
         {/* Mobile Language Toggle */}
         <button
           onClick={toggleLanguage}
-          className="block text-[#666666] font-light hover:text-[#212427] hover:underline transition-colors text-base text-right"
+          className="block text-[#FFFFFF] font-normal hover:text-[#FFFFFF] hover:underline transition-colors text-base text-right"
           aria-label={t.language.toggleLanguage}
         >
           {language === "en" ? t.language.chinese : t.language.english}
@@ -167,12 +167,12 @@ export default function Header({
 
         {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="absolute text-right text-[#666666] font-thin z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
+          <div className="absolute text-right text-[#FFFFFF] font-extralight z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
             <Link
               href="https://x.com/CookieBinance"
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
               {t.header.twitter}
@@ -181,7 +181,7 @@ export default function Header({
               href={`https://bscscan.com/address/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
               {t.header.contract}
@@ -191,14 +191,14 @@ export default function Header({
               href={`https://dexscreener.com/bsc/${contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
               {t.header.dexscreener}
             </Link>
             <Link
               href="/how-it-works"
-              className="block hover:text-[#212427] hover:underline transition-colors text-base text-[#666666]"
+              className="block hover:text-[#FFFFFF] hover:underline transition-colors text-base text-[#FFFFFF]"
             >
               {t.header.howItWorks}
             </Link>
@@ -210,7 +210,7 @@ export default function Header({
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-[#666666] hover:text-[#212427] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors text-base"
               onClick={closeMenu}
             >
               {t.header.docs}
@@ -218,13 +218,13 @@ export default function Header({
 
             <Link
               href="/faq"
-              className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] hover:underline transition-colors text-base"
             >
               {t.header.faq}
             </Link>
             <Link
               href="/results"
-              className="block text-[#666666] font-thin hover:text-[#212427] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] hover:underline transition-colors text-base"
             >
               {t.header.results}
             </Link>
@@ -232,12 +232,12 @@ export default function Header({
         )}
       </div>
       {/* Desktop Top Right Navigation */}
-      <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#666666] font-thin">
+      <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#FFFFFF] font-extralight">
         <Link
           href="https://x.com/CookieBinance"
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
+          className="block hover:text-[#FFFFFF] hover:underline transition-colors text-xs md:text-base"
         >
           {t.header.twitter}
         </Link>
@@ -245,7 +245,7 @@ export default function Header({
           href={`https://bscscan.com/address/${contractAddress}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
+          className="block hover:text-[#FFFFFF] hover:underline transition-colors text-xs md:text-base"
         >
           {t.header.contract}
         </Link>
@@ -253,13 +253,13 @@ export default function Header({
           href={`https://dexscreener.com/bsc/${contractAddress}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
+          className="block hover:text-[#FFFFFF] hover:underline transition-colors text-xs md:text-base"
         >
           {t.header.dexscreener}
         </Link>
         <Link
           href="/how-it-works"
-          className={`block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base ${
+          className={`block hover:text-[#FFFFFF] hover:underline transition-colors text-xs md:text-base ${
             page === "how-it-works" ? "" : ""
           }`}
         >
@@ -273,13 +273,13 @@ export default function Header({
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:text-[#212427] hover:underline transition-colors text-xs md:text-base"
+          className="block hover:text-[#FFFFFF] hover:underline transition-colors text-xs md:text-base"
         >
           {t.header.docs}
         </Link>
         <Link
           href="/faq"
-          className="text-xs md:text-lg text-[#666666] font-thin hover:text-[#212427] transition-colors hover:underline"
+          className="text-xs md:text-lg text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors hover:underline"
         >
           {t.header.faq}
         </Link>
@@ -287,7 +287,7 @@ export default function Header({
         {/* Language Toggle Button */}
         <button
           onClick={toggleLanguage}
-          className="text-xs md:text-base text-[#666666] font-light hover:text-[#212427] transition-colors hover:underline cursor-pointer"
+          className="text-xs md:text-base text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors hover:underline cursor-pointer"
           aria-label={t.language.toggleLanguage}
         >
           {language === "en" ? t.language.chinese : t.language.english}

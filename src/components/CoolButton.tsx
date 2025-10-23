@@ -134,7 +134,7 @@ const CoolButton: React.FC<CoolButtonProps> = ({
           letter-spacing: -0.05em;
           font-weight: 500;
           font-size: 1.1em;
-          color: rgba(50, 50, 50, 1);
+          color: #ffffff;
           text-shadow: 0em 0.25em 0.05em rgba(0, 0, 0, 0.1);
           transition: all var(--anim--hover-time) var(--anim--hover-ease);
           padding-inline: 1.5em;

@@ -38,7 +38,7 @@ const SimpleCountdown: React.FC = () => {
 
   return (
     <span
-      className={`tracking-widest font-mono text-[#212427] ${
+      className={`tracking-widest font-mono text-[#FFFFFF] ${
         shouldAnimate() ? "animate-pulse" : ""
       }`}
     >

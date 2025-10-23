@@ -38,7 +38,7 @@ export default function CurrentPoolGrid() {
                 className="object-contain scale-400"
               />
             </div>
-            <p className="text-sm font-mono text-[#212427] mt-10">
+            <p className="text-sm font-mono text-[#FFFFFF] mt-10">
               #{nft.number}
             </p>
           </div>

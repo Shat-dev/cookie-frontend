@@ -83,7 +83,7 @@ const NFTItem = React.memo<{
             <div className="relative w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 mx-auto">
               {!isInLoadedBatch || status === "loading" ? (
                 <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-md flex items-center justify-center">
-                  <div className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin"></div>
+                  <div className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin"></div>
                 </div>
               ) : status === "error" ? (
                 <div className="absolute inset-0 bg-gray-100 rounded-md flex items-center justify-center">
@@ -120,7 +120,7 @@ const NFTItem = React.memo<{
                 />
               )}
             </div>
-            <div className="text-xs sm:text-sm md:text-md font-mono text-[#212427] mt-3 md:mt-6">
+            <div className="text-xs sm:text-sm md:text-md font-mono text-[#FFFFFF] mt-3 md:mt-6">
               #{nft.tokenId}
             </div>
           </div>
@@ -490,18 +490,18 @@ export default function VirtualizedNFTGrid({
   if (loading) {
     return (
       <div className="flex justify-center items-center py-12">
-        <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+        <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin" />
       </div>
     );
   }
 
   if (error) {
-    return <p className="text-center text-[#212427] text-sm">{error}</p>;
+    return <p className="text-center text-[#FFFFFF] text-sm">{error}</p>;
   }
 
   if (nfts.length === 0) {
     return (
-      <p className="text-center text-[#666666] text-sm">
+      <p className="text-center text-[#FFFFFF] text-sm">
         No NFTs yet. Waiting for tweets...
       </p>
     );

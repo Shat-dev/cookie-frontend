@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useState, memo } from "react";
 // Option 3: Static import (preferred)
-import gumballImage from "../../public/gacha.png";
+import CookieImage from "../../public/cookie.png";
 
-const Gumball: React.FC = memo(() => {
+const Cookie: React.FC = memo(() => {
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -13,16 +13,16 @@ const Gumball: React.FC = memo(() => {
       {/* SVG Outline - Transparent, path only is interactive */}
       <div className="absolute inset-0 translate-x-11 translate-y-18.5"></div>
 
-      {/* Gumball Image - Option 3 with Option 1 fallback */}
+      {/* Cookie Image - Option 3 with Option 1 fallback */}
       <div
-        id="gumball-image"
+        id="Cookie-image"
         className="absolute inset-0 pointer-events-none mr-2.5 transition-transform duration-200 scale-80"
       >
         {!imageError ? (
           // Option 3: Static import (preferred)
           <Image
-            src={gumballImage}
-            alt="Gumball Machine"
+            src={CookieImage}
+            alt="Cookie Machine"
             fill
             className="object-contain"
             priority
@@ -31,8 +31,8 @@ const Gumball: React.FC = memo(() => {
         ) : (
           // Option 1: Explicit dimensions fallback
           <Image
-            src="/gacha.png"
-            alt="Gumball Machine"
+            src="/cookie.png"
+            alt="Cookie Machine"
             width={1080}
             height={1400}
             className="object-contain w-full h-full"
@@ -45,6 +45,6 @@ const Gumball: React.FC = memo(() => {
   );
 });
 
-Gumball.displayName = "Gumball";
+Cookie.displayName = "Cookie";
 
-export default Gumball;
+export default Cookie;

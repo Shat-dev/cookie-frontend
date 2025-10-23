@@ -50,7 +50,7 @@ export default function EnterPage() {
   // ✅ NEW: Preload ball.png image for instant display when menu opens
   useEffect(() => {
     const img = new window.Image();
-    img.src = "/ball.png";
+    img.src = "/cookie.png";
 
     // Load contract address
     import("../../../constants/contract-address.json").then((data) => {
@@ -395,7 +395,7 @@ export default function EnterPage() {
   const tweetURL = `https://x.com/intent/tweet?text=${tweetText}`;
 
   return (
-    <div className="min-h-screen bg-[#fff49b] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
+    <div className="min-h-screen bg-[#FF1F1F] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
       <div className="pt-[env(safe-area-inset-top)] py-6 md:pt-0 md:-mt-4">
         <Header
@@ -418,35 +418,35 @@ export default function EnterPage() {
             </div>
 
             {/* Mobile Footer for Menu Overlay */}
-            <footer className="fixed bottom-0 left-0 right-0 bg-[#fff49b] z-50 font-['Fira_Code'] text-[#666666] h-[72px] overflow-hidden">
+            <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
-                <div className="text-xs text-[#666666] font-mono text-center">
+                <div className="text-xs text-[#FFFFFF] font-mono text-center">
                   ERC-404 POWERED LOTTERY ON BSC
                 </div>
                 <div
-                  className="text-xs text-[#666666] font-mono text-center opacity-75 cursor-pointer hover:text-[#212427] transition-colors"
+                  className="text-xs text-[#FFFFFF] font-mono text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
                   onClick={handleCopyAddress}
                 >
                   {copied ? "Copied Successfully!" : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#666666] font-thin hover:text-[#212427] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="group-hover:[&>path]:fill-[#212427] transition-colors"
+                    className="group-hover:[&>path]:fill-[#FFFFFF] transition-colors"
                   >
                     <path
                       d="M10 9C10 8.44754 10.4476 8 10.9997 8H13C13.5071 8 13.7898 8.16249 13.9378 8.28087C14.0486 8.36952 14.1077 8.45538 14.119 8.4731C14.3737 8.94812 14.962 9.13706 15.4472 8.89443C15.9309 8.65259 16.1361 8.03372 15.8934 7.55064C15.8387 7.44229 15.7712 7.34071 15.6984 7.24375C15.5859 7.09376 15.4194 6.90487 15.1872 6.71913C14.7102 6.33751 13.9929 6 13 6H10.9997C9.34271 6 8 7.34332 8 9V14.9999C8 16.6566 9.34275 17.9999 10.9998 17.9999L13 17.9999C13.9929 18 14.7101 17.6625 15.1872 17.2809C15.4194 17.0951 15.5859 16.9062 15.6984 16.7563C15.7714 16.659 15.8389 16.5568 15.8939 16.4483C16.138 15.9605 15.9354 15.3497 15.4472 15.1056C14.962 14.8629 14.3737 15.0519 14.119 15.5269C14.1077 15.5446 14.0486 15.6305 13.9378 15.7191C13.7899 15.8375 13.5071 16 13 15.9999L10.9998 15.9999C10.4476 15.9999 10 15.5524 10 14.9999V9Z"
-                      fill="#666666"
+                      fill="#FFFFFF"
                     />
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23ZM12 20.9932C7.03321 20.9932 3.00683 16.9668 3.00683 12C3.00683 7.03321 7.03321 3.00683 12 3.00683C16.9668 3.00683 20.9932 7.03321 20.9932 12C20.9932 16.9668 16.9668 20.9932 12 20.9932Z"
-                      fill="#666666"
+                      fill="#FFFFFF"
                     />
                   </svg>
                   <span className="text-xs">CookieBNB.xyz 2025</span>
@@ -458,10 +458,10 @@ export default function EnterPage() {
           <main className="max-w-4xl py-24 mx-auto px-0">
             {/* Header Section */}
             <div className="text-center md:mb-12">
-              <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
+              <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
                 How to Enter
               </h1>
-              <p className="text-lg px-8 text-[#666666] font-thin">
+              <p className="text-lg px-8 text-[#FFFFFF] font-extralight">
                 Follow these steps to participate in the onchain lottery
               </p>
             </div>
@@ -471,10 +471,10 @@ export default function EnterPage() {
               {/* Step 1 */}
               <div className="">
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-semi-bold text-[#212427] mb-2">
+                  <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
                     Step 1
                   </h3>
-                  <p className="text-sm text-[#666666] font-thin">
+                  <p className="text-sm text-[#FFFFFF] font-extralight">
                     Buy at least 1 $Cookie token (ERC-404)
                   </p>
                 </div>
@@ -483,10 +483,10 @@ export default function EnterPage() {
               {/* Step 2 */}
               <div className="">
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-semi-bold text-[#212427] mb-2">
+                  <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
                     Step 2
                   </h3>
-                  <p className="text-sm text-[#666666] font-thin">
+                  <p className="text-sm text-[#FFFFFF] font-extralight">
                     Post on X/Twitter with &quot;幸运饼干 Cookie {cookieNumber}
                     &quot;
                   </p>
@@ -496,10 +496,10 @@ export default function EnterPage() {
               {/* Step 3 */}
               <div className="">
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-semi-bold text-[#212427] mb-2">
+                  <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
                     Step 3
                   </h3>
-                  <p className="text-sm text-[#666666] font-thin">
+                  <p className="text-sm text-[#FFFFFF] font-extralight">
                     Wait for the draw and hope you win!
                   </p>
                 </div>
@@ -509,7 +509,7 @@ export default function EnterPage() {
             {/* Enter Form */}
             <div className="rounded-xs">
               <div className="p-8">
-                <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
+                <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
                   Enter Your Wallet Address
                 </h2>
 
@@ -525,13 +525,13 @@ export default function EnterPage() {
                         value={walletAddress}
                         onChange={(e) => setWalletAddress(e.target.value)}
                         placeholder="Enter your wallet address"
-                        className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-mono text-sm"
+                        className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none font-mono text-sm placeholder:text-[#000000]"
                         disabled={loading}
                       />
                       <button
                         type="submit"
                         disabled={loading}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#666666] hover:text-[#212427] transition-colors font-thin cursor-pointer disabled:opacity-50"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#000000] hover:text-[#000000] transition-colors font-extralight cursor-pointer disabled:opacity-50"
                       >
                         {loading ? "..." : "Enter"}
                       </button>
@@ -541,13 +541,13 @@ export default function EnterPage() {
                   {!isValidAddress &&
                     walletAddress.length > 0 &&
                     walletAddress.length <= 10 && (
-                      <p className="text-[#212427] text-sm text-center mt-2">
+                      <p className="text-[#000000] text-sm text-center mt-2">
                         Please enter a valid wallet address
                       </p>
                     )}
 
                   {error && (
-                    <p className="text-[#212427] text-sm text-center mt-2">
+                    <p className="text-[#FFFFFF] text-sm text-center mt-2">
                       {error}
                     </p>
                   )}
@@ -555,7 +555,7 @@ export default function EnterPage() {
                   {/* Loading spinner with smooth transition */}
                   {loading && (
                     <div className="flex justify-center items-center py-6 mt-4 transition-opacity duration-300">
-                      <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+                      <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin" />
                     </div>
                   )}
                 </form>
@@ -563,7 +563,7 @@ export default function EnterPage() {
                 {/* NFT Display Section */}
                 {showNFTs && nfts.length > 0 && (
                   <div className="mt-8 transition-all duration-500 ease-in-out">
-                    <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
+                    <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
                       Your Lottery Cookie ({nfts.length} NFT
                       {nfts.length !== 1 ? "s" : ""})
                     </h2>
@@ -585,7 +585,7 @@ export default function EnterPage() {
                                     <>
                                       {nft.imageLoading && (
                                         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
-                                          <div className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+                                          <div className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin" />
                                         </div>
                                       )}
                                       <Image
@@ -609,7 +609,7 @@ export default function EnterPage() {
                                     </>
                                   )}
                                 </div>
-                                <div className="text-xs sm:text-sm md:text-md font-mono text-[#212427] mt-3 md:mt-6">
+                                <div className="text-xs sm:text-sm md:text-md font-mono text-[#FFFFFF] mt-3 md:mt-6">
                                   #{nft.token_id}
                                 </div>
                               </div>
@@ -632,7 +632,7 @@ export default function EnterPage() {
                     </div>
 
                     <div className="text-center mt-6">
-                      <p className="text-sm text-[#666666] font-thin">
+                      <p className="text-sm text-[#FFFFFF] font-extralight">
                         Sharing makes you eligible for the upcoming draw. Keep
                         holding to stay in future draws!
                       </p>
@@ -658,10 +658,10 @@ export default function EnterPage() {
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-0">
         {/* Header Section */}
         <div className="text-center md:mb-12">
-          <h1 className="text-3xl font-semi-bold text-[#212427] mb-4">
+          <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
             How to Enter
           </h1>
-          <p className="text-lg px-8 text-[#666666] font-thin">
+          <p className="text-lg px-8 text-[#FFFFFF] font-extralight">
             Follow these steps to participate in the onchain lottery
           </p>
         </div>
@@ -671,10 +671,10 @@ export default function EnterPage() {
           {/* Step 1 */}
           <div className="">
             <div className="p-6 text-center">
-              <h3 className="text-lg font-semi-bold text-[#212427] mb-2">
+              <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
                 Step 1
               </h3>
-              <p className="text-sm text-[#666666] font-thin">
+              <p className="text-sm text-[#FFFFFF] font-extralight">
                 Buy at least 1 $Cookie token (ERC-404)
               </p>
             </div>
@@ -683,10 +683,10 @@ export default function EnterPage() {
           {/* Step 2 */}
           <div className="">
             <div className="p-6 text-center">
-              <h3 className="text-lg font-semi-bold text-[#212427] mb-2">
+              <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
                 Step 2
               </h3>
-              <p className="text-sm text-[#666666] font-thin">
+              <p className="text-sm text-[#FFFFFF] font-extralight">
                 Post on X/Twitter with &quot;幸运饼干 Cookie {cookieNumber}
                 &quot;
               </p>
@@ -696,10 +696,10 @@ export default function EnterPage() {
           {/* Step 3 */}
           <div className="">
             <div className="p-6 text-center">
-              <h3 className="text-lg font-semi-bold text-[#212427] mb-2">
+              <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
                 Step 3
               </h3>
-              <p className="text-sm text-[#666666] font-thin">
+              <p className="text-sm text-[#FFFFFF] font-extralight">
                 Wait for the draw and hope you win!
               </p>
             </div>
@@ -709,7 +709,7 @@ export default function EnterPage() {
         {/* Enter Form */}
         <div className="rounded-xs">
           <div className="p-8">
-            <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
+            <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
               Enter Your Wallet Address
             </h2>
 
@@ -722,13 +722,13 @@ export default function EnterPage() {
                     value={walletAddress}
                     onChange={(e) => setWalletAddress(e.target.value)}
                     placeholder="Enter your wallet address"
-                    className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-mono text-sm"
+                    className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-mono text-sm placeholder:text-[#000000]"
                     disabled={loading}
                   />
                   <button
                     type="submit"
                     disabled={loading}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#666666] hover:text-[#212427] transition-colors font-thin cursor-pointer disabled:opacity-50"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#000000] hover:text-[#000000] transition-colors font-extralight cursor-pointer disabled:opacity-50"
                   >
                     {loading ? "..." : "Enter"}
                   </button>
@@ -738,13 +738,13 @@ export default function EnterPage() {
               {!isValidAddress &&
                 walletAddress.length > 0 &&
                 walletAddress.length <= 10 && (
-                  <p className="text-[#212427] text-sm text-center mt-2">
+                  <p className="text-[#FFFFFF] text-sm text-center mt-2">
                     Please enter a valid wallet address
                   </p>
                 )}
 
               {error && (
-                <p className="text-[#212427] text-sm text-center mt-2">
+                <p className="text-[#FFFFFF] text-sm text-center mt-2">
                   {error}
                 </p>
               )}
@@ -752,7 +752,7 @@ export default function EnterPage() {
               {/* Loading spinner with smooth transition */}
               {loading && (
                 <div className="flex justify-center items-center py-6 mt-4 transition-opacity duration-300">
-                  <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+                  <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin" />
                 </div>
               )}
             </form>
@@ -760,7 +760,7 @@ export default function EnterPage() {
             {/* NFT Display Section */}
             {showNFTs && nfts.length > 0 && (
               <div className="mt-8 transition-all duration-500 ease-in-out">
-                <h2 className="text-xl font-semi-bold text-[#212427] mb-6 text-center">
+                <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
                   Your Lottery Cookie ({nfts.length} NFT
                   {nfts.length !== 1 ? "s" : ""})
                 </h2>
@@ -782,7 +782,7 @@ export default function EnterPage() {
                                 <>
                                   {nft.imageLoading && (
                                     <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-md">
-                                      <div className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-[#dddddd] border-t-[#212427] rounded-full animate-spin" />
+                                      <div className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin" />
                                     </div>
                                   )}
                                   <Image
@@ -804,7 +804,7 @@ export default function EnterPage() {
                                 </>
                               )}
                             </div>
-                            <div className="text-xs sm:text-sm md:text-md font-mono text-[#212427] mt-3 md:mt-6">
+                            <div className="text-xs sm:text-sm md:text-md font-mono text-[#FFFFFF] mt-3 md:mt-6">
                               #{nft.token_id}
                             </div>
                           </div>
@@ -827,7 +827,7 @@ export default function EnterPage() {
                 </div>
 
                 <div className="text-center mt-6">
-                  <p className="text-sm text-[#666666] font-thin">
+                  <p className="text-sm text-[#FFFFFF] font-extralight">
                     Sharing makes you eligible for the upcoming draw. Keep
                     holding to stay in future draws!
                   </p>
