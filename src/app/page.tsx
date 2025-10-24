@@ -150,13 +150,13 @@ export default function Home() {
       </main>
 
       {/* Mobile Layout: centered Cookie, existing fade kept, stats overlaid */}
-      <div className="md:hidden w-full min-h-[100dvh] px-8 pt-2 pb-[68px] overflow-y-auto">
+      <div className="md:hidden w-full min-h-[100dvh] px-8 pt-10 pb-[68px] overflow-y-auto">
         {isMenuOpen ? (
           <div className="flex items-end justify-center min-h-[80dvh]">
             <img
               src="/cookie.png"
               alt="Cookie"
-              className="w-auto h-auto max-w-[50%] max-h-[50%] object-contain"
+              className="w-auto h-auto max-w-[75%] max-h-[75%] object-contain"
             />
           </div>
         ) : (
