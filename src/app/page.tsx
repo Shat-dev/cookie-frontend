@@ -13,18 +13,6 @@ import { usePrizePool } from "@/hooks/usePrizePool";
 import { useActiveRound } from "@/hooks/useActiveRound";
 import { useLanguage } from "@/context/LanguageContext";
 
-// Memoized mobile Cookie section to prevent re-renders from state changes
-const MobileCookieSection = memo(() => (
-  <>
-    {/* Cookie hero with your ORIGINAL fade */}
-    <div className="relative flex items-start justify-center -mt-[16%]">
-      <Cookie />
-    </div>
-  </>
-));
-
-MobileCookieSection.displayName = "MobileCookieSection";
-
 export default function Home() {
   const [contractAddress, setContractAddress] = useState<string>("");
   const [copied, setCopied] = useState(false);
@@ -162,21 +150,28 @@ export default function Home() {
       </main>
 
       {/* Mobile Layout: centered Cookie, existing fade kept, stats overlaid */}
-      <div className="md:hidden relative w-full min-h-[100dvh] overflow-hidden -px-4 pb-[68px]">
+      <div className="md:hidden w-full min-h-[100dvh] px-8 pt-2 pb-[68px] overflow-y-auto">
         {isMenuOpen ? (
           <div className="flex items-end justify-center min-h-[80dvh]">
             <img
               src="/cookie.png"
-              alt="Ball"
+              alt="Cookie"
               className="w-auto h-auto max-w-[50%] max-h-[50%] object-contain"
             />
           </div>
         ) : (
-          <>
-            <MobileCookieSection />
+          <div className="w-full">
+            {/* Cookie at top */}
+            <div className="flex justify-center mt-4 mb-6">
+              <img
+                src="/cookie.png"
+                alt="Cookie"
+                className="w-[65%] max-w-[280px] h-auto object-contain"
+              />
+            </div>
 
-            {/* Stats + buttons layered ON TOP of the faded area */}
-            <div className="absolute inset-x-0 z-20 text-center space-y-0">
+            {/* Stats and buttons stacked */}
+            <div className="text-center space-y-6">
               {/* Prize Pool */}
               <div>
                 <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(12px,3.2vw,14px)] font-semibold">
@@ -227,22 +222,14 @@ export default function Home() {
               {/* Actions */}
               <div className="pt-2 flex justify-center gap-2">
                 <Link href="/current-pool">
-                  <EnterButton
-                    onClick={() => console.log("Play button clicked")}
-                  >
-                    {t.common.currentPool}
-                  </EnterButton>
+                  <EnterButton>{t.common.currentPool}</EnterButton>
                 </Link>
                 <Link href="/enter">
-                  <EnterButton
-                    onClick={() => console.log("Play button clicked")}
-                  >
-                    {t.common.enterCookie}
-                  </EnterButton>
+                  <EnterButton>{t.common.enterCookie}</EnterButton>
                 </Link>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
 
