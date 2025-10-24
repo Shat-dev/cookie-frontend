@@ -95,12 +95,12 @@ export default function Header({
   return (
     <header className="fixed top-0 inset-x-0 z-[100] bg-[#FF1F1F] h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
       {/* Desktop Top Left */}
-      <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-extralight">
+      <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-semibold">
         <div className="text-[#FFFFFF] mb-1 hover:text-[#FFFFFF] transition-colors text-xs md:text-lg">
           <span className="hidden md:inline">{t.header.bscFirstLottery}</span>
         </div>
         <div
-          className="text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors cursor-pointer text-xs md:text-base font-mono"
+          className="text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors cursor-pointer text-xs md:text-base font-semibold"
           onClick={handleCopyAddress}
         >
           {/* Desktop: 2 lines */}
@@ -125,8 +125,8 @@ export default function Header({
           <Image
             src="/logo.png"
             alt="CookieBNB.xyz"
-            width={105}
-            height={30}
+            width={150}
+            height={50}
             className="hover:opacity-80 transition-opacity cursor-pointer"
           />
         </Link>
@@ -138,8 +138,8 @@ export default function Header({
           <Image
             src="/logo.png"
             alt="CookieBNB.xyz"
-            width={150}
-            height={45}
+            width={240}
+            height={85}
             className="mx-auto hover:opacity-80 transition-opacity cursor-pointer"
           />
         </Link>
@@ -150,7 +150,7 @@ export default function Header({
         {/* Mobile Language Toggle */}
         <button
           onClick={toggleLanguage}
-          className="block text-[#FFFFFF] font-normal hover:text-[#FFFFFF] hover:underline transition-colors text-base text-right"
+          className="block text-[#FFFFFF] font-medium hover:text-[#FFFFFF] hover:underline transition-colors text-base text-right"
           aria-label={t.language.toggleLanguage}
         >
           {language === "en" ? t.language.chinese : t.language.english}
@@ -167,7 +167,7 @@ export default function Header({
 
         {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="absolute text-right text-[#FFFFFF] font-extralight z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
+          <div className="absolute text-right text-[#FFFFFF] font-semibold z-50 transform transition-all duration-200 ease-in-out min-w-[120px] space-y-2.5 right-3 top-16">
             <Link
               href="https://x.com/CookieBinance"
               target="_blank"
@@ -218,13 +218,13 @@ export default function Header({
 
             <Link
               href="/faq"
-              className="block text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors text-base"
             >
               {t.header.faq}
             </Link>
             <Link
               href="/results"
-              className="block text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] hover:underline transition-colors text-base"
+              className="block text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors text-base"
             >
               {t.header.results}
             </Link>
@@ -232,7 +232,7 @@ export default function Header({
         )}
       </div>
       {/* Desktop Top Right Navigation */}
-      <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#FFFFFF] font-extralight">
+      <div className="hidden md:block absolute right-2 md:right-4 top-6 text-base md:text-lg space-y-0.25 md:space-y-1 text-right text-[#FFFFFF] font-semibold">
         <Link
           href="https://x.com/CookieBinance"
           target="_blank"
@@ -279,7 +279,7 @@ export default function Header({
         </Link>
         <Link
           href="/faq"
-          className="text-xs md:text-lg text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors hover:underline"
+          className="text-xs md:text-base text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors hover:underline"
         >
           {t.header.faq}
         </Link>
@@ -287,7 +287,7 @@ export default function Header({
         {/* Language Toggle Button */}
         <button
           onClick={toggleLanguage}
-          className="text-xs md:text-base text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors hover:underline cursor-pointer"
+          className="text-xs md:text-base text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors hover:underline cursor-pointer"
           aria-label={t.language.toggleLanguage}
         >
           {language === "en" ? t.language.chinese : t.language.english}

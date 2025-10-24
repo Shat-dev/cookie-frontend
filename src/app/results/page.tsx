@@ -80,7 +80,7 @@ function LoadingSpinner() {
         <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
           <div className="flex flex-col items-center justify-center p-6 ">
             <div className="w-8 h-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mb-4"></div>
-            <div className="text-[#FFFFFF] text-sm font-extralight whitespace-nowrap">
+            <div className="text-[#FFFFFF] text-sm font-semibold whitespace-nowrap">
               Loading lottery results...
             </div>
           </div>
@@ -90,7 +90,7 @@ function LoadingSpinner() {
       {/* Desktop: Normal table centering */}
       <div className="hidden md:flex flex-col items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mb-4"></div>
-        <div className="text-[#FFFFFF] text-sm font-extralight">
+        <div className="text-[#FFFFFF] text-sm font-semibold">
           Loading lottery results...
         </div>
       </div>
@@ -345,16 +345,16 @@ export default function DrawResults() {
             {/* Mobile Footer for Menu Overlay */}
             <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
-                <div className="text-xs text-[#FFFFFF] font-mono text-center">
+                <div className="text-xs text-[#FFFFFF] font-semibold text-center">
                   {t.footer.erc404PoweredLottery}
                 </div>
                 <div
-                  className="text-xs text-[#FFFFFF] font-mono text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
+                  className="text-xs text-[#FFFFFF] font-semibold text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
                   onClick={handleCopyAddress}
                 >
                   {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
@@ -383,10 +383,10 @@ export default function DrawResults() {
           <main className="max-w-6xl mx-auto px-8 py-24">
             {/* Header Section */}
             <div className="text-center mb-12">
-              <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
                 {t.results.title}
               </h1>
-              <p className="text-base text-[#FFFFFF] font-extralight max-w-2xl mx-auto">
+              <p className="text-base text-[#FFFFFF] font-semibold max-w-2xl mx-auto">
                 {t.results.subtitle}
               </p>
             </div>
@@ -459,7 +459,7 @@ export default function DrawResults() {
                                   href={getExplorerUrl(round.winner)}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="md:hidden text-sm font-mono text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
+                                  className="md:hidden text-sm font-semibold text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
                                 >
                                   {formatAddress(round.winner)}
                                 </a>
@@ -468,7 +468,7 @@ export default function DrawResults() {
                                   href={getExplorerUrl(round.winner)}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="hidden md:inline text-sm font-mono text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
+                                  className="hidden md:inline text-sm font-semibold text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
                                 >
                                   {round.winner}
                                 </a>
@@ -502,7 +502,7 @@ export default function DrawResults() {
                                     href={getVrfUrl(round.vrfTxHash)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-extralight cursor-pointer flex items-center space-x-1 group"
+                                    className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                                   >
                                     <Image
                                       src="/link.svg"
@@ -514,7 +514,7 @@ export default function DrawResults() {
                                     <span>VRF</span>
                                   </a>
                                 ) : (
-                                  <span className="text-[#999999] font-extralight text-xs">
+                                  <span className="text-[#999999] font-semibold text-xs">
                                     N/A
                                   </span>
                                 )}
@@ -523,7 +523,7 @@ export default function DrawResults() {
                                     href={getBscScanTxUrl(round.snapshotTxHash)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-extralight cursor-pointer flex items-center space-x-1 group"
+                                    className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                                   >
                                     <Image
                                       src="/link.svg"
@@ -535,7 +535,7 @@ export default function DrawResults() {
                                     <span>{t.results.snapshot}</span>
                                   </a>
                                 ) : (
-                                  <span className="text-[#999999] font-extralight text-xs">
+                                  <span className="text-[#999999] font-semibold text-xs">
                                     N/A
                                   </span>
                                 )}
@@ -568,10 +568,10 @@ export default function DrawResults() {
       <main className="hidden md:block max-w-6xl mx-auto px-8 py-12">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+          <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
             {t.results.title}
           </h1>
-          <p className="text-base text-[#FFFFFF] font-extralight max-w-2xl mx-auto">
+          <p className="text-base text-[#FFFFFF] font-semibold max-w-2xl mx-auto">
             {t.results.subtitle}
           </p>
         </div>
@@ -642,7 +642,7 @@ export default function DrawResults() {
                               href={getExplorerUrl(round.winner)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="md:hidden text-sm font-mono text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
+                              className="md:hidden text-sm font-semibold text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
                             >
                               {formatAddress(round.winner)}
                             </a>
@@ -651,7 +651,7 @@ export default function DrawResults() {
                               href={getExplorerUrl(round.winner)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hidden md:inline text-sm font-mono text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
+                              className="hidden md:inline text-sm font-semibold text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors cursor-pointer"
                             >
                               {round.winner}
                             </a>
@@ -685,7 +685,7 @@ export default function DrawResults() {
                                 href={getVrfUrl(round.vrfTxHash)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-extralight cursor-pointer flex items-center space-x-1 group"
+                                className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                               >
                                 <Image
                                   src="/link.svg"
@@ -697,7 +697,7 @@ export default function DrawResults() {
                                 <span>VRF</span>
                               </a>
                             ) : (
-                              <span className="text-[#999999] font-extralight text-xs">
+                              <span className="text-[#999999] font-semibold text-xs">
                                 VRF N/A
                               </span>
                             )}
@@ -706,7 +706,7 @@ export default function DrawResults() {
                                 href={getBscScanTxUrl(round.snapshotTxHash)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-extralight cursor-pointer flex items-center space-x-1 group"
+                                className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                               >
                                 <Image
                                   src="/link.svg"
@@ -718,7 +718,7 @@ export default function DrawResults() {
                                 <span>{t.results.snapshot}</span>
                               </a>
                             ) : (
-                              <span className="text-[#999999] font-extralight text-xs">
+                              <span className="text-[#999999] font-semibold text-xs">
                                 Snapshot N/A
                               </span>
                             )}

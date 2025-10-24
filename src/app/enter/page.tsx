@@ -458,7 +458,7 @@ export default function EnterPage() {
           <main className="max-w-4xl py-24 mx-auto px-0">
             {/* Header Section */}
             <div className="text-center md:mb-12">
-              <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
                 How to Enter
               </h1>
               <p className="text-lg px-8 text-[#FFFFFF] font-extralight">
@@ -471,7 +471,7 @@ export default function EnterPage() {
               {/* Step 1 */}
               <div className="">
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="text-lg font-semibold text-[#FFFFFF] mb-2">
                     Step 1
                   </h3>
                   <p className="text-sm text-[#FFFFFF] font-extralight">
@@ -483,7 +483,7 @@ export default function EnterPage() {
               {/* Step 2 */}
               <div className="">
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="text-lg font-semibold text-[#FFFFFF] mb-2">
                     Step 2
                   </h3>
                   <p className="text-sm text-[#FFFFFF] font-extralight">
@@ -496,7 +496,7 @@ export default function EnterPage() {
               {/* Step 3 */}
               <div className="">
                 <div className="p-6 text-center">
-                  <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="text-lg font-semibold text-[#FFFFFF] mb-2">
                     Step 3
                   </h3>
                   <p className="text-sm text-[#FFFFFF] font-extralight">
@@ -509,7 +509,7 @@ export default function EnterPage() {
             {/* Enter Form */}
             <div className="rounded-xs">
               <div className="p-8">
-                <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
+                <h2 className="text-xl font-semibold text-[#FFFFFF] mb-6 text-center">
                   Enter Your Wallet Address
                 </h2>
 
@@ -563,7 +563,7 @@ export default function EnterPage() {
                 {/* NFT Display Section */}
                 {showNFTs && nfts.length > 0 && (
                   <div className="mt-8 transition-all duration-500 ease-in-out">
-                    <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
+                    <h2 className="text-xl font-semibold text-[#FFFFFF] mb-6 text-center">
                       Your Lottery Cookie ({nfts.length} NFT
                       {nfts.length !== 1 ? "s" : ""})
                     </h2>
@@ -658,7 +658,7 @@ export default function EnterPage() {
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-0">
         {/* Header Section */}
         <div className="text-center md:mb-12">
-          <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+          <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
             How to Enter
           </h1>
           <p className="text-lg px-8 text-[#FFFFFF] font-extralight">
@@ -671,7 +671,7 @@ export default function EnterPage() {
           {/* Step 1 */}
           <div className="">
             <div className="p-6 text-center">
-              <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
+              <h3 className="text-lg font-semibold text-[#FFFFFF] mb-2">
                 Step 1
               </h3>
               <p className="text-sm text-[#FFFFFF] font-extralight">
@@ -683,7 +683,7 @@ export default function EnterPage() {
           {/* Step 2 */}
           <div className="">
             <div className="p-6 text-center">
-              <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
+              <h3 className="text-lg font-semibold text-[#FFFFFF] mb-2">
                 Step 2
               </h3>
               <p className="text-sm text-[#FFFFFF] font-extralight">
@@ -696,7 +696,7 @@ export default function EnterPage() {
           {/* Step 3 */}
           <div className="">
             <div className="p-6 text-center">
-              <h3 className="text-lg font-semi-bold text-[#FFFFFF] mb-2">
+              <h3 className="text-lg font-semibold text-[#FFFFFF] mb-2">
                 Step 3
               </h3>
               <p className="text-sm text-[#FFFFFF] font-extralight">
@@ -709,7 +709,7 @@ export default function EnterPage() {
         {/* Enter Form */}
         <div className="rounded-xs">
           <div className="p-8">
-            <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
+            <h2 className="text-xl font-semibold text-[#FFFFFF] mb-6 text-center">
               Enter Your Wallet Address
             </h2>
 
@@ -760,7 +760,7 @@ export default function EnterPage() {
             {/* NFT Display Section */}
             {showNFTs && nfts.length > 0 && (
               <div className="mt-8 transition-all duration-500 ease-in-out">
-                <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-6 text-center">
+                <h2 className="text-xl font-semibold text-[#FFFFFF] mb-6 text-center">
                   Your Lottery Cookie ({nfts.length} NFT
                   {nfts.length !== 1 ? "s" : ""})
                 </h2>

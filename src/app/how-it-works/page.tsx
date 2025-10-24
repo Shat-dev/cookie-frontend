@@ -73,7 +73,7 @@ export default function HowItWorks() {
                 >
                   {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
@@ -101,10 +101,10 @@ export default function HowItWorks() {
         ) : (
           <main className="max-w-4xl py-24 mx-auto px-0">
             <div className="text-center mb-0">
-              <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.title}
               </h1>
-              <p className="text-lg px-8 text-[#FFFFFF] font-extralight">
+              <p className="text-lg px-8 text-[#FFFFFF] font-normal">
                 {t.howItWorks.subtitle}
               </p>
             </div>
@@ -124,10 +124,10 @@ export default function HowItWorks() {
               {/* Project Overview */}
               <div className="rounded-xs">
                 <section className="p-8">
-                  <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-4">
+                  <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                     {t.howItWorks.projectOverview.title}
                   </h2>
-                  <p className="text-[#FFFFFF] font-extralight leading-relaxed">
+                  <p className="text-[#FFFFFF] font-normal leading-relaxed">
                     {t.howItWorks.projectOverview.description}
                   </p>
                 </section>
@@ -136,7 +136,7 @@ export default function HowItWorks() {
               {/* How It Works */}
               <div className="rounded-xs">
                 <section className="w-full mx-auto p-6 sm:p-8 pt-0 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl">
-                  <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-3 sm:mb-4">
+                  <h2 className="text-xl font-semibold text-[#FFFFFF] mb-3 sm:mb-4">
                     {t.howItWorks.howToEnter.title}
                   </h2>
 
@@ -147,10 +147,10 @@ export default function HowItWorks() {
                         1
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.howToEnter.steps.acquireCookie.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {
                             t.howItWorks.howToEnter.steps.acquireCookie
                               .description
@@ -165,10 +165,10 @@ export default function HowItWorks() {
                         2
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.howToEnter.steps.postOnX.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {t.howItWorks.howToEnter.steps.postOnX.description}
                         </p>
                       </div>
@@ -180,10 +180,10 @@ export default function HowItWorks() {
                         3
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.howToEnter.steps.automaticEntries.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {
                             t.howItWorks.howToEnter.steps.automaticEntries
                               .description
@@ -198,13 +198,13 @@ export default function HowItWorks() {
                         4
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {
                             t.howItWorks.howToEnter.steps.automatedDrawings
                               .title
                           }
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {
                             t.howItWorks.howToEnter.steps.automatedDrawings
                               .description
@@ -219,7 +219,7 @@ export default function HowItWorks() {
               {/* Why it works*/}
               <div className="rounded-xs">
                 <section className="p-6 sm:p-8">
-                  <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-3 sm:mb-4">
+                  <h2 className="text-xl font-semibold text-[#FFFFFF] mb-3 sm:mb-4">
                     {t.howItWorks.whyItWorks.title}
                   </h2>
 
@@ -230,10 +230,10 @@ export default function HowItWorks() {
                         1
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.whyItWorks.points.builtInVirality.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {
                             t.howItWorks.whyItWorks.points.builtInVirality
                               .description
@@ -248,13 +248,13 @@ export default function HowItWorks() {
                         2
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {
                             t.howItWorks.whyItWorks.points.marketingFlywheel
                               .title
                           }
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {
                             t.howItWorks.whyItWorks.points.marketingFlywheel
                               .description
@@ -269,10 +269,10 @@ export default function HowItWorks() {
                         3
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.whyItWorks.points.tokenFlywheel.title}
                         </h3>
-                        <div className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <div className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           <p className="mb-2">
                             {
                               t.howItWorks.whyItWorks.points.tokenFlywheel
@@ -307,13 +307,13 @@ export default function HowItWorks() {
                         4
                       </div>
                       <div>
-                        <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                        <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {
                             t.howItWorks.whyItWorks.points.compoundingValue
                               .title
                           }
                         </h3>
-                        <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                           {
                             t.howItWorks.whyItWorks.points.compoundingValue
                               .description
@@ -328,23 +328,23 @@ export default function HowItWorks() {
               {/* Technology */}
               <div className="rounded-xs">
                 <section className="p-8">
-                  <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-4">
+                  <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                     {t.howItWorks.technology.title}
                   </h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                      <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.erc404Tax.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-extralight">
+                      <p className="text-[#FFFFFF] font-normal">
                         {t.howItWorks.technology.items.erc404Tax.description}
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                      <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.lotteryContract.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-extralight">
+                      <p className="text-[#FFFFFF] font-normal">
                         {
                           t.howItWorks.technology.items.lotteryContract
                             .description
@@ -352,26 +352,26 @@ export default function HowItWorks() {
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                      <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.chainlinkVrf.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-extralight">
+                      <p className="text-[#FFFFFF] font-normal">
                         {t.howItWorks.technology.items.chainlinkVrf.description}
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                      <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.bscNetwork.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-extralight">
+                      <p className="text-[#FFFFFF] font-normal">
                         {t.howItWorks.technology.items.bscNetwork.description}
                       </p>
                     </div>
                     <div>
-                      <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                      <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.smartContracts.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-extralight">
+                      <p className="text-[#FFFFFF] font-normal">
                         {
                           t.howItWorks.technology.items.smartContracts
                             .description
@@ -385,24 +385,24 @@ export default function HowItWorks() {
               {/* Tokenomics */}
               <div className="rounded-xs">
                 <section className="p-8">
-                  <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-4">
+                  <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                     {t.howItWorks.tokenomics.title}
                   </h2>
-                  <p className="text-[#FFFFFF] font-extralight leading-relaxed mb-4">
+                  <p className="text-[#FFFFFF] font-normal leading-relaxed mb-4">
                     {t.howItWorks.tokenomics.description}
                   </p>
                   <div className="space-y-2 mb-4">
-                    <p className="text-[#FFFFFF] font-extralight">
+                    <p className="text-[#FFFFFF] font-normal">
                       {t.howItWorks.tokenomics.breakdown.buybacks}
                     </p>
-                    <p className="text-[#FFFFFF] font-extralight">
+                    <p className="text-[#FFFFFF] font-normal">
                       {t.howItWorks.tokenomics.breakdown.prizePool}
                     </p>
-                    <p className="text-[#FFFFFF] font-extralight">
+                    <p className="text-[#FFFFFF] font-normal">
                       {t.howItWorks.tokenomics.breakdown.team}
                     </p>
                   </div>
-                  <p className="text-[#FFFFFF] font-extralight leading-relaxed">
+                  <p className="text-[#FFFFFF] font-normal leading-relaxed">
                     {t.howItWorks.tokenomics.conclusion}
                   </p>
                 </section>
@@ -426,10 +426,10 @@ export default function HowItWorks() {
       {/* Desktop Layout (unchanged) */}
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-0">
         <div className="text-center mb-0">
-          <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+          <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
             {t.howItWorks.title}
           </h1>
-          <p className="text-lg px-8 text-[#FFFFFF] font-extralight">
+          <p className="text-lg px-8 text-[#FFFFFF] font-normal">
             {t.howItWorks.subtitle}
           </p>
         </div>
@@ -449,10 +449,10 @@ export default function HowItWorks() {
           {/* Project Overview */}
           <div className="rounded-xs">
             <section className="p-8">
-              <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.projectOverview.title}
               </h2>
-              <p className="text-[#FFFFFF] font-extralight leading-relaxed">
+              <p className="text-[#FFFFFF] font-normal leading-relaxed">
                 {t.howItWorks.projectOverview.description}
               </p>
             </section>
@@ -461,7 +461,7 @@ export default function HowItWorks() {
           {/* How It Works */}
           <div className="rounded-xs">
             <section className="w-full mx-auto p-6 sm:p-8 pt-0 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl">
-              <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-3 sm:mb-4">
+              <h2 className="text-xl font-semibold text-[#FFFFFF] mb-3 sm:mb-4">
                 {t.howItWorks.howToEnter.title}
               </h2>
 
@@ -472,10 +472,10 @@ export default function HowItWorks() {
                     1
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.acquireCookie.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {t.howItWorks.howToEnter.steps.acquireCookie.description}
                     </p>
                   </div>
@@ -487,10 +487,10 @@ export default function HowItWorks() {
                     2
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.postOnX.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {t.howItWorks.howToEnter.steps.postOnX.description}
                     </p>
                   </div>
@@ -502,10 +502,10 @@ export default function HowItWorks() {
                     3
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.automaticEntries.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {
                         t.howItWorks.howToEnter.steps.automaticEntries
                           .description
@@ -520,10 +520,10 @@ export default function HowItWorks() {
                     4
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.automatedDrawings.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {
                         t.howItWorks.howToEnter.steps.automatedDrawings
                           .description
@@ -538,7 +538,7 @@ export default function HowItWorks() {
           {/* Why it works*/}
           <div className="rounded-xs">
             <section className="p-6 sm:p-8">
-              <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-3 sm:mb-4">
+              <h2 className="text-xl font-semibold text-[#FFFFFF] mb-3 sm:mb-4">
                 {t.howItWorks.whyItWorks.title}
               </h2>
 
@@ -549,10 +549,10 @@ export default function HowItWorks() {
                     1
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.builtInVirality.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {
                         t.howItWorks.whyItWorks.points.builtInVirality
                           .description
@@ -567,10 +567,10 @@ export default function HowItWorks() {
                     2
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.marketingFlywheel.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {
                         t.howItWorks.whyItWorks.points.marketingFlywheel
                           .description
@@ -585,10 +585,10 @@ export default function HowItWorks() {
                     3
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.tokenFlywheel.title}
                     </h3>
-                    <div className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <div className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       <p className="mb-2">
                         {
                           t.howItWorks.whyItWorks.points.tokenFlywheel.details
@@ -623,10 +623,10 @@ export default function HowItWorks() {
                     4
                   </div>
                   <div>
-                    <h3 className="font-semi-bold text-[#FFFFFF] mb-1.5 sm:mb-2">
+                    <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.compoundingValue.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-extralight leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
                       {
                         t.howItWorks.whyItWorks.points.compoundingValue
                           .description
@@ -641,47 +641,47 @@ export default function HowItWorks() {
           {/* Technology */}
           <div className="rounded-xs">
             <section className="p-8">
-              <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.technology.title}
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.erc404Tax.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-extralight">
+                  <p className="text-[#FFFFFF] font-normal">
                     {t.howItWorks.technology.items.erc404Tax.description}
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.lotteryContract.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-extralight">
+                  <p className="text-[#FFFFFF] font-normal">
                     {t.howItWorks.technology.items.lotteryContract.description}
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.chainlinkVrf.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-extralight">
+                  <p className="text-[#FFFFFF] font-normal">
                     {t.howItWorks.technology.items.chainlinkVrf.description}
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.bscNetwork.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-extralight">
+                  <p className="text-[#FFFFFF] font-normal">
                     {t.howItWorks.technology.items.bscNetwork.description}
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semi-bold text-[#FFFFFF] mb-2">
+                  <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.smartContracts.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-extralight">
+                  <p className="text-[#FFFFFF] font-normal">
                     {t.howItWorks.technology.items.smartContracts.description}
                   </p>
                 </div>
@@ -692,24 +692,24 @@ export default function HowItWorks() {
           {/* Tokenomics */}
           <div className="rounded-xs">
             <section className="p-8">
-              <h2 className="text-xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.tokenomics.title}
               </h2>
-              <p className="text-[#FFFFFF] font-extralight leading-relaxed mb-4">
+              <p className="text-[#FFFFFF] font-normal leading-relaxed mb-4">
                 {t.howItWorks.tokenomics.description}
               </p>
               <div className="space-y-2 mb-4">
-                <p className="text-[#FFFFFF] font-extralight">
+                <p className="text-[#FFFFFF] font-normal">
                   {t.howItWorks.tokenomics.breakdown.buybacks}
                 </p>
-                <p className="text-[#FFFFFF] font-extralight">
+                <p className="text-[#FFFFFF] font-normal">
                   {t.howItWorks.tokenomics.breakdown.prizePool}
                 </p>
-                <p className="text-[#FFFFFF] font-extralight">
+                <p className="text-[#FFFFFF] font-normal">
                   {t.howItWorks.tokenomics.breakdown.team}
                 </p>
               </div>
-              <p className="text-[#FFFFFF] font-extralight leading-relaxed">
+              <p className="text-[#FFFFFF] font-normal leading-relaxed">
                 {t.howItWorks.tokenomics.conclusion}
               </p>
             </section>

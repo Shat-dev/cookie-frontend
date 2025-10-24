@@ -29,7 +29,7 @@ function RefreshCountdown({
   return (
     <div className="flex items-center">
       {refreshCountdown > 0 ? (
-        <div className="text-xs sm:text-sm text-[#FFFFFF] font-mono">
+        <div className="text-xs sm:text-sm text-[#FFFFFF] font-semibold">
           {t.common.nextUpdate}: {Math.floor(refreshCountdown / 60)}:
           {(refreshCountdown % 60).toString().padStart(2, "0")}
         </div>
@@ -37,7 +37,7 @@ function RefreshCountdown({
         <button
           onClick={onManualRefresh}
           disabled={isRefreshing}
-          className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-mono rounded-md border transition-colors ${
+          className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-md border transition-colors ${
             isRefreshing
               ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
               : "bg-white text-[#FFFFFF] border-[#FFFFFF] hover:bg-[#FFFFFF] hover:text-white"
@@ -385,18 +385,18 @@ export default function CurrentPool() {
               {/* Mobile Footer for Menu Overlay */}
               <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
                 <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
-                  <div className="text-xs text-[#FFFFFF] font-mono text-center">
+                  <div className="text-xs text-[#FFFFFF] font-semibold text-center">
                     {t.footer.erc404PoweredLottery}
                   </div>
                   <div
-                    className="text-xs text-[#FFFFFF] font-mono text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
+                    className="text-xs text-[#FFFFFF] font-semibold text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
                     onClick={handleCopyAddress}
                   >
                     {copied
                       ? t.common.copiedSuccessfully
                       : contractAddress || ""}
                   </div>
-                  <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+                  <div className="flex items-center space-x-1 text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                     <svg
                       width="14"
                       height="14"
@@ -424,10 +424,10 @@ export default function CurrentPool() {
           ) : (
             <main className="max-w-4xl py-24 mx-auto px-2">
               <div className="text-center mb-8 sm:mb-12">
-                <h1 className="text-2xl sm:text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+                <h1 className="text-2xl sm:text-3xl font-semibold text-[#FFFFFF] mb-4">
                   {t.currentPool.title}
                 </h1>
-                <p className="text-base sm:text-lg text-[#FFFFFF] font-extralight">
+                <p className="text-base sm:text-lg text-[#FFFFFF] font-semibold">
                   {t.currentPool.subtitle}
                 </p>
               </div>
@@ -438,7 +438,7 @@ export default function CurrentPool() {
                   <section className="p-4 sm:p-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-6 gap-y-12">
                       <div className="text-center">
-                        <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                        <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                           {prizePoolLoading ? (
                             <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mx-auto" />
                           ) : prizePoolError ? (
@@ -449,42 +449,42 @@ export default function CurrentPool() {
                             prizePoolUsd
                           )}
                         </div>
-                        <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                        <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                           {t.currentPool.totalPrizePool}
                         </div>
                       </div>
 
                       <div className="text-center">
-                        <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                        <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                           {isCountLoading ? (
                             <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mx-auto" />
                           ) : (
                             displayCount
                           )}
                         </div>
-                        <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                        <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                           {t.common.activeEntries}
                         </div>
                       </div>
 
                       <div className="text-center">
-                        <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                        <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                           <SimpleCountdown />
                         </div>
-                        <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                        <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                           {t.common.timeLeft}
                         </div>
                       </div>
 
                       <div className="text-center">
-                        <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                        <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                           {drawLoading ? (
                             <div className="h-6 sm:h-8 w-8 sm:w-12 animate-pulse rounded mx-auto"></div>
                           ) : (
                             currentDrawNumber || 1
                           )}
                         </div>
-                        <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                        <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                           {t.common.drawNumber}
                         </div>
                       </div>
@@ -496,7 +496,7 @@ export default function CurrentPool() {
                 <div className="rounded-xs">
                   <section className="p-4 sm:p-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
-                      <h2 className="text-lg sm:text-xl font-semi-bold text-[#FFFFFF]">
+                      <h2 className="text-lg sm:text-xl font-semibold text-[#FFFFFF]">
                         {t.currentPool.liveCookiePool} (
                         {isValidFilterAddress && !filterNoEntries
                           ? filteredNfts.length
@@ -527,12 +527,12 @@ export default function CurrentPool() {
                               placeholder={
                                 t.currentPool.walletAddressPlaceholder
                               }
-                              className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-mono text-sm"
+                              className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-semibold text-sm"
                             />
                             {filterAddress && (
                               <button
                                 onClick={clearFilter}
-                                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#FFFFFF] hover:text-[#FFFFFF] transition-colors font-extralight cursor-pointer"
+                                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#FFFFFF] hover:text-[#FFFFFF] transition-colors font-semibold cursor-pointer"
                               >
                                 {t.common.clear}
                               </button>
@@ -605,10 +605,10 @@ export default function CurrentPool() {
         {/* Desktop Layout (unchanged) */}
         <main className="hidden md:block max-w-4xl py-12 mx-auto px-2">
           <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-2xl sm:text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-[#FFFFFF] mb-4">
               Current Pool
             </h1>
-            <p className="text-base sm:text-lg text-[#FFFFFF] font-extralight">
+            <p className="text-base sm:text-lg text-[#FFFFFF] font-semibold">
               View the current pool information
             </p>
           </div>
@@ -619,7 +619,7 @@ export default function CurrentPool() {
               <section className="p-4 sm:p-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 sm:gap-6 gap-y-12">
                   <div className="text-center">
-                    <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                    <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                       {prizePoolLoading ? (
                         <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mx-auto" />
                       ) : prizePoolError ? (
@@ -628,42 +628,42 @@ export default function CurrentPool() {
                         prizePoolUsd
                       )}
                     </div>
-                    <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                    <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                       Total Prize Pool
                     </div>
                   </div>
 
                   <div className="text-center">
-                    <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                    <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                       {isCountLoading ? (
                         <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mx-auto" />
                       ) : (
                         displayCount
                       )}
                     </div>
-                    <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                    <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                       Active Entries
                     </div>
                   </div>
 
                   <div className="text-center">
-                    <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                    <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                       <SimpleCountdown />
                     </div>
-                    <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                    <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                       Time Left
                     </div>
                   </div>
 
                   <div className="text-center">
-                    <div className="text-xl sm:text-2xl font-semi-bold text-[#FFFFFF] mb-2">
+                    <div className="text-xl sm:text-2xl font-semibold text-[#FFFFFF] mb-2">
                       {drawLoading ? (
                         <div className="h-6 sm:h-8 w-8 sm:w-12 animate-pulse rounded mx-auto"></div>
                       ) : (
                         currentDrawNumber || 1
                       )}
                     </div>
-                    <div className="text-sm sm:text-base text-[#FFFFFF] font-extralight">
+                    <div className="text-sm sm:text-base text-[#FFFFFF] font-semibold">
                       Draw Number
                     </div>
                   </div>
@@ -675,7 +675,7 @@ export default function CurrentPool() {
             <div className="rounded-xs">
               <section className="p-4 sm:p-8">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
-                  <h2 className="text-lg sm:text-xl font-semi-bold text-[#FFFFFF]">
+                  <h2 className="text-lg sm:text-xl font-semibold text-[#FFFFFF]">
                     Live Cookie pool (
                     {isValidFilterAddress && !filterNoEntries
                       ? filteredNfts.length
@@ -704,12 +704,12 @@ export default function CurrentPool() {
                             handleFilterAddressChange(e.target.value)
                           }
                           placeholder="Enter Wallet Address"
-                          className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-mono text-sm"
+                          className="w-full px-4 py-3 pr-20 border border-[#dddddd] rounded-lg focus:outline-none focus:ring-0 focus:border-[#dddddd] font-semibold text-sm"
                         />
                         {filterAddress && (
                           <button
                             onClick={clearFilter}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#FFFFFF] hover:text-[#FFFFFF] transition-colors font-extralight cursor-pointer"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#FFFFFF] hover:text-[#FFFFFF] transition-colors font-semibold cursor-pointer"
                           >
                             Clear
                           </button>

@@ -40,7 +40,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#FF1F1F] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
-      <div className="pt-[env(safe-area-inset-top)] py-6 md:pt-0 md:-mt-4">
+      <div className="pt-[env(safe-area-inset-top)] py-6 md:pt-0 md:-mt-4 mb-20">
         <Header
           currentPage="404"
           isMenuOpen={isMenuOpen}
@@ -63,16 +63,16 @@ export default function NotFound() {
             {/* Mobile Footer for Menu Overlay */}
             <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
-                <div className="text-xs text-[#FFFFFF] font-mono text-center">
+                <div className="text-xs text-[#FFFFFF] font-semibold text-center">
                   {t.footer.erc404PoweredLottery}
                 </div>
                 <div
-                  className="text-xs text-[#FFFFFF] font-mono text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
+                  className="text-xs text-[#FFFFFF] font-semibold text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
                   onClick={handleCopyAddress}
                 >
                   {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
@@ -100,13 +100,13 @@ export default function NotFound() {
         ) : (
           <main className="max-w-4xl mx-auto px-8 py-12">
             <div className="text-center mb-12">
-              <h1 className="text-6xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h1 className="text-6xl font-semibold text-[#FFFFFF] mb-4">
                 {t.notFound.title}
               </h1>
-              <p className="text-2xl text-[#FFFFFF] font-extralight mb-2">
+              <p className="text-2xl text-[#FFFFFF] font-semibold mb-2">
                 {t.notFound.pageNotFound}
               </p>
-              <p className="text-lg text-[#FFFFFF] font-extralight">
+              <p className="text-lg text-[#FFFFFF] font-semibold">
                 {t.notFound.description}
               </p>
             </div>
@@ -128,13 +128,13 @@ export default function NotFound() {
       {/* Desktop Layout (unchanged) */}
       <main className="hidden md:block max-w-4xl mx-auto px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-6xl font-semi-bold text-[#FFFFFF] mb-4">
+          <h1 className="text-6xl font-semibold text-[#FFFFFF] mb-4">
             {t.notFound.title}
           </h1>
-          <p className="text-2xl text-[#FFFFFF] font-extralight mb-2">
+          <p className="text-2xl text-[#FFFFFF] font-semibold mb-2">
             {t.notFound.pageNotFound}
           </p>
-          <p className="text-lg text-[#FFFFFF] font-extralight">
+          <p className="text-lg text-[#FFFFFF] font-semibold">
             {t.notFound.description}
           </p>
         </div>

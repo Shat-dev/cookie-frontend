@@ -104,10 +104,10 @@ export default function Home() {
           </div>
           <div className="flex flex-col space-y-8 ">
             <div>
-              <div className="text-xs text-[#FFFFFF] uppercase tracking-wider mb-1">
+              <div className="text-xs text-[#FFFFFF] uppercase font-semibold tracking-wider mb-1">
                 {t.common.prizePool}
               </div>
-              <div className="text-5xl font-mono text-[#FFFFFF]">
+              <div className="text-5xl font-semibold text-[#FFFFFF]">
                 {prizePoolLoading ? (
                   <div className="flex items-center">
                     <div className="h-8 w-8 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mr-4" />
@@ -124,19 +124,19 @@ export default function Home() {
             </div>
 
             <div>
-              <div className="text-xs text-[#FFFFFF] uppercase tracking-wider mb-1">
+              <div className="text-xs text-[#FFFFFF] uppercase font-semibold tracking-wider mb-1">
                 {t.common.timeLeft}
               </div>
-              <div className="text-4xl font-mono text-[#FFFFFF]">
+              <div className="text-4xl font-semibold text-[#FFFFFF]">
                 <SimpleCountdown />
               </div>
             </div>
 
             <div>
-              <div className="text-xs text-[#FFFFFF] uppercase tracking-wider mb-1">
+              <div className="text-xs text-[#FFFFFF] uppercase font-semibold tracking-wider mb-1">
                 {t.common.currentEntries}
               </div>
-              <div className="text-3xl font-mono text-[#FFFFFF]">
+              <div className="text-3xl font-semibold text-[#FFFFFF]">
                 {isCountLoading ? (
                   <div className="h-6 w-6 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mx-auto" />
                 ) : (
@@ -182,10 +182,10 @@ export default function Home() {
             >
               {/* Prize Pool */}
               <div>
-                <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(10px,3.2vw,12px)]">
+                <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(12px,3.2vw,14px)] font-semibold">
                   {t.common.prizePool}
                 </div>
-                <div className="font-mono text-[#FFFFFF] text-[clamp(18px,6vw,24px)]">
+                <div className="font-semibold text-[#FFFFFF] text-[clamp(18px,6vw,24px)]">
                   {prizePoolLoading ? (
                     <div className="flex items-center justify-center">
                       <div className="h-4 w-4 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mr-2" />
@@ -205,20 +205,20 @@ export default function Home() {
 
               {/* Time Left */}
               <div>
-                <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(10px,3.2vw,12px)]">
+                <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(12px,3.2vw,14px)] font-semibold">
                   {t.common.timeLeft}
                 </div>
-                <div className="font-mono text-[#FFFFFF] text-[clamp(16px,5.2vw,20px)]">
+                <div className="font-semibold text-[#FFFFFF] text-[clamp(16px,5.2vw,20px)]">
                   <SimpleCountdown />
                 </div>
               </div>
 
               {/* Current Entries */}
               <div>
-                <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(10px,3.2vw,12px)]">
+                <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(12px,3.2vw,14px)] font-semibold">
                   {t.common.currentEntries}
                 </div>
-                <div className="font-mono text-[#FFFFFF] text-[clamp(14px,4.8vw,18px)] break-words">
+                <div className="font-semibold text-[#FFFFFF] text-[clamp(14px,4.8vw,18px)] break-words">
                   {isCountLoading ? (
                     <div className="h-3 w-3 border-2 border-[#dddddd] border-t-[#FFFFFF] rounded-full animate-spin mx-auto" />
                   ) : (
@@ -254,16 +254,16 @@ export default function Home() {
         {winners.length === 0 ? (
           <>
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-60 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
-              <div className="text-xs text-[#FFFFFF] font-mono text-center">
+              <div className="text-xs text-[#FFFFFF] font-semibold text-center">
                 {t.header.bscFirstLottery}
               </div>
               <div
-                className="text-xs text-[#FFFFFF] font-mono text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
+                className="text-xs text-[#FFFFFF] font-semibold text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
                 onClick={handleCopyAddress}
               >
                 {copied ? t.common.copiedSuccessfully : contractAddress || ""}
               </div>
-              <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+              <div className="flex items-center space-x-1 text-[#FFFFFF] font-mono hover:text-[#FFFFFF] transition-colors group">
                 {/* svg kept */}
                 <svg
                   width="14"
@@ -291,11 +291,11 @@ export default function Home() {
             {/* Desktop footer unchanged */}
             <div className="hidden md:flex fixed bottom-0 left-0 right-0 z-0 justify-between items-center px-2 md:px-4 py-4">
               <Link href="/results">
-                <div className="text-xs md:text-lg text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors">
+                <div className="text-xs md:text-lg text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors">
                   {t.common.latestWinners}
                 </div>
               </Link>
-              <div className="flex items-center space-x-1 md:space-x-2 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+              <div className="flex items-center space-x-1 md:space-x-2 text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                 {/* svg kept */}
                 <svg
                   width="16"

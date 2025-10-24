@@ -130,7 +130,7 @@ export default function FAQ() {
                 >
                   {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#FFFFFF] font-extralight hover:text-[#FFFFFF] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
@@ -158,10 +158,10 @@ export default function FAQ() {
         ) : (
           <main className="max-w-4xl py-24 mx-auto px-4">
             <div className="text-center mb-12">
-              <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+              <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
                 {t.faq.title}
               </h1>
-              <p className="text-lg text-[#FFFFFF] font-extralight">
+              <p className="text-lg text-[#FFFFFF] font-normal">
                 {t.faq.subtitle}
               </p>
             </div>
@@ -173,7 +173,7 @@ export default function FAQ() {
                     onClick={() => toggleQuestion(index)}
                     className="w-full p-6 text-left flex justify-between items-center cursor-pointer transition-colors duration-200"
                   >
-                    <h2 className="text-xl font-semi-bold text-[#FFFFFF]">
+                    <h2 className="text-xl font-semibold text-[#FFFFFF]">
                       {faq.question}
                     </h2>
                     <span className="text-2xl text-[#FFFFFF] transform transition-transform duration-200">
@@ -183,7 +183,7 @@ export default function FAQ() {
 
                   {openQuestions.includes(index) && (
                     <div className="px-6 pb-6 border-t border-gray-100">
-                      <p className="text-[#FFFFFF] font-extralight leading-relaxed pt-4">
+                      <p className="text-[#FFFFFF] font-normal leading-relaxed pt-4">
                         {faq.answer}
                       </p>
                     </div>
@@ -207,12 +207,10 @@ export default function FAQ() {
       {/* Desktop Layout (unchanged) */}
       <main className="hidden md:block max-w-4xl py-12 mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-semi-bold text-[#FFFFFF] mb-4">
+          <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
             {t.faq.title}
           </h1>
-          <p className="text-lg text-[#FFFFFF] font-extralight">
-            {t.faq.subtitle}
-          </p>
+          <p className="text-lg text-[#FFFFFF] font-normal">{t.faq.subtitle}</p>
         </div>
 
         <div className="space-y-0">
@@ -222,7 +220,7 @@ export default function FAQ() {
                 onClick={() => toggleQuestion(index)}
                 className="w-full p-6 text-left flex justify-between items-center cursor-pointer transition-colors duration-200"
               >
-                <h2 className="text-xl font-semi-bold text-[#FFFFFF]">
+                <h2 className="text-xl font-semibold text-[#FFFFFF]">
                   {faq.question}
                 </h2>
                 <span className="text-2xl text-[#FFFFFF] transform transition-transform duration-200">
@@ -232,7 +230,7 @@ export default function FAQ() {
 
               {openQuestions.includes(index) && (
                 <div className="px-6 pb-6 border-t border-gray-100">
-                  <p className="text-[#FFFFFF] font-extralight leading-relaxed pt-4">
+                  <p className="text-[#FFFFFF] font-normal leading-relaxed pt-4">
                     {faq.answer}
                   </p>
                 </div>
