@@ -319,7 +319,7 @@ export default function DrawResults() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FF1F1F] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
+    <div className="min-h-screen bg-transparent font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
       <div className="pt-[env(safe-area-inset-top)] py-6 md:pt-0 md:-mt-4">
         <Header
@@ -343,7 +343,7 @@ export default function DrawResults() {
             </div>
 
             {/* Mobile Footer for Menu Overlay */}
-            <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
+            <footer className="fixed bottom-0 left-0 right-0 bg-transparent z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#FFFFFF] font-semibold text-center">
                   {t.footer.erc404PoweredLottery}

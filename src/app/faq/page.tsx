@@ -96,7 +96,7 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FF1F1F] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
+    <div className="min-h-screen bg-transparent font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
       <div className="pt-[env(safe-area-inset-top)] py-6 md:pt-0 md:-mt-4">
         <Header
@@ -119,7 +119,7 @@ export default function FAQ() {
             </div>
 
             {/* Mobile Footer for Menu Overlay */}
-            <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
+            <footer className="fixed bottom-0 left-0 right-0 bg-transparent z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#FFFFFF] font-mono text-center">
                   {t.footer.erc404PoweredLottery}
@@ -130,7 +130,7 @@ export default function FAQ() {
                 >
                   {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
@@ -161,7 +161,7 @@ export default function FAQ() {
               <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
                 {t.faq.title}
               </h1>
-              <p className="text-lg text-[#FFFFFF] font-normal">
+              <p className="text-lg text-[#FFFFFF] font-semibold">
                 {t.faq.subtitle}
               </p>
             </div>
@@ -183,7 +183,7 @@ export default function FAQ() {
 
                   {openQuestions.includes(index) && (
                     <div className="px-6 pb-6 border-t border-gray-100">
-                      <p className="text-[#FFFFFF] font-normal leading-relaxed pt-4">
+                      <p className="text-[#FFFFFF] font-semibold leading-relaxed pt-4">
                         {faq.answer}
                       </p>
                     </div>
@@ -210,7 +210,9 @@ export default function FAQ() {
           <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
             {t.faq.title}
           </h1>
-          <p className="text-lg text-[#FFFFFF] font-normal">{t.faq.subtitle}</p>
+          <p className="text-lg text-[#FFFFFF] font-semibold">
+            {t.faq.subtitle}
+          </p>
         </div>
 
         <div className="space-y-0">
@@ -230,7 +232,7 @@ export default function FAQ() {
 
               {openQuestions.includes(index) && (
                 <div className="px-6 pb-6 border-t border-gray-100">
-                  <p className="text-[#FFFFFF] font-normal leading-relaxed pt-4">
+                  <p className="text-[#FFFFFF] font-semibold leading-relaxed pt-4">
                     {faq.answer}
                   </p>
                 </div>

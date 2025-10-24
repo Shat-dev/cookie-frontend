@@ -86,7 +86,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FF1F1F] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
+    <div className="min-h-screen bg-transparent font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
       <div className="pt-[env(safe-area-inset-top)] py-10 md:pt-0 md:-mt-4">
         <Header
@@ -250,20 +250,20 @@ export default function Home() {
       </div>
 
       {/* Footer (desktop unchanged, mobile reserves space via pb on container) */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] md:h-auto overflow-hidden">
+      <footer className="fixed bottom-0 left-0 right-0 bg-transparent z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] md:h-auto overflow-hidden">
         {winners.length === 0 ? (
           <>
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-60 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
-              <div className="text-xs text-[#FFFFFF] font-semibold text-center">
+              <div className="text-xs text-[#FFFFFF] font-bold text-center">
                 {t.header.bscFirstLottery}
               </div>
               <div
-                className="text-xs text-[#FFFFFF] font-semibold text-center opacity-75 cursor-pointer hover:text-[#FFFFFF] transition-colors"
+                className="text-xs text-[#FFFFFF] font-bold text-center cursor-pointer hover:text-[#FFFFFF] transition-colors"
                 onClick={handleCopyAddress}
               >
                 {copied ? t.common.copiedSuccessfully : contractAddress || ""}
               </div>
-              <div className="flex items-center space-x-1 text-[#FFFFFF] font-mono hover:text-[#FFFFFF] transition-colors group">
+              <div className="flex items-center space-x-1 font-bold text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                 {/* svg kept */}
                 <svg
                   width="14"

@@ -93,14 +93,14 @@ export default function Header({
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-[100] bg-[#FF1F1F] h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
+    <header className="fixed top-0 inset-x-0 z-[100] bg-transparent h-[80px] pt-[80px] px-4 md:relative md:px-8 py-3 md:py-6  md:h-auto">
       {/* Desktop Top Left */}
       <div className="hidden md:block absolute left-2 md:left-4 top-6 text-lg md:text-lg text-base font-semibold">
         <div className="text-[#FFFFFF] mb-1 hover:text-[#FFFFFF] transition-colors text-xs md:text-lg">
           <span className="hidden md:inline">{t.header.bscFirstLottery}</span>
         </div>
         <div
-          className="text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors cursor-pointer text-xs md:text-base font-semibold"
+          className="text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors cursor-pointer text-xs md:text-base font-semibold"
           onClick={handleCopyAddress}
         >
           {/* Desktop: 2 lines */}
@@ -150,7 +150,7 @@ export default function Header({
         {/* Mobile Language Toggle */}
         <button
           onClick={toggleLanguage}
-          className="block text-[#FFFFFF] font-medium hover:text-[#FFFFFF] hover:underline transition-colors text-base text-right"
+          className="block text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] hover:underline transition-colors text-base text-right"
           aria-label={t.language.toggleLanguage}
         >
           {language === "en" ? t.language.chinese : t.language.english}

@@ -39,7 +39,7 @@ export default function HowItWorks() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FF1F1F] font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
+    <div className="min-h-screen bg-transparent font-['Fira_Code'] overflow-hidden md:overflow-y-clip">
       {/* Header: desktop offset preserved, no desktop shift */}
       <div className="pt-[env(safe-area-inset-top)] py-6 md:pt-0 md:-mt-4">
         <Header
@@ -62,7 +62,7 @@ export default function HowItWorks() {
             </div>
 
             {/* Mobile Footer for Menu Overlay */}
-            <footer className="fixed bottom-0 left-0 right-0 bg-[#FF1F1F] z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
+            <footer className="fixed bottom-0 left-0 right-0 bg-transparent z-50 font-['Fira_Code'] text-[#FFFFFF] h-[72px] overflow-hidden">
               <div className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center py-3 space-y-1 pb-[env(safe-area-inset-bottom)]">
                 <div className="text-xs text-[#FFFFFF] font-mono text-center">
                   {t.footer.erc404PoweredLottery}
@@ -73,7 +73,7 @@ export default function HowItWorks() {
                 >
                   {copied ? t.common.copiedSuccessfully : contractAddress || ""}
                 </div>
-                <div className="flex items-center space-x-1 text-[#FFFFFF] font-normal hover:text-[#FFFFFF] transition-colors group">
+                <div className="flex items-center space-x-1 text-[#FFFFFF] font-semibold hover:text-[#FFFFFF] transition-colors group">
                   <svg
                     width="14"
                     height="14"
@@ -104,7 +104,7 @@ export default function HowItWorks() {
               <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.title}
               </h1>
-              <p className="text-lg px-8 text-[#FFFFFF] font-normal">
+              <p className="text-lg px-8 text-[#FFFFFF] font-semibold">
                 {t.howItWorks.subtitle}
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function HowItWorks() {
                   <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                     {t.howItWorks.projectOverview.title}
                   </h2>
-                  <p className="text-[#FFFFFF] font-normal leading-relaxed">
+                  <p className="text-[#FFFFFF] font-semibold leading-relaxed">
                     {t.howItWorks.projectOverview.description}
                   </p>
                 </section>
@@ -150,7 +150,7 @@ export default function HowItWorks() {
                         <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.howToEnter.steps.acquireCookie.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {
                             t.howItWorks.howToEnter.steps.acquireCookie
                               .description
@@ -168,7 +168,7 @@ export default function HowItWorks() {
                         <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.howToEnter.steps.postOnX.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {t.howItWorks.howToEnter.steps.postOnX.description}
                         </p>
                       </div>
@@ -183,7 +183,7 @@ export default function HowItWorks() {
                         <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.howToEnter.steps.automaticEntries.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {
                             t.howItWorks.howToEnter.steps.automaticEntries
                               .description
@@ -204,7 +204,7 @@ export default function HowItWorks() {
                               .title
                           }
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {
                             t.howItWorks.howToEnter.steps.automatedDrawings
                               .description
@@ -233,7 +233,7 @@ export default function HowItWorks() {
                         <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.whyItWorks.points.builtInVirality.title}
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {
                             t.howItWorks.whyItWorks.points.builtInVirality
                               .description
@@ -254,7 +254,7 @@ export default function HowItWorks() {
                               .title
                           }
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {
                             t.howItWorks.whyItWorks.points.marketingFlywheel
                               .description
@@ -272,7 +272,7 @@ export default function HowItWorks() {
                         <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                           {t.howItWorks.whyItWorks.points.tokenFlywheel.title}
                         </h3>
-                        <div className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <div className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           <p className="mb-2">
                             {
                               t.howItWorks.whyItWorks.points.tokenFlywheel
@@ -313,7 +313,7 @@ export default function HowItWorks() {
                               .title
                           }
                         </h3>
-                        <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                        <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                           {
                             t.howItWorks.whyItWorks.points.compoundingValue
                               .description
@@ -336,7 +336,7 @@ export default function HowItWorks() {
                       <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.erc404Tax.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-normal">
+                      <p className="text-[#FFFFFF] font-semibold">
                         {t.howItWorks.technology.items.erc404Tax.description}
                       </p>
                     </div>
@@ -344,7 +344,7 @@ export default function HowItWorks() {
                       <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.lotteryContract.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-normal">
+                      <p className="text-[#FFFFFF] font-semibold">
                         {
                           t.howItWorks.technology.items.lotteryContract
                             .description
@@ -355,7 +355,7 @@ export default function HowItWorks() {
                       <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.chainlinkVrf.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-normal">
+                      <p className="text-[#FFFFFF] font-semibold">
                         {t.howItWorks.technology.items.chainlinkVrf.description}
                       </p>
                     </div>
@@ -363,7 +363,7 @@ export default function HowItWorks() {
                       <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.bscNetwork.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-normal">
+                      <p className="text-[#FFFFFF] font-semibold">
                         {t.howItWorks.technology.items.bscNetwork.description}
                       </p>
                     </div>
@@ -371,7 +371,7 @@ export default function HowItWorks() {
                       <h3 className="font-semibold text-[#FFFFFF] mb-2">
                         {t.howItWorks.technology.items.smartContracts.title}
                       </h3>
-                      <p className="text-[#FFFFFF] font-normal">
+                      <p className="text-[#FFFFFF] font-semibold">
                         {
                           t.howItWorks.technology.items.smartContracts
                             .description
@@ -388,21 +388,21 @@ export default function HowItWorks() {
                   <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                     {t.howItWorks.tokenomics.title}
                   </h2>
-                  <p className="text-[#FFFFFF] font-normal leading-relaxed mb-4">
+                  <p className="text-[#FFFFFF] font-semibold leading-relaxed mb-4">
                     {t.howItWorks.tokenomics.description}
                   </p>
                   <div className="space-y-2 mb-4">
-                    <p className="text-[#FFFFFF] font-normal">
+                    <p className="text-[#FFFFFF] font-semibold">
                       {t.howItWorks.tokenomics.breakdown.buybacks}
                     </p>
-                    <p className="text-[#FFFFFF] font-normal">
+                    <p className="text-[#FFFFFF] font-semibold">
                       {t.howItWorks.tokenomics.breakdown.prizePool}
                     </p>
-                    <p className="text-[#FFFFFF] font-normal">
+                    <p className="text-[#FFFFFF] font-semibold">
                       {t.howItWorks.tokenomics.breakdown.team}
                     </p>
                   </div>
-                  <p className="text-[#FFFFFF] font-normal leading-relaxed">
+                  <p className="text-[#FFFFFF] font-semibold leading-relaxed">
                     {t.howItWorks.tokenomics.conclusion}
                   </p>
                 </section>
@@ -429,7 +429,7 @@ export default function HowItWorks() {
           <h1 className="text-3xl font-semibold text-[#FFFFFF] mb-4">
             {t.howItWorks.title}
           </h1>
-          <p className="text-lg px-8 text-[#FFFFFF] font-normal">
+          <p className="text-lg px-8 text-[#FFFFFF] font-semibold">
             {t.howItWorks.subtitle}
           </p>
         </div>
@@ -452,7 +452,7 @@ export default function HowItWorks() {
               <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.projectOverview.title}
               </h2>
-              <p className="text-[#FFFFFF] font-normal leading-relaxed">
+              <p className="text-[#FFFFFF] font-semibold leading-relaxed">
                 {t.howItWorks.projectOverview.description}
               </p>
             </section>
@@ -475,7 +475,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.acquireCookie.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {t.howItWorks.howToEnter.steps.acquireCookie.description}
                     </p>
                   </div>
@@ -490,7 +490,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.postOnX.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {t.howItWorks.howToEnter.steps.postOnX.description}
                     </p>
                   </div>
@@ -505,7 +505,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.automaticEntries.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {
                         t.howItWorks.howToEnter.steps.automaticEntries
                           .description
@@ -523,7 +523,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.howToEnter.steps.automatedDrawings.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {
                         t.howItWorks.howToEnter.steps.automatedDrawings
                           .description
@@ -552,7 +552,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.builtInVirality.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {
                         t.howItWorks.whyItWorks.points.builtInVirality
                           .description
@@ -570,7 +570,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.marketingFlywheel.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {
                         t.howItWorks.whyItWorks.points.marketingFlywheel
                           .description
@@ -588,7 +588,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.tokenFlywheel.title}
                     </h3>
-                    <div className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <div className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       <p className="mb-2">
                         {
                           t.howItWorks.whyItWorks.points.tokenFlywheel.details
@@ -626,7 +626,7 @@ export default function HowItWorks() {
                     <h3 className="font-semibold text-[#FFFFFF] mb-1.5 sm:mb-2">
                       {t.howItWorks.whyItWorks.points.compoundingValue.title}
                     </h3>
-                    <p className="text-[#FFFFFF] font-normal leading-snug sm:leading-normal">
+                    <p className="text-[#FFFFFF] font-semibold leading-snug sm:leading-normal">
                       {
                         t.howItWorks.whyItWorks.points.compoundingValue
                           .description
@@ -649,7 +649,7 @@ export default function HowItWorks() {
                   <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.erc404Tax.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-normal">
+                  <p className="text-[#FFFFFF] font-semibold">
                     {t.howItWorks.technology.items.erc404Tax.description}
                   </p>
                 </div>
@@ -657,7 +657,7 @@ export default function HowItWorks() {
                   <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.lotteryContract.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-normal">
+                  <p className="text-[#FFFFFF] font-semibold">
                     {t.howItWorks.technology.items.lotteryContract.description}
                   </p>
                 </div>
@@ -665,7 +665,7 @@ export default function HowItWorks() {
                   <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.chainlinkVrf.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-normal">
+                  <p className="text-[#FFFFFF] font-semibold">
                     {t.howItWorks.technology.items.chainlinkVrf.description}
                   </p>
                 </div>
@@ -673,7 +673,7 @@ export default function HowItWorks() {
                   <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.bscNetwork.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-normal">
+                  <p className="text-[#FFFFFF] font-semibold">
                     {t.howItWorks.technology.items.bscNetwork.description}
                   </p>
                 </div>
@@ -681,7 +681,7 @@ export default function HowItWorks() {
                   <h3 className="font-semibold text-[#FFFFFF] mb-2">
                     {t.howItWorks.technology.items.smartContracts.title}
                   </h3>
-                  <p className="text-[#FFFFFF] font-normal">
+                  <p className="text-[#FFFFFF] font-semibold">
                     {t.howItWorks.technology.items.smartContracts.description}
                   </p>
                 </div>
@@ -695,21 +695,21 @@ export default function HowItWorks() {
               <h2 className="text-xl font-semibold text-[#FFFFFF] mb-4">
                 {t.howItWorks.tokenomics.title}
               </h2>
-              <p className="text-[#FFFFFF] font-normal leading-relaxed mb-4">
+              <p className="text-[#FFFFFF] font-semibold leading-relaxed mb-4">
                 {t.howItWorks.tokenomics.description}
               </p>
               <div className="space-y-2 mb-4">
-                <p className="text-[#FFFFFF] font-normal">
+                <p className="text-[#FFFFFF] font-semibold">
                   {t.howItWorks.tokenomics.breakdown.buybacks}
                 </p>
-                <p className="text-[#FFFFFF] font-normal">
+                <p className="text-[#FFFFFF] font-semibold">
                   {t.howItWorks.tokenomics.breakdown.prizePool}
                 </p>
-                <p className="text-[#FFFFFF] font-normal">
+                <p className="text-[#FFFFFF] font-semibold">
                   {t.howItWorks.tokenomics.breakdown.team}
                 </p>
               </div>
-              <p className="text-[#FFFFFF] font-normal leading-relaxed">
+              <p className="text-[#FFFFFF] font-semibold leading-relaxed">
                 {t.howItWorks.tokenomics.conclusion}
               </p>
             </section>
