@@ -17,7 +17,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const MobileCookieSection = memo(() => (
   <>
     {/* Cookie hero with your ORIGINAL fade */}
-    <div className="relative flex items-start justify-center -mt-[12%]">
+    <div className="relative flex items-start justify-center -mt-[16%]">
       <Cookie />
     </div>
   </>
@@ -162,7 +162,7 @@ export default function Home() {
       </main>
 
       {/* Mobile Layout: centered Cookie, existing fade kept, stats overlaid */}
-      <div className="md:hidden relative w-full min-h-[100dvh] overflow-hidden px-8 pt-2 pb-[68px]">
+      <div className="md:hidden relative w-full min-h-[100dvh] overflow-hidden -px-4 pb-[68px]">
         {isMenuOpen ? (
           <div className="flex items-end justify-center min-h-[80dvh]">
             <img
@@ -176,10 +176,7 @@ export default function Home() {
             <MobileCookieSection />
 
             {/* Stats + buttons layered ON TOP of the faded area */}
-            <div
-              className="absolute inset-x-0 z-20 text-center space-y-0"
-              style={{ bottom: "15%" }} /* adjust 18–28% to taste */
-            >
+            <div className="absolute inset-x-0 z-20 text-center space-y-0">
               {/* Prize Pool */}
               <div>
                 <div className="uppercase tracking-wider text-[#FFFFFF] mb-1 text-[clamp(12px,3.2vw,14px)] font-semibold">
