@@ -150,7 +150,7 @@ export default function Home() {
       </main>
 
       {/* Mobile Layout: centered Cookie, existing fade kept, stats overlaid */}
-      <div className="md:hidden w-full min-h-[100dvh] px-8 pt-10 pb-[68px] overflow-y-auto">
+      <div className="md:hidden w-full min-h-[100dvh] px-0 pt-14 pb-[68px] overflow-y-auto">
         {isMenuOpen ? (
           <div className="flex items-end justify-center min-h-[80dvh]">
             <img
@@ -166,7 +166,7 @@ export default function Home() {
               <img
                 src="/cookie.png"
                 alt="Cookie"
-                className="w-[65%] max-w-[280px] h-auto object-contain"
+                className="w-[75%] max-w-[320px] h-auto object-contain"
               />
             </div>
 
@@ -220,7 +220,7 @@ export default function Home() {
               </div>
 
               {/* Actions */}
-              <div className="pt-2 flex justify-center gap-2">
+              <div className="-mt-2 flex justify-center gap-2">
                 <Link href="/current-pool">
                   <EnterButton>{t.common.currentPool}</EnterButton>
                 </Link>
