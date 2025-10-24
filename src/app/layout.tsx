@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   keywords: ["ERC-404", "lottery", "web3", "blockchain", "Cookie"],
   authors: [{ name: "CookieBNB.xyz Team" }],
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: "/cookie.png",
+    shortcut: "/cookie.png",
+    apple: "/cookie.png",
   },
 };
 
