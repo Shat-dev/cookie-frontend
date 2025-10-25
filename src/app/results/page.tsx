@@ -504,13 +504,6 @@ export default function DrawResults() {
                                     rel="noopener noreferrer"
                                     className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                                   >
-                                    <Image
-                                      src="/link.svg"
-                                      alt="Link"
-                                      width={12}
-                                      height={12}
-                                      className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                                    />
                                     <span>VRF</span>
                                   </a>
                                 ) : (
@@ -525,13 +518,6 @@ export default function DrawResults() {
                                     rel="noopener noreferrer"
                                     className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                                   >
-                                    <Image
-                                      src="/link.svg"
-                                      alt="Link"
-                                      width={12}
-                                      height={12}
-                                      className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                                    />
                                     <span>{t.results.snapshot}</span>
                                   </a>
                                 ) : (
@@ -687,13 +673,6 @@ export default function DrawResults() {
                                 rel="noopener noreferrer"
                                 className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                               >
-                                <Image
-                                  src="/link.svg"
-                                  alt="Link"
-                                  width={12}
-                                  height={12}
-                                  className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                                />
                                 <span>VRF</span>
                               </a>
                             ) : (
@@ -708,13 +687,6 @@ export default function DrawResults() {
                                 rel="noopener noreferrer"
                                 className="text-[#FFFFFF] hover:text-[#FFFFFF] hover:underline transition-colors font-semibold cursor-pointer flex items-center space-x-1 group"
                               >
-                                <Image
-                                  src="/link.svg"
-                                  alt="Link"
-                                  width={12}
-                                  height={12}
-                                  className="filter brightness-0 opacity-60 group-hover:opacity-100 transition-opacity"
-                                />
                                 <span>{t.results.snapshot}</span>
                               </a>
                             ) : (
