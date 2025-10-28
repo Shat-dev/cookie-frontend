@@ -11,8 +11,8 @@ const IMAGE_CID = "QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ";
 
 // Fallback direct IPFS gateways (same as enter page)
 const DIRECT_IPFS_GATEWAYS = [
-  "https://gateway.pinata.cloud/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
-  "https://ipfs.io/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
+  "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
+  "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
 ];
 
 const imageUrlFor = (

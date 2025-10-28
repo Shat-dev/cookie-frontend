@@ -71,9 +71,11 @@ export default function EnterPage() {
 
   // Multiple IPFS gateways for fallback - using correct image CID with /images path
   const IPFS_GATEWAYS = [
-    "https://gateway.pinata.cloud/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
-    "https://ipfs.io/ipfs/QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ/images",
+    "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
+    "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
   ];
+
+  //bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi
 
   const toImageUrl = (id: bigint | number | string, gatewayIndex: number = 0) =>
     `${IPFS_GATEWAYS[gatewayIndex]}/${id.toString()}.jpg`;
@@ -141,7 +143,11 @@ export default function EnterPage() {
 
     try {
       // Use the correct metadata URL format as specified
-      const metadataUrl = `https://gateway.pinata.cloud/ipfs/QmTwdrsBSTL23jnvkpsWocSjJU9fo5hhr4tidB91ggHnnF/metadata/${tokenId}.json`;
+      const METADATA_GATEWAYS = [
+        "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/metadata",
+        "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/metadata",
+      ];
+      const metadataUrl = `${METADATA_GATEWAYS[0]}/${tokenId}.json`;
 
       // Add timeout to fetch request
       const controller = new AbortController();
