@@ -103,7 +103,7 @@ export default function EnterPage() {
 
       if (tokenIds && tokenIds.length > 0) {
         // Decode the token IDs and convert to strings
-        return tokenIds.map((id) => id.toString());
+        return tokenIds.map((id) => decodeId(id).toString());
       }
 
       return [];
@@ -328,40 +328,46 @@ export default function EnterPage() {
         return;
       }
 
-      // Fetch metadata for all tokens in parallel for better performance
-      const metadataPromises = tokenIds.map(async (tokenId) => {
-        const metadata = await fetchTokenMetadata(tokenId);
+      // ✅ Fetch metadata using encoded IDs but display decoded IDs
+      const metadataPromises = tokenIds.map(async (encodedId) => {
+        // Decode the token ID for display (short number like 70)
+        const displayId = decodeId(BigInt(encodedId)).toString();
+
+        // Fetch metadata using the encoded ID (long number)
+        const metadata = await fetchTokenMetadata(encodedId);
+
         return {
-          tokenId,
+          encodedId,
+          displayId,
           metadata,
         };
       });
 
       const metadataResults = await Promise.all(metadataPromises);
 
-      // Create NFT objects with proper metadata
+      // ✅ Create NFT objects
       const nftObjects: NFT[] = metadataResults.map((result, index) => {
-        const { tokenId, metadata } = result;
+        const { encodedId, displayId, metadata } = result;
 
         let imageUrl: string;
         if (metadata?.image) {
-          // Convert IPFS URLs to gateway URLs
           imageUrl = convertIpfsImageUrl(metadata.image);
         } else {
-          // Fallback to direct image URL construction
-          imageUrl = toImageUrl(tokenId, 0);
+          // fallback to generic art.png if metadata image missing
+          imageUrl = ${IPFS_GATEWAYS[0]}/art.png;
         }
 
         return {
           id: index + 1,
           wallet_address: walletAddress,
-          token_id: tokenId,
+          token_id: displayId, // short readable number for UI
           image_url: imageUrl,
           verified: true,
           created_at: new Date().toISOString(),
           imageError: false,
           currentGatewayIndex: 0,
-          imageLoading: true, // Start with loading state
+          imageLoading: true,
+          encoded_id: encodedId, // keep full ID for internal tracking
         };
       });
 
