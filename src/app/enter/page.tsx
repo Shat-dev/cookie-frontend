@@ -103,7 +103,7 @@ export default function EnterPage() {
 
       if (tokenIds && tokenIds.length > 0) {
         // Decode the token IDs and convert to strings
-        return tokenIds.map((id) => decodeId(id).toString());
+        return tokenIds.map((id) => id.toString());
       }
 
       return [];
@@ -139,69 +139,42 @@ export default function EnterPage() {
 
   // Helper function to fetch metadata from IPFS with retry logic
   async function fetchTokenMetadata(
-    tokenId: string,
+    encodedId: string,
     retryCount: number = 0
   ): Promise<{ name?: string; image?: string; description?: string } | null> {
     const maxRetries = 2;
-    const retryDelay = 1000; // 1 second
+    const retryDelay = 1000;
 
-    try {
-      // Use the correct metadata URL format as specified
-      const METADATA_GATEWAYS = [
-        "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
-        "https://cloudflare-ipfs.com/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
-      ];
-      const metadataUrl = `${METADATA_GATEWAYS[0]}/${tokenId}`;
+    const METADATA_GATEWAYS = [
+      "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
+      "https://cloudflare-ipfs.com/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
+    ];
 
-      // Add timeout to fetch request
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+    for (let i = 0; i < METADATA_GATEWAYS.length; i++) {
+      const metadataUrl = `${METADATA_GATEWAYS[i]}/${encodedId}?filename=${encodedId}.json`;
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        const res = await fetch(metadataUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
 
-      const response = await fetch(metadataUrl, {
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        console.warn(
-          `Failed to fetch metadata for token ${tokenId}:`,
-          response.status
-        );
-        return null;
+        if (!res.ok) continue; // try next gateway
+        const metadata = await res.json();
+        return {
+          name: metadata.name,
+          image: metadata.image,
+          description: metadata.description,
+        };
+      } catch (err) {
+        if (retryCount < maxRetries) {
+          await new Promise((r) => setTimeout(r, retryDelay));
+          return fetchTokenMetadata(encodedId, retryCount + 1);
+        }
       }
-
-      const metadata = await response.json();
-      return {
-        name: metadata.name,
-        image: metadata.image,
-        description: metadata.description,
-      };
-    } catch (error) {
-      console.warn(
-        `Error fetching metadata for token ${tokenId} (attempt ${
-          retryCount + 1
-        }):`,
-        error
-      );
-
-      // Retry logic for timeouts and network errors
-      if (
-        retryCount < maxRetries &&
-        error instanceof Error &&
-        (error.name === "AbortError" ||
-          error.message.includes("fetch") ||
-          error.message.includes("network"))
-      ) {
-        console.log(
-          `Retrying metadata fetch for token ${tokenId} in ${retryDelay}ms...`
-        );
-        await new Promise((resolve) => setTimeout(resolve, retryDelay));
-        return fetchTokenMetadata(tokenId, retryCount + 1);
-      }
-
-      return null;
     }
+
+    console.warn(`All gateways failed for ${encodedId}`);
+    return null;
   }
 
   // Helper function to convert IPFS image URL to gateway URL
@@ -332,7 +305,6 @@ export default function EnterPage() {
       const metadataPromises = tokenIds.map(async (encodedId) => {
         // Decode the token ID for display (short number like 70)
         const displayId = decodeId(BigInt(encodedId)).toString();
-
         // Fetch metadata using the encoded ID (long number)
         const metadata = await fetchTokenMetadata(encodedId);
 
