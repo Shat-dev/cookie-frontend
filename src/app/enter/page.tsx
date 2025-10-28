@@ -70,15 +70,19 @@ export default function EnterPage() {
   };
 
   // Multiple IPFS gateways for fallback - using correct image CID with /images path
+  const IMAGE_CID =
+    "bafybeigh3dk6a2sq5efrohnwboovpbrs7xbddxw23z6untjv32sk4ninsu";
+
   const IPFS_GATEWAYS = [
-    "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
-    "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
+    `https://gateway.pinata.cloud/ipfs/${IMAGE_CID}`,
+    `https://ipfs.io/ipfs/${IMAGE_CID}`,
+    `https://cloudflare-ipfs.com/ipfs/${IMAGE_CID}`,
   ];
 
   //bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi
 
   const toImageUrl = (id: bigint | number | string, gatewayIndex: number = 0) =>
-    `${IPFS_GATEWAYS[gatewayIndex]}/${id.toString()}.jpg`;
+    `${IPFS_GATEWAYS[gatewayIndex]}/art.png`;
 
   // Helper function to fetch owned token IDs using correct Cookie ABI functions
   async function fetchOwnedTokenIds(
@@ -144,8 +148,8 @@ export default function EnterPage() {
     try {
       // Use the correct metadata URL format as specified
       const METADATA_GATEWAYS = [
-        "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/metadata",
-        "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/metadata",
+        "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
+        "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
       ];
       const metadataUrl = `${METADATA_GATEWAYS[0]}/${tokenId}.json`;
 
@@ -205,6 +209,13 @@ export default function EnterPage() {
     if (ipfsUrl.startsWith("ipfs://")) {
       const hash = ipfsUrl.replace("ipfs://", "");
       return `https://gateway.pinata.cloud/ipfs/${hash}`;
+    }
+    // handle relative paths
+    if (!ipfsUrl.startsWith("http")) {
+      return `https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/${ipfsUrl.replace(
+        /^\/+/,
+        ""
+      )}`;
     }
     return ipfsUrl;
   }

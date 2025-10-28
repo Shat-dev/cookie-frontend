@@ -7,12 +7,16 @@ import React, {
 } from "react";
 import Image from "next/image";
 
-const IMAGE_CID = "QmQXUMvogYc9EPofMQvqQLr1DZRXH6L4hBsCqdLFzc7vuQ";
+const IMAGE_CID = "bafybeigh3dk6a2sq5efrohnwboovpbrs7xbddxw23z6untjv32sk4ninsu";
+
+const METADATA_CID =
+  "bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi";
 
 // Fallback direct IPFS gateways (same as enter page)
 const DIRECT_IPFS_GATEWAYS = [
-  "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
-  "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/images",
+  `https://gateway.pinata.cloud/ipfs/${METADATA_CID}`,
+  `https://ipfs.io/ipfs/${METADATA_CID}`,
+  `https://cloudflare-ipfs.com/ipfs/${METADATA_CID}`,
 ];
 
 const imageUrlFor = (
@@ -20,10 +24,13 @@ const imageUrlFor = (
   useDirectGateway: boolean = false,
   gatewayIndex: number = 0
 ) => {
-  if (useDirectGateway && gatewayIndex < DIRECT_IPFS_GATEWAYS.length) {
-    return `${DIRECT_IPFS_GATEWAYS[gatewayIndex]}/${tokenId}.jpg`;
-  }
-  return `/api/pool-img?cid=${IMAGE_CID}&file=images/${tokenId}.jpg`;
+  // Every NFT metadata points to art.png inside IMAGE_CID
+  const base =
+    gatewayIndex < DIRECT_IPFS_GATEWAYS.length
+      ? DIRECT_IPFS_GATEWAYS[gatewayIndex].replace(METADATA_CID, IMAGE_CID)
+      : `https://ipfs.io/ipfs/${IMAGE_CID}`;
+
+  return `${base}/art.png`;
 };
 
 interface NFT {
