@@ -151,7 +151,7 @@ export default function EnterPage() {
         "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
         "https://cloudflare-ipfs.com/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
       ];
-      const metadataUrl = `${METADATA_GATEWAYS[0]}/${tokenId}.json`;
+      const metadataUrl = `${METADATA_GATEWAYS[0]}/${tokenId}`;
 
       // Add timeout to fetch request
       const controller = new AbortController();
