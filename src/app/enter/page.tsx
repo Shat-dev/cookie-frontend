@@ -354,7 +354,7 @@ export default function EnterPage() {
           imageUrl = convertIpfsImageUrl(metadata.image);
         } else {
           // fallback to generic art.png if metadata image missing
-          imageUrl = ${IPFS_GATEWAYS[0]}/art.png;
+          imageUrl = `${IPFS_GATEWAYS[0]}/art.png`;
         }
 
         return {
