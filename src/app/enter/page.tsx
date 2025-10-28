@@ -148,8 +148,8 @@ export default function EnterPage() {
     try {
       // Use the correct metadata URL format as specified
       const METADATA_GATEWAYS = [
-        "https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
         "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
+        "https://cloudflare-ipfs.com/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
       ];
       const metadataUrl = `${METADATA_GATEWAYS[0]}/${tokenId}.json`;
 
@@ -208,11 +208,11 @@ export default function EnterPage() {
   function convertIpfsImageUrl(ipfsUrl: string): string {
     if (ipfsUrl.startsWith("ipfs://")) {
       const hash = ipfsUrl.replace("ipfs://", "");
-      return `https://gateway.pinata.cloud/ipfs/${hash}`;
+      // use public gateways that send Access-Control-Allow-Origin: *
+      return `https://ipfs.io/ipfs/${hash}`;
     }
-    // handle relative paths
     if (!ipfsUrl.startsWith("http")) {
-      return `https://gateway.pinata.cloud/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/${ipfsUrl.replace(
+      return `https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/${ipfsUrl.replace(
         /^\/+/,
         ""
       )}`;

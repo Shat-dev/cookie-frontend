@@ -14,7 +14,6 @@ const METADATA_CID =
 
 // Fallback direct IPFS gateways (same as enter page)
 const DIRECT_IPFS_GATEWAYS = [
-  `https://gateway.pinata.cloud/ipfs/${METADATA_CID}`,
   `https://ipfs.io/ipfs/${METADATA_CID}`,
   `https://cloudflare-ipfs.com/ipfs/${METADATA_CID}`,
 ];
