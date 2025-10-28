@@ -69,20 +69,8 @@ export default function EnterPage() {
     }
   };
 
-  // Multiple IPFS gateways for fallback - using correct image CID with /images path
-  const IMAGE_CID =
-    "bafybeigh3dk6a2sq5efrohnwboovpbrs7xbddxw23z6untjv32sk4ninsu";
-
-  const IPFS_GATEWAYS = [
-    `https://gateway.pinata.cloud/ipfs/${IMAGE_CID}`,
-    `https://ipfs.io/ipfs/${IMAGE_CID}`,
-    `https://cloudflare-ipfs.com/ipfs/${IMAGE_CID}`,
-  ];
-
-  //bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi
-
-  const toImageUrl = (id: bigint | number | string, gatewayIndex: number = 0) =>
-    `${IPFS_GATEWAYS[gatewayIndex]}/art.png`;
+  // Use local art.jpg for all NFTs
+  const toImageUrl = () => "/art.jpg";
 
   // Helper function to fetch owned token IDs using correct Cookie ABI functions
   async function fetchOwnedTokenIds(
@@ -137,60 +125,21 @@ export default function EnterPage() {
     }
   }
 
-  // Helper function to fetch metadata from IPFS with retry logic
-  async function fetchTokenMetadata(
-    encodedId: string,
-    retryCount: number = 0
-  ): Promise<{ name?: string; image?: string; description?: string } | null> {
-    const maxRetries = 2;
-    const retryDelay = 1000;
-
-    const METADATA_GATEWAYS = [
-      "https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
-      "https://cloudflare-ipfs.com/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi",
-    ];
-
-    for (let i = 0; i < METADATA_GATEWAYS.length; i++) {
-      const metadataUrl = `${METADATA_GATEWAYS[i]}/${encodedId}?filename=${encodedId}.json`;
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000);
-        const res = await fetch(metadataUrl, { signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        if (!res.ok) continue; // try next gateway
-        const metadata = await res.json();
-        return {
-          name: metadata.name,
-          image: metadata.image,
-          description: metadata.description,
-        };
-      } catch (err) {
-        if (retryCount < maxRetries) {
-          await new Promise((r) => setTimeout(r, retryDelay));
-          return fetchTokenMetadata(encodedId, retryCount + 1);
-        }
-      }
-    }
-
-    console.warn(`All gateways failed for ${encodedId}`);
-    return null;
+  // Simplified metadata function - no need to fetch from IPFS since we use local images
+  async function getTokenMetadata(
+    tokenId: string
+  ): Promise<{ name: string; image: string; description: string }> {
+    return {
+      name: `Cookie #${tokenId}`,
+      image: "/art.jpg",
+      description:
+        "CookieBNB.xyz - A decentralized lottery system on BSC using custom ERC-404 contract. Automated. Immutable. Always fair.",
+    };
   }
 
-  // Helper function to convert IPFS image URL to gateway URL
+  // No longer needed - keeping for backwards compatibility but always returns local image
   function convertIpfsImageUrl(ipfsUrl: string): string {
-    if (ipfsUrl.startsWith("ipfs://")) {
-      const hash = ipfsUrl.replace("ipfs://", "");
-      // use public gateways that send Access-Control-Allow-Origin: *
-      return `https://ipfs.io/ipfs/${hash}`;
-    }
-    if (!ipfsUrl.startsWith("http")) {
-      return `https://ipfs.io/ipfs/bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi/${ipfsUrl.replace(
-        /^\/+/,
-        ""
-      )}`;
-    }
-    return ipfsUrl;
+    return "/art.jpg";
   }
 
   // Handle image load success
@@ -202,37 +151,16 @@ export default function EnterPage() {
     );
   };
 
-  // Handle image error with gateway fallback
-  const handleImageError = (
-    tokenId: string,
-    currentGatewayIndex: number = 0
-  ) => {
-    const nextGatewayIndex = currentGatewayIndex + 1;
-
-    if (nextGatewayIndex < IPFS_GATEWAYS.length) {
-      // Try next gateway with direct image URL construction
-      setNfts((prevNfts) =>
-        prevNfts.map((nft) =>
-          nft.token_id === tokenId
-            ? {
-                ...nft,
-                image_url: toImageUrl(tokenId, nextGatewayIndex),
-                currentGatewayIndex: nextGatewayIndex,
-                imageLoading: true, // Reset loading state for new gateway
-              }
-            : nft
-        )
-      );
-    } else {
-      // All gateways failed, mark as error
-      setNfts((prevNfts) =>
-        prevNfts.map((nft) =>
-          nft.token_id === tokenId
-            ? { ...nft, imageError: true, imageLoading: false }
-            : nft
-        )
-      );
-    }
+  // Handle image error - simplified since we use local images
+  const handleImageError = (tokenId: string) => {
+    // Mark as error if local image fails to load
+    setNfts((prevNfts) =>
+      prevNfts.map((nft) =>
+        nft.token_id === tokenId
+          ? { ...nft, imageError: true, imageLoading: false }
+          : nft
+      )
+    );
   };
 
   const ID_PREFIX = BigInt(1) << BigInt(255);
@@ -301,39 +229,16 @@ export default function EnterPage() {
         return;
       }
 
-      // ✅ Fetch metadata using encoded IDs but display decoded IDs
-      const metadataPromises = tokenIds.map(async (encodedId) => {
+      // ✅ Create NFT objects with local images - no need to fetch metadata
+      const nftObjects: NFT[] = tokenIds.map((encodedId, index) => {
         // Decode the token ID for display (short number like 70)
         const displayId = decodeId(BigInt(encodedId)).toString();
-        // Fetch metadata using the encoded ID (long number)
-        const metadata = await fetchTokenMetadata(encodedId);
-
-        return {
-          encodedId,
-          displayId,
-          metadata,
-        };
-      });
-
-      const metadataResults = await Promise.all(metadataPromises);
-
-      // ✅ Create NFT objects
-      const nftObjects: NFT[] = metadataResults.map((result, index) => {
-        const { encodedId, displayId, metadata } = result;
-
-        let imageUrl: string;
-        if (metadata?.image) {
-          imageUrl = convertIpfsImageUrl(metadata.image);
-        } else {
-          // fallback to generic art.png if metadata image missing
-          imageUrl = `${IPFS_GATEWAYS[0]}/art.png`;
-        }
 
         return {
           id: index + 1,
           wallet_address: walletAddress,
           token_id: displayId, // short readable number for UI
-          image_url: imageUrl,
+          image_url: "/art.jpg", // Always use local image
           verified: true,
           created_at: new Date().toISOString(),
           imageError: false,
@@ -595,10 +500,7 @@ export default function EnterPage() {
                                           handleImageLoad(nft.token_id)
                                         }
                                         onError={() =>
-                                          handleImageError(
-                                            nft.token_id,
-                                            nft.currentGatewayIndex || 0
-                                          )
+                                          handleImageError(nft.token_id)
                                         }
                                       />
                                     </>
@@ -790,10 +692,7 @@ export default function EnterPage() {
                                     sizes="(max-width: 640px) 56px, (max-width: 768px) 72px, 88px"
                                     onLoad={() => handleImageLoad(nft.token_id)}
                                     onError={() =>
-                                      handleImageError(
-                                        nft.token_id,
-                                        nft.currentGatewayIndex || 0
-                                      )
+                                      handleImageError(nft.token_id)
                                     }
                                   />
                                 </>

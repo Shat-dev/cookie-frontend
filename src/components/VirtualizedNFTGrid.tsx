@@ -7,30 +7,8 @@ import React, {
 } from "react";
 import Image from "next/image";
 
-const IMAGE_CID = "bafybeigh3dk6a2sq5efrohnwboovpbrs7xbddxw23z6untjv32sk4ninsu";
-
-const METADATA_CID =
-  "bafybeiebn7qamvm6mpyce2n7acryqhlin3loyi3npqvdz2zn22xxfvaqvi";
-
-// Fallback direct IPFS gateways (same as enter page)
-const DIRECT_IPFS_GATEWAYS = [
-  `https://ipfs.io/ipfs/${METADATA_CID}`,
-  `https://cloudflare-ipfs.com/ipfs/${METADATA_CID}`,
-];
-
-const imageUrlFor = (
-  tokenId: string,
-  useDirectGateway: boolean = false,
-  gatewayIndex: number = 0
-) => {
-  // Every NFT metadata points to art.png inside IMAGE_CID
-  const base =
-    gatewayIndex < DIRECT_IPFS_GATEWAYS.length
-      ? DIRECT_IPFS_GATEWAYS[gatewayIndex].replace(METADATA_CID, IMAGE_CID)
-      : `https://ipfs.io/ipfs/${IMAGE_CID}`;
-
-  return `${base}/art.png`;
-};
+// Use local art.jpg for all NFTs
+const imageUrlFor = () => "/art.jpg";
 
 interface NFT {
   tokenId: string;
@@ -51,12 +29,9 @@ const MAX_CONCURRENT_PREFETCH = 4; // Max concurrent prefetch requests
 const COLUMNS = 4;
 
 interface ImageState {
-  status: "loading" | "loaded" | "error" | "timeout";
+  status: "loading" | "loaded" | "error";
   retryCount: number;
-  timeoutId?: NodeJS.Timeout;
-  src: string; // Stable src URL to prevent unnecessary changes
-  useDirectGateway: boolean; // Track if using direct IPFS gateway
-  gatewayIndex: number; // Track current gateway index for fallback
+  src: string; // Always "/art.jpg" now
 }
 
 // Memoized NFT Item component to prevent unnecessary re-renders
@@ -79,8 +54,7 @@ const NFTItem = React.memo<{
     eager,
   }) => {
     const status = imageState?.status || "loading";
-    const canRetry = imageState && imageState.retryCount < MAX_RETRIES;
-    const stableSrc = imageState?.src || imageUrlFor(nft.tokenId);
+    const stableSrc = imageState?.src || imageUrlFor();
 
     return (
       <div className="p-0.5 sm:p-1">
@@ -94,18 +68,6 @@ const NFTItem = React.memo<{
               ) : status === "error" ? (
                 <div className="absolute inset-0 bg-gray-100 rounded-md flex items-center justify-center">
                   <span className="text-xs text-gray-500">No Image</span>
-                </div>
-              ) : status === "timeout" && canRetry ? (
-                <div
-                  className="absolute inset-0 bg-yellow-100 rounded-md flex items-center justify-center cursor-pointer hover:bg-yellow-200 transition-colors"
-                  onClick={() => onRetryImage(nft.tokenId)}
-                  title="Click to retry loading"
-                >
-                  <span className="text-xs text-yellow-700">↻</span>
-                </div>
-              ) : status === "timeout" && !canRetry ? (
-                <div className="absolute inset-0 bg-gray-100 rounded-md flex items-center justify-center">
-                  <span className="text-xs text-gray-500">?</span>
                 </div>
               ) : null}
 
@@ -187,130 +149,57 @@ export default function VirtualizedNFTGrid({
     };
   }, []);
 
-  // Prefetch with concurrency control
-  const prefetchImage = useCallback((tokenId: string) => {
+  // Simplified prefetch - just preload the single local image once
+  const prefetchImage = useCallback(() => {
     if (typeof window === "undefined") return;
 
-    if (
-      activePrefetches.current.has(tokenId) ||
-      activePrefetches.current.size >= MAX_CONCURRENT_PREFETCH ||
-      imageStatesRef.current.has(tokenId)
-    ) {
-      return;
-    }
+    // Only preload once
+    if (activePrefetches.current.size > 0) return;
 
-    activePrefetches.current.add(tokenId);
+    activePrefetches.current.add("art.jpg");
     const img = new window.Image();
-    img.src = imageUrlFor(tokenId, false, 0); // Start with API route
+    img.src = imageUrlFor();
 
-    const cleanup = () => {
-      activePrefetches.current.delete(tokenId);
-      prefetchQueue.current.delete(tokenId);
-    };
-
-    img.onload = cleanup;
-    img.onerror = cleanup;
-
-    // Timeout cleanup
-    setTimeout(cleanup, 10000);
+    img.onload = () => activePrefetches.current.delete("art.jpg");
+    img.onerror = () => activePrefetches.current.delete("art.jpg");
   }, []);
 
-  // Clear timeouts when component unmounts
+  // Preload the single local image on mount
   useEffect(() => {
-    return () => {
-      imageStatesRef.current.forEach((state) => {
-        if (state.timeoutId) {
-          clearTimeout(state.timeoutId);
-        }
-      });
-    };
-  }, []);
+    prefetchImage();
+  }, [prefetchImage]);
 
-  // Initialize image state with timeout and stable src
+  // Initialize image state - simplified for local images
   const initializeImageState = useCallback((tokenId: string) => {
     const currentState = imageStatesRef.current.get(tokenId);
-    if (
-      currentState &&
-      currentState.status !== "error" &&
-      currentState.status !== "timeout"
-    ) {
+    if (currentState && currentState.status !== "error") {
       return; // Already initialized and not in error state
     }
-
-    const stableSrc = imageUrlFor(tokenId, false, 0); // Start with API route
-    const timeoutId = setTimeout(() => {
-      setImageStates((prev) => {
-        const current = imageStatesRef.current.get(tokenId);
-        if (current && current.status === "loading") {
-          const newMap = new Map(prev);
-          newMap.set(tokenId, {
-            ...current,
-            status: "timeout",
-            timeoutId: undefined,
-          });
-          return newMap;
-        }
-        return prev;
-      });
-    }, IMAGE_LOAD_TIMEOUT);
 
     setImageStates((prev) => {
       const newMap = new Map(prev);
       newMap.set(tokenId, {
         status: "loading",
         retryCount: currentState?.retryCount || 0,
-        timeoutId,
-        src: stableSrc,
-        useDirectGateway: false,
-        gatewayIndex: 0,
+        src: imageUrlFor(),
       });
       return newMap;
     });
   }, []);
 
-  // Retry failed image
+  // Retry failed image - simplified for local images
   const retryImage = useCallback((tokenId: string) => {
     const currentState = imageStatesRef.current.get(tokenId);
     if (!currentState || currentState.retryCount >= MAX_RETRIES) {
       return;
     }
 
-    // Clear existing timeout
-    if (currentState.timeoutId) {
-      clearTimeout(currentState.timeoutId);
-    }
-
-    // Set up new attempt with incremented retry count
-    const newRetryCount = currentState.retryCount + 1;
-    const timeoutId = setTimeout(() => {
-      setImageStates((prev) => {
-        const current = imageStatesRef.current.get(tokenId);
-        if (
-          current &&
-          current.status === "loading" &&
-          current.retryCount === newRetryCount
-        ) {
-          const newMap = new Map(prev);
-          newMap.set(tokenId, {
-            ...current,
-            status: newRetryCount >= MAX_RETRIES ? "error" : "timeout",
-            timeoutId: undefined,
-          });
-          return newMap;
-        }
-        return prev;
-      });
-    }, IMAGE_LOAD_TIMEOUT);
-
     setImageStates((prev) => {
       const newMap = new Map(prev);
       newMap.set(tokenId, {
         status: "loading",
-        retryCount: newRetryCount,
-        timeoutId,
-        src: currentState.src, // Keep stable src
-        useDirectGateway: currentState.useDirectGateway || false,
-        gatewayIndex: currentState.gatewayIndex || 0,
+        retryCount: currentState.retryCount + 1,
+        src: imageUrlFor(),
       });
       return newMap;
     });
@@ -320,92 +209,31 @@ export default function VirtualizedNFTGrid({
   const handleImageLoad = useCallback((tokenId: string) => {
     setImageStates((prev) => {
       const current = prev.get(tokenId);
-      if (current && current.timeoutId) {
-        clearTimeout(current.timeoutId);
-      }
       const newMap = new Map(prev);
       newMap.set(tokenId, {
         status: "loaded",
         retryCount: current?.retryCount || 0,
-        timeoutId: undefined,
-        src: current?.src || imageUrlFor(tokenId, false, 0),
-        useDirectGateway: current?.useDirectGateway || false,
-        gatewayIndex: current?.gatewayIndex || 0,
+        src: imageUrlFor(),
       });
       return newMap;
     });
   }, []);
 
-  // Handle image load error with gateway fallback
+  // Handle image load error - simplified for local images
   const handleImageError = useCallback((tokenId: string) => {
     setImageStates((prev) => {
       const current = prev.get(tokenId);
-      if (current && current.timeoutId) {
-        clearTimeout(current.timeoutId);
-      }
-
       const newMap = new Map(prev);
-      if (current) {
-        // Try fallback strategies
-        if (!current.useDirectGateway) {
-          // First fallback: try direct IPFS gateway
-          newMap.set(tokenId, {
-            status: "loading",
-            retryCount: current.retryCount,
-            timeoutId: undefined,
-            src: imageUrlFor(tokenId, true, 0),
-            useDirectGateway: true,
-            gatewayIndex: 0,
-          });
-        } else if (current.gatewayIndex < DIRECT_IPFS_GATEWAYS.length - 1) {
-          // Try next direct gateway
-          const nextIndex = current.gatewayIndex + 1;
-          newMap.set(tokenId, {
-            status: "loading",
-            retryCount: current.retryCount,
-            timeoutId: undefined,
-            src: imageUrlFor(tokenId, true, nextIndex),
-            useDirectGateway: true,
-            gatewayIndex: nextIndex,
-          });
-        } else {
-          // All gateways failed
-          newMap.set(tokenId, {
-            status: "error",
-            retryCount: MAX_RETRIES,
-            timeoutId: undefined,
-            src: current.src,
-            useDirectGateway: current.useDirectGateway,
-            gatewayIndex: current.gatewayIndex,
-          });
-        }
-      } else {
-        // Fallback initialization
-        newMap.set(tokenId, {
-          status: "error",
-          retryCount: MAX_RETRIES,
-          timeoutId: undefined,
-          src: imageUrlFor(tokenId, false, 0),
-          useDirectGateway: false,
-          gatewayIndex: 0,
-        });
-      }
+      newMap.set(tokenId, {
+        status: "error",
+        retryCount: MAX_RETRIES,
+        src: imageUrlFor(),
+      });
       return newMap;
     });
   }, []);
 
-  // Auto-retry timed-out images once without user click
-  useEffect(() => {
-    const idsToRetry: string[] = [];
-    imageStates.forEach((s, id) => {
-      if (s.status === "timeout" && s.retryCount < MAX_RETRIES)
-        idsToRetry.push(id);
-    });
-    if (idsToRetry.length) {
-      const t = setTimeout(() => idsToRetry.forEach(retryImage), 800);
-      return () => clearTimeout(t);
-    }
-  }, [imageStates, retryImage]);
+  // No need for auto-retry logic with local images
 
   // Load ALL batches immediately (no scroll dependency)
   const loadBatch = useCallback(
@@ -437,28 +265,7 @@ export default function VirtualizedNFTGrid({
     }
   }, [nfts, loadBatch]);
 
-  // Prefetch every image regardless of scroll (concurrency-limited)
-  useEffect(() => {
-    if (!nfts.length) return;
-    let i = 0;
-    const ids = nfts.map((n) => n.tokenId);
-
-    const pump = () => {
-      while (
-        activePrefetches.current.size < MAX_CONCURRENT_PREFETCH &&
-        i < ids.length
-      ) {
-        const id = ids[i++];
-        if (!prefetchQueue.current.has(id)) {
-          prefetchQueue.current.add(id);
-          prefetchImage(id);
-        }
-      }
-      if (i < ids.length) setTimeout(pump, 25);
-    };
-
-    pump();
-  }, [nfts, prefetchImage]);
+  // No need for complex prefetch logic - single local image is already preloaded
 
   // Compute eager count for above-the-fold only (columns fixed at 4)
   const firstEagerCount = 8;
