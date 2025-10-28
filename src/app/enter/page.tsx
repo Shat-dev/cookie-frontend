@@ -103,7 +103,7 @@ export default function EnterPage() {
 
       if (tokenIds && tokenIds.length > 0) {
         // Decode the token IDs and convert to strings
-        return tokenIds.map((id) => decodeId(id).toString());
+        return tokenIds.map((id) => id.toString());
       }
 
       return [];
